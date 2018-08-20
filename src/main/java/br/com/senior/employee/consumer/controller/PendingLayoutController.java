@@ -1,8 +1,10 @@
 package br.com.senior.employee.consumer.controller;
 
+import br.com.senior.employee.consumer.handler.LayoutEventController;
 import br.com.senior.employee.consumer.util.Rest;
 import br.com.senior.hcm.esocial.LayoutSituation;
 import br.com.senior.hcm.esocial.LayoutSituationEventPayload;
+import br.com.senior.hcm.esocial.LayoutSituationEventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,6 @@ public class PendingLayoutController {
                 LayoutSituation.PagedResults.class);
 
         LayoutSituation.PagedResults list = response.getBody();
-        list.contents.forEach(f -> layoutEventController.layoutEvent(new LayoutSituationEventPayload(f.layoutId, f.receiptNumber, f.layoutMessage)));
+        list.contents.forEach(f -> layoutEventController.layoutEvent(new LayoutSituationEventPayload(f.layoutId, f.receiptNumber, f.layoutMessage, LayoutSituationEventType.RECEIVED)));
     }
 }

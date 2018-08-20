@@ -1,4 +1,4 @@
-package br.com.senior.employee.consumer.controller;
+package br.com.senior.employee.consumer.handler;
 
 import br.com.senior.employee.consumer.entity.LayoutThird;
 import br.com.senior.employee.consumer.repository.LayoutThirdRepository;

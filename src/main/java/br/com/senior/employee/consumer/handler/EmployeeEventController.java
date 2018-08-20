@@ -1,4 +1,4 @@
-package br.com.senior.employee.consumer.controller;
+package br.com.senior.employee.consumer.handler;
 
 import br.com.senior.employee.consumer.entity.EmployeeThird;
 import br.com.senior.employee.consumer.repository.EmployeeThirdRepository;
@@ -72,7 +72,7 @@ public class EmployeeEventController {
         employeeThirdRepository.save(employeeThird);
 
         /*
-            Neste ponto o código comunica para a SENIOR que recebeu o evento e que os dados estão salvos na base do provedor SST.
+            Neste ponto o código comunica para a SENIOR que recebeu o evento e que os dados estão salvos na base do prestador SST.
             Desta forma o cliente saberá que o dado está no provedor SST.
          */
         IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(payload.integrationId, ProviderStatusType.ON_PROVIDER);
