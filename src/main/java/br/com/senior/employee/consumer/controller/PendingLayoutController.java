@@ -1,10 +1,10 @@
 package br.com.senior.employee.consumer.controller;
 
 import br.com.senior.employee.consumer.handler.LayoutEventController;
+import br.com.senior.employee.consumer.pojos.LayoutSituation;
+import br.com.senior.employee.consumer.pojos.LayoutSituationEventPayload;
+import br.com.senior.employee.consumer.pojos.LayoutSituationEventType;
 import br.com.senior.employee.consumer.util.Rest;
-import br.com.senior.hcm.esocial.LayoutSituation;
-import br.com.senior.hcm.esocial.LayoutSituationEventPayload;
-import br.com.senior.hcm.esocial.LayoutSituationEventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;

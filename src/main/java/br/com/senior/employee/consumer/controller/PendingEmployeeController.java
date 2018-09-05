@@ -1,9 +1,9 @@
 package br.com.senior.employee.consumer.controller;
 
 import br.com.senior.employee.consumer.handler.EmployeeEventController;
+import br.com.senior.employee.consumer.pojos.EmployeeEventPayload;
+import br.com.senior.employee.consumer.pojos.Integration;
 import br.com.senior.employee.consumer.util.Rest;
-import br.com.senior.hcm.esocial4integration.EmployeeEventPayload;
-import br.com.senior.hcm.esocial4integration.Integration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
