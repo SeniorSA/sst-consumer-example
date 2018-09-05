@@ -1,9 +1,9 @@
 package br.com.senior.employee.consumer.controller;
 
 import br.com.senior.employee.consumer.handler.EmployeeEventController;
+import br.com.senior.employee.consumer.pojos.EmployeeEventPayload;
+import br.com.senior.employee.consumer.pojos.Integration;
 import br.com.senior.employee.consumer.util.Rest;
-import br.com.senior.hcm.esocial4integration.EmployeeEventPayload;
-import br.com.senior.hcm.esocial4integration.Integration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class PendingEmployeeController {
         /*
             Busca os colaboradores com o status "Pronto para integração" no sistema SENIOR.
          */
-        String filter = "statusType eq ON_INTEGRATION";
+        String filter = "statusType eq TO_INTEGRATE";
         ResponseEntity<Integration.PagedResults> response = rest.get().exchange("https://pcbnu002050.interno.senior.com.br:8243/t/senior.com.br/bridge/1.0/rest/hcm/esocial4integration/entities/integration?filter=" + filter,
                 HttpMethod.GET,
                 null,

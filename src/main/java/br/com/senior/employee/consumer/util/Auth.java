@@ -1,7 +1,7 @@
 package br.com.senior.employee.consumer.util;
 
-import br.com.senior.platform.authentication.LoginInput;
-import br.com.senior.platform.authentication.LoginOutput;
+import br.com.senior.employee.consumer.pojos.LoginInput;
+import br.com.senior.employee.consumer.pojos.LoginOutput;
 import com.google.gson.Gson;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;

@@ -1,13 +1,10 @@
 package br.com.senior.employee.consumer.handler;
 
 import br.com.senior.employee.consumer.entity.EmployeeThird;
+import br.com.senior.employee.consumer.pojos.*;
 import br.com.senior.employee.consumer.repository.EmployeeThirdRepository;
 import br.com.senior.employee.consumer.repository.LayoutThirdRepository;
 import br.com.senior.employee.consumer.util.Rest;
-import br.com.senior.hcm.esocial.*;
-import br.com.senior.hcm.esocial4integration.EmployeeEventPayload;
-import br.com.senior.hcm.esocial4integration.IntegrationUpdateStatusInput;
-import br.com.senior.hcm.esocial4integration.ProviderStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
