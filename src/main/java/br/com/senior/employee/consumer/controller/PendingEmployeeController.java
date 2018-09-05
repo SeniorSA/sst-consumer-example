@@ -24,7 +24,7 @@ public class PendingEmployeeController {
         /*
             Busca os colaboradores com o status "Pronto para integração" no sistema SENIOR.
          */
-        String filter = "statusType eq ON_INTEGRATION";
+        String filter = "statusType eq TO_INTEGRATE";
         ResponseEntity<Integration.PagedResults> response = rest.get().exchange("https://pcbnu002050.interno.senior.com.br:8243/t/senior.com.br/bridge/1.0/rest/hcm/esocial4integration/entities/integration?filter=" + filter,
                 HttpMethod.GET,
                 null,
