@@ -1,10 +1,12 @@
 package br.com.senior.employee.consumer.pojos;
 
+import java.util.Map;
+
 /**
  * Informações de identificação do empregador.
  */
 public class IdeEmpregadorS1060 {
-
+    
     /**
      * Código correspondente ao tipo de inscrição.
      */
@@ -13,18 +15,18 @@ public class IdeEmpregadorS1060 {
      * Número de inscrição do contribuinte.
      */
     public String nrInsc;
-
+    
     public IdeEmpregadorS1060() {
     }
-
-    /**
+    
+    /** 
      * This constructor allows initialization of all fields, required and optional.
      */
     public IdeEmpregadorS1060(SubscriptionType tpInsc, String nrInsc) {
         this.tpInsc = tpInsc;
         this.nrInsc = nrInsc;
     }
-
+    
     @Override
     public int hashCode() {
         int ret = 1;
@@ -36,7 +38,7 @@ public class IdeEmpregadorS1060 {
         }
         return ret;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -60,15 +62,15 @@ public class IdeEmpregadorS1060 {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName()).append(" [");
-        sb.append("tpInsc=").append(tpInsc == null ? "null" : tpInsc).append(", ");
-        sb.append("nrInsc=").append(nrInsc == null ? "null" : nrInsc);
-        sb.append(']');
-        return sb.toString();
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getClass().getSimpleName()).append(" [");
+    	sb.append("tpInsc=").append(tpInsc == null ? "null" : tpInsc).append(", ");
+    	sb.append("nrInsc=").append(nrInsc == null ? "null" : nrInsc);
+    	sb.append(']');
+    	return sb.toString();
     }
-
+    
 }

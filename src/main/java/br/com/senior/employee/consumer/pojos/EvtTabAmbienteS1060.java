@@ -1,10 +1,12 @@
 package br.com.senior.employee.consumer.pojos;
 
+import java.util.Map;
+
 /**
  * Evento Tabela de Ambientes de Trabalho do Empregador.
  */
 public class EvtTabAmbienteS1060 {
-
+    
     /**
      * Identificação única do evento.
      */
@@ -21,11 +23,11 @@ public class EvtTabAmbienteS1060 {
      * Identificação da operação (inclusão, alteração ou exclusão) e das informações do ambiente.
      */
     public InfoAmbienteS1060 infoAmbiente;
-
+    
     public EvtTabAmbienteS1060() {
     }
-
-    /**
+    
+    /** 
      * This constructor allows initialization of all fields, required and optional.
      */
     public EvtTabAmbienteS1060(String id, IdeEventoS1060 ideEvento, IdeEmpregadorS1060 ideEmpregador, InfoAmbienteS1060 infoAmbiente) {
@@ -34,7 +36,7 @@ public class EvtTabAmbienteS1060 {
         this.ideEmpregador = ideEmpregador;
         this.infoAmbiente = infoAmbiente;
     }
-
+    
     @Override
     public int hashCode() {
         int ret = 1;
@@ -52,7 +54,7 @@ public class EvtTabAmbienteS1060 {
         }
         return ret;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -88,17 +90,17 @@ public class EvtTabAmbienteS1060 {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName()).append(" [");
-        sb.append("id=").append(id == null ? "null" : id).append(", ");
-        sb.append("ideEvento=<").append(ideEvento == null ? "null" : ideEvento).append('>').append(", ");
-        sb.append("ideEmpregador=<").append(ideEmpregador == null ? "null" : ideEmpregador).append('>').append(", ");
-        sb.append("infoAmbiente=<").append(infoAmbiente == null ? "null" : infoAmbiente).append('>');
-        sb.append(']');
-        return sb.toString();
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getClass().getSimpleName()).append(" [");
+    	sb.append("id=").append(id == null ? "null" : id).append(", ");
+    	sb.append("ideEvento=<").append(ideEvento == null ? "null" : ideEvento).append('>').append(", ");
+    	sb.append("ideEmpregador=<").append(ideEmpregador == null ? "null" : ideEmpregador).append('>').append(", ");
+    	sb.append("infoAmbiente=<").append(infoAmbiente == null ? "null" : infoAmbiente).append('>');
+    	sb.append(']');
+    	return sb.toString();
     }
-
+    
 }

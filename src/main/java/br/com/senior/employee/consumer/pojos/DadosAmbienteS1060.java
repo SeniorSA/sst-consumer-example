@@ -1,10 +1,12 @@
 package br.com.senior.employee.consumer.pojos;
 
+import java.util.Map;
+
 /**
  * Informações do ambiente de trabalho.
  */
 public class DadosAmbienteS1060 {
-
+    
     /**
      * Descrição do ambiente de trabalho.
      */
@@ -32,11 +34,11 @@ public class DadosAmbienteS1060 {
      * O registro apresenta o detalhamento do(s) fator(es) de risco(s) presente(s) no ambiente identificado.
      */
     public java.util.List<FatorRiscoS1060> fatorRisco;
-
+    
     public DadosAmbienteS1060() {
     }
-
-    /**
+    
+    /** 
      * This constructor allows initialization of all fields, required and optional.
      */
     public DadosAmbienteS1060(String dscAmb, EnvironmentModeType localAmb, SubscriptionType tpInsc, String nrInsc, java.util.List<FatorRiscoS1060> fatorRisco) {
@@ -46,7 +48,7 @@ public class DadosAmbienteS1060 {
         this.nrInsc = nrInsc;
         this.fatorRisco = fatorRisco;
     }
-
+    
     @Override
     public int hashCode() {
         int ret = 1;
@@ -67,7 +69,7 @@ public class DadosAmbienteS1060 {
         }
         return ret;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -109,18 +111,18 @@ public class DadosAmbienteS1060 {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName()).append(" [");
-        sb.append("dscAmb=").append(dscAmb == null ? "null" : dscAmb).append(", ");
-        sb.append("localAmb=").append(localAmb == null ? "null" : localAmb).append(", ");
-        sb.append("tpInsc=").append(tpInsc == null ? "null" : tpInsc).append(", ");
-        sb.append("nrInsc=").append(nrInsc == null ? "null" : nrInsc).append(", ");
-        sb.append("fatorRisco=<").append(fatorRisco == null ? "null" : fatorRisco).append('>');
-        sb.append(']');
-        return sb.toString();
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getClass().getSimpleName()).append(" [");
+    	sb.append("dscAmb=").append(dscAmb == null ? "null" : dscAmb).append(", ");
+    	sb.append("localAmb=").append(localAmb == null ? "null" : localAmb).append(", ");
+    	sb.append("tpInsc=").append(tpInsc == null ? "null" : tpInsc).append(", ");
+    	sb.append("nrInsc=").append(nrInsc == null ? "null" : nrInsc).append(", ");
+    	sb.append("fatorRisco=<").append(fatorRisco == null ? "null" : fatorRisco).append('>');
+    	sb.append(']');
+    	return sb.toString();
     }
-
+    
 }

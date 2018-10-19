@@ -1,10 +1,12 @@
 package br.com.senior.employee.consumer.pojos;
 
+import java.util.Map;
+
 /**
  * Alteração de informações já existentes.
  */
 public class AlteracaoS1060 {
-
+    
     /**
      * Grupo de informações de identificação do Ambiente de Trabalho,
      * apresentando código e período de validade do Ambiente cujas informações
@@ -21,11 +23,11 @@ public class AlteracaoS1060 {
      * apresentando o novo período de validade.
      */
     public NovaValidadeS1060 novaValidade;
-
+    
     public AlteracaoS1060() {
     }
-
-    /**
+    
+    /** 
      * This constructor allows initialization of all fields, required and optional.
      */
     public AlteracaoS1060(IdeAmbienteS1060 ideAmbiente, DadosAmbienteS1060 dadosAmbiente, NovaValidadeS1060 novaValidade) {
@@ -33,7 +35,7 @@ public class AlteracaoS1060 {
         this.dadosAmbiente = dadosAmbiente;
         this.novaValidade = novaValidade;
     }
-
+    
     @Override
     public int hashCode() {
         int ret = 1;
@@ -48,7 +50,7 @@ public class AlteracaoS1060 {
         }
         return ret;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -78,16 +80,16 @@ public class AlteracaoS1060 {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName()).append(" [");
-        sb.append("ideAmbiente=<").append(ideAmbiente == null ? "null" : ideAmbiente).append('>').append(", ");
-        sb.append("dadosAmbiente=<").append(dadosAmbiente == null ? "null" : dadosAmbiente).append('>').append(", ");
-        sb.append("novaValidade=<").append(novaValidade == null ? "null" : novaValidade).append('>');
-        sb.append(']');
-        return sb.toString();
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getClass().getSimpleName()).append(" [");
+    	sb.append("ideAmbiente=<").append(ideAmbiente == null ? "null" : ideAmbiente).append('>').append(", ");
+    	sb.append("dadosAmbiente=<").append(dadosAmbiente == null ? "null" : dadosAmbiente).append('>').append(", ");
+    	sb.append("novaValidade=<").append(novaValidade == null ? "null" : novaValidade).append('>');
+    	sb.append(']');
+    	return sb.toString();
     }
-
+    
 }

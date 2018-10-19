@@ -1,10 +1,11 @@
 package br.com.senior.employee.consumer.handler;
 
+import br.com.senior.employee.consumer.configuration.SystemProperties;
 import br.com.senior.employee.consumer.entity.EmployeeThird;
 import br.com.senior.employee.consumer.pojos.*;
 import br.com.senior.employee.consumer.repository.EmployeeThirdRepository;
 import br.com.senior.employee.consumer.repository.LayoutThirdRepository;
-import br.com.senior.employee.consumer.util.Rest;
+import br.com.senior.employee.consumer.rest.Rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,8 @@ public class EmployeeEventController {
      * @return Pseudo HTML com os dados dos colaboradores cadastrados.
      */
     @GetMapping(path = "/list")
-    public @ResponseBody String list() {
+    public @ResponseBody
+    String list() {
         StringJoiner result = new StringJoiner("<br />");
 
         employeeThirdRepository.findAllByOrderByDateWhenDesc()
@@ -73,7 +75,7 @@ public class EmployeeEventController {
             Desta forma o cliente saberá que o dado está no provedor SST.
          */
         IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(payload.integrationId, ProviderStatusType.ON_PROVIDER);
-        rest.get().postForLocation("https://pcbnu002050.interno.senior.com.br:8243/t/senior.com.br/bridge/1.0/rest/hcm/esocial4integration/signals/integrationUpdateStatus", input);
+        rest.get().postForLocation(SystemProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
 
         /*
             Aqui vemos a compilação de um layout do e-Social e o seu cadastro no sistema Senior, neste exemplo enviamos um S-1060.
@@ -108,11 +110,11 @@ public class EmployeeEventController {
         layoutS1060.jsonText = eSocialS1060;
 
         // Cadastra o layout S-1060 na Senior
-        rest.get().postForLocation("https://pcbnu002050.interno.senior.com.br:8243/t/senior.com.br/bridge/1.0/rest/hcm/esocial/entities/layoutS1060", layoutS1060);
+        rest.get().postForLocation(SystemProperties.getG7Location() + "/hcm/esocial/entities/layoutS1060", layoutS1060);
     }
 
     private String getTemporaryId() {
-        String value = String.valueOf(Math.abs(new Random().nextLong()));
+        String value = String.valueOf(Math.abs(new Random().nextLong())); //NOSONAR
         if (value.length() < 19) return getTemporaryId();
         return value;
     }

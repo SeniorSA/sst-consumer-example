@@ -1,10 +1,12 @@
 package br.com.senior.employee.consumer.pojos;
 
+import java.util.Map;
+
 /**
  * Inclusão de novas informações.
  */
 public class InclusaoS1060 {
-
+    
     /**
      * Informações de identificação do ambiente de trabalho do empregador e de validade das informações.
      */
@@ -13,11 +15,11 @@ public class InclusaoS1060 {
      * Informações do ambiente de trabalho.
      */
     public DadosAmbienteS1060 dadosAmbiente;
-
+    
     public InclusaoS1060() {
     }
-
-    /**
+    
+    /** 
      * This constructor allows initialization of all fields, required and optional.
      */
     public InclusaoS1060(IdeAmbienteS1060 ideAmbiente, DadosAmbienteS1060 dadosAmbiente) {
@@ -36,7 +38,7 @@ public class InclusaoS1060 {
         }
         return ret;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -60,15 +62,15 @@ public class InclusaoS1060 {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName()).append(" [");
-        sb.append("ideAmbiente=<").append(ideAmbiente == null ? "null" : ideAmbiente).append('>').append(", ");
-        sb.append("dadosAmbiente=<").append(dadosAmbiente == null ? "null" : dadosAmbiente).append('>');
-        sb.append(']');
-        return sb.toString();
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getClass().getSimpleName()).append(" [");
+    	sb.append("ideAmbiente=<").append(ideAmbiente == null ? "null" : ideAmbiente).append('>').append(", ");
+    	sb.append("dadosAmbiente=<").append(dadosAmbiente == null ? "null" : dadosAmbiente).append('>');
+    	sb.append(']');
+    	return sb.toString();
     }
-
+    
 }

@@ -2,6 +2,7 @@ package br.com.senior.employee.consumer.pojos;
 
 import java.util.List;
 
+
 /**
  * S-1060 - Tabela de Ambientes de Trabalho.
  */
@@ -25,7 +26,6 @@ public class LayoutS1060 {
         public String getId() {
             return id;
         }
-
     }
 
     public static class PagedResults {

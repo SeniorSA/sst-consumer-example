@@ -22,5 +22,9 @@ public enum SubscriptionType {
     /**
      * 4 - CNO (Cadastro Nacional de Obra).
      */
-    CNO
+    CNO,
+    /**
+     * 5 - CEI.
+     */
+    CEI
 }

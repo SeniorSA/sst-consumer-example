@@ -1,12 +1,14 @@
 package br.com.senior.employee.consumer.pojos;
 
+import java.util.Map;
+
 /**
  * Informação preenchida exclusivamente em caso de alteração do período de
  * validade das informações do Ambiente identificado em {ideAmbiente},
  * apresentando o novo período de validade.
  */
 public class NovaValidadeS1060 {
-
+    
     /**
      * Mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.
      */
@@ -15,25 +17,24 @@ public class NovaValidadeS1060 {
      * Preencher com o mês e ano de término da validade das informações, se houver, no formato AAAA-MM.
      */
     public String fimValid;
-
+    
     public NovaValidadeS1060() {
     }
-
-    /**
+    
+    /** 
      * This constructor allows initialization of all fields, required and optional.
      */
     public NovaValidadeS1060(String iniValid, String fimValid) {
         this.iniValid = iniValid;
         this.fimValid = fimValid;
     }
-
-    /**
+    /** 
      * This convenience constructor allows initialization of all required fields.
      */
     public NovaValidadeS1060(String iniValid) {
         this.iniValid = iniValid;
     }
-
+    
     @Override
     public int hashCode() {
         int ret = 1;
@@ -45,7 +46,7 @@ public class NovaValidadeS1060 {
         }
         return ret;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -69,15 +70,15 @@ public class NovaValidadeS1060 {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName()).append(" [");
-        sb.append("iniValid=").append(iniValid == null ? "null" : iniValid).append(", ");
-        sb.append("fimValid=").append(fimValid == null ? "null" : fimValid);
-        sb.append(']');
-        return sb.toString();
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getClass().getSimpleName()).append(" [");
+    	sb.append("iniValid=").append(iniValid == null ? "null" : iniValid).append(", ");
+    	sb.append("fimValid=").append(fimValid == null ? "null" : fimValid);
+    	sb.append(']');
+    	return sb.toString();
     }
-
+    
 }

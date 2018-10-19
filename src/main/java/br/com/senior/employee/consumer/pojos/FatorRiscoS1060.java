@@ -1,25 +1,27 @@
 package br.com.senior.employee.consumer.pojos;
 
+import java.util.Map;
+
 /**
  * O registro apresenta o detalhamento do(s) fator(es) de risc(s) presente(s) no ambiente identificado.
  */
 public class FatorRiscoS1060 {
-
+    
     /**
      * Código do fator de risco.
      */
     public GovernmentTable codFatRis;
-
+    
     public FatorRiscoS1060() {
     }
-
-    /**
+    
+    /** 
      * This constructor allows initialization of all fields, required and optional.
      */
     public FatorRiscoS1060(GovernmentTable codFatRis) {
         this.codFatRis = codFatRis;
     }
-
+    
     @Override
     public int hashCode() {
         int ret = 1;
@@ -28,7 +30,7 @@ public class FatorRiscoS1060 {
         }
         return ret;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -46,14 +48,14 @@ public class FatorRiscoS1060 {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName()).append(" [");
-        sb.append("codFatRis=<").append(codFatRis == null ? "null" : codFatRis).append('>');
-        sb.append(']');
-        return sb.toString();
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getClass().getSimpleName()).append(" [");
+    	sb.append("codFatRis=<").append(codFatRis == null ? "null" : codFatRis).append('>');
+    	sb.append(']');
+    	return sb.toString();
     }
-
+    
 }

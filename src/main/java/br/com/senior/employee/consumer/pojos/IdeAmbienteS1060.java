@@ -1,10 +1,12 @@
 package br.com.senior.employee.consumer.pojos;
 
+import java.util.Map;
+
 /**
  * Informações de identificação do ambiente de trabalho do empregador e de validade das informações.
  */
 public class IdeAmbienteS1060 {
-
+    
     /**
      * Código atribuído pela empresa ao Ambiente de Trabalho.
      */
@@ -17,11 +19,11 @@ public class IdeAmbienteS1060 {
      * Mês e ano de término da validade das informações, se houver, no formato AAAA-MM.
      */
     public String fimValid;
-
+    
     public IdeAmbienteS1060() {
     }
-
-    /**
+    
+    /** 
      * This constructor allows initialization of all fields, required and optional.
      */
     public IdeAmbienteS1060(String codAmb, String iniValid, String fimValid) {
@@ -29,15 +31,14 @@ public class IdeAmbienteS1060 {
         this.iniValid = iniValid;
         this.fimValid = fimValid;
     }
-
-    /**
+    /** 
      * This convenience constructor allows initialization of all required fields.
      */
     public IdeAmbienteS1060(String codAmb, String iniValid) {
         this.codAmb = codAmb;
         this.iniValid = iniValid;
     }
-
+    
     @Override
     public int hashCode() {
         int ret = 1;
@@ -52,7 +53,7 @@ public class IdeAmbienteS1060 {
         }
         return ret;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -82,16 +83,16 @@ public class IdeAmbienteS1060 {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName()).append(" [");
-        sb.append("codAmb=").append(codAmb == null ? "null" : codAmb).append(", ");
-        sb.append("iniValid=").append(iniValid == null ? "null" : iniValid).append(", ");
-        sb.append("fimValid=").append(fimValid == null ? "null" : fimValid);
-        sb.append(']');
-        return sb.toString();
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getClass().getSimpleName()).append(" [");
+    	sb.append("codAmb=").append(codAmb == null ? "null" : codAmb).append(", ");
+    	sb.append("iniValid=").append(iniValid == null ? "null" : iniValid).append(", ");
+    	sb.append("fimValid=").append(fimValid == null ? "null" : fimValid);
+    	sb.append(']');
+    	return sb.toString();
     }
-
+    
 }

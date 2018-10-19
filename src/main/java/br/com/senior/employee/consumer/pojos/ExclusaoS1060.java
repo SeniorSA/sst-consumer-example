@@ -1,25 +1,27 @@
 package br.com.senior.employee.consumer.pojos;
 
+import java.util.Map;
+
 /**
  * Exclusão de informações.
  */
 public class ExclusaoS1060 {
-
+    
     /**
      * Grupo de informações que identifica o Ambiente que será excluído.
      */
     public IdeAmbienteS1060 ideAmbiente;
-
+    
     public ExclusaoS1060() {
     }
-
-    /**
+    
+    /** 
      * This constructor allows initialization of all fields, required and optional.
      */
     public ExclusaoS1060(IdeAmbienteS1060 ideAmbiente) {
         this.ideAmbiente = ideAmbiente;
     }
-
+    
     @Override
     public int hashCode() {
         int ret = 1;
@@ -28,7 +30,7 @@ public class ExclusaoS1060 {
         }
         return ret;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -46,14 +48,14 @@ public class ExclusaoS1060 {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName()).append(" [");
-        sb.append("ideAmbiente=<").append(ideAmbiente == null ? "null" : ideAmbiente).append('>');
-        sb.append(']');
-        return sb.toString();
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getClass().getSimpleName()).append(" [");
+    	sb.append("ideAmbiente=<").append(ideAmbiente == null ? "null" : ideAmbiente).append('>');
+    	sb.append(']');
+    	return sb.toString();
     }
-
+    
 }
