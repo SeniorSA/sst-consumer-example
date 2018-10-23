@@ -1,49 +1,33 @@
 package br.com.senior.employee.consumer.handler;
 
 import br.com.senior.employee.consumer.configuration.SystemProperties;
-import br.com.senior.employee.consumer.entity.EmployeeThird;
-import br.com.senior.employee.consumer.pojos.*;
-import br.com.senior.employee.consumer.repository.EmployeeThirdRepository;
-import br.com.senior.employee.consumer.repository.LayoutThirdRepository;
+import br.com.senior.employee.consumer.entity.EmployeeEntity;
+import br.com.senior.employee.consumer.pojos.common.SubscriptionType;
+import br.com.senior.employee.consumer.pojos.esocial.*;
+import br.com.senior.employee.consumer.pojos.esocial4integration.EmployeeEventPayload;
+import br.com.senior.employee.consumer.pojos.esocial4integration.IntegrationUpdateStatusInput;
+import br.com.senior.employee.consumer.pojos.esocial4integration.ProviderStatusType;
+import br.com.senior.employee.consumer.repository.EmployeeRepository;
 import br.com.senior.employee.consumer.rest.Rest;
+import br.com.senior.employee.consumer.rest.json.DtoJsonConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.StringJoiner;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/employee")
 public class EmployeeEventController {
 
     @Autowired
-    private EmployeeThirdRepository employeeThirdRepository;
-    @Autowired
-    private LayoutThirdRepository layoutThirdRepository;
+    private EmployeeRepository employeeRepository;
     @Autowired
     private Rest rest;
-
-    /**
-     * Método responsável por listar os dados cadastrados na entidade {@link EmployeeThird}.
-     *
-     * @return Pseudo HTML com os dados dos colaboradores cadastrados.
-     */
-    @GetMapping(path = "/list")
-    public @ResponseBody
-    String list() {
-        StringJoiner result = new StringJoiner("<br />");
-
-        employeeThirdRepository.findAllByOrderByDateWhenDesc()
-                .forEach(f -> {
-                    result.add(f.toString());
-                    result.add("---");
-                });
-
-        return result.toString();
-    }
 
     /**
      * Endpoint que recebe um POST.
@@ -59,16 +43,12 @@ public class EmployeeEventController {
             Enviamos o integrationType para o provedor SST decidir alterar apenas o que foi alterado do colaborador, ou, por controle do provedor SST salvar sempre todos os dados do colaborador.
             Aqui é feito o 'parse' dos dados do payload para a base interna do provedor SST.
          */
-        EmployeeThird employeeThird = new EmployeeThird();
-        employeeThird.setDateWhen(LocalDateTime.now());
-        employeeThird.setId(UUID.randomUUID());
-        employeeThird.setCode(payload.employee.code);
-        employeeThird.setName(payload.employee.name);
-        employeeThird.setIntegrationType(payload.integrationType.name());
-        employeeThird.setIntegrationId(payload.integrationId);
+        EmployeeEntity employee = DtoJsonConverter.toDTO(DtoJsonConverter.toJSON(payload.employee), EmployeeEntity.class);
+        employee.setReceiptDate(Instant.now());
+        employee.setIntegrationType(payload.integrationType);
 
         // Salva os dados do colaborador
-        employeeThirdRepository.save(employeeThird);
+        employeeRepository.save(employee);
 
         /*
             Neste ponto o código comunica para a SENIOR que recebeu o evento e que os dados estão salvos na base do prestador SST.
@@ -76,7 +56,9 @@ public class EmployeeEventController {
          */
         IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(payload.integrationId, ProviderStatusType.ON_PROVIDER);
         rest.get().postForLocation(SystemProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
+    }
 
+    public void layout1060Event(EmployeeEntity employee) {
         /*
             Aqui vemos a compilação de um layout do e-Social e o seu cadastro no sistema Senior, neste exemplo enviamos um S-1060.
          */
@@ -96,7 +78,7 @@ public class EmployeeEventController {
         eSocialS1060.evtTabAmbiente.infoAmbiente.inclusao.ideAmbiente.codAmb = "1010" + getTemporaryId();
         eSocialS1060.evtTabAmbiente.infoAmbiente.inclusao.ideAmbiente.iniValid = "2018-12";
         eSocialS1060.evtTabAmbiente.infoAmbiente.inclusao.dadosAmbiente = new DadosAmbienteS1060();
-        eSocialS1060.evtTabAmbiente.infoAmbiente.inclusao.dadosAmbiente.dscAmb = "Ambiente " + employeeThird.getName();
+        eSocialS1060.evtTabAmbiente.infoAmbiente.inclusao.dadosAmbiente.dscAmb = "Ambiente " + employee.getName();
         eSocialS1060.evtTabAmbiente.infoAmbiente.inclusao.dadosAmbiente.localAmb = EnvironmentModeType.EMPLOYER;
         eSocialS1060.evtTabAmbiente.infoAmbiente.inclusao.dadosAmbiente.nrInsc = "028";
         eSocialS1060.evtTabAmbiente.infoAmbiente.inclusao.dadosAmbiente.tpInsc = SubscriptionType.CNPJ;

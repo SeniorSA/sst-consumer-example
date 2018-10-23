@@ -1,7 +1,7 @@
 package br.com.senior.employee.consumer.handler;
 
 import br.com.senior.employee.consumer.entity.LayoutThird;
-import br.com.senior.employee.consumer.pojos.LayoutSituationEventPayload;
+import br.com.senior.employee.consumer.pojos.esocial.LayoutSituationEventPayload;
 import br.com.senior.employee.consumer.repository.LayoutThirdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

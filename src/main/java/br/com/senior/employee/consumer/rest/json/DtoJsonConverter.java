@@ -39,17 +39,17 @@ import java.util.Map.Entry;
 
 public class DtoJsonConverter {
     private static final Charset UTF_8 = Charset.forName("UTF-8");
-    private static DateTimeFormatter DATE_TIME_FORMAT;
-    private static DateTimeFormatter DATE_FORMAT;
-    private static DateTimeFormatter TIME_FORMAT;
+    private static DateTimeFormatter DATE_TIME_FORMAT; //NOSONAR
+    private static DateTimeFormatter DATE_FORMAT; //NOSONAR
+    private static DateTimeFormatter TIME_FORMAT; //NOSONAR
     public static final String DISCRIMINATOR = "_discriminator";
     private static Gson objectGson;
     private static Gson primitiveGson;
 
-    public DtoJsonConverter() {
+    public DtoJsonConverter() { //NOSONAR
     }
 
-    private static boolean isSerializable(Field toCheck) {
+    private static boolean isSerializable(Field toCheck) { //NOSONAR
         return !toCheck.getType().isArray() || toCheck.getType().getComponentType() == Byte.TYPE;
     }
 
@@ -79,7 +79,7 @@ public class DtoJsonConverter {
         return builder.create();
     }
 
-    private static boolean isPrimitive(Type valueType) {
+    private static boolean isPrimitive(Type valueType) { //NOSONAR
         if (!(valueType instanceof Class)) {
             return false;
         } else {
@@ -89,7 +89,7 @@ public class DtoJsonConverter {
         }
     }
 
-    private static boolean isCollection(Type valueType) {
+    private static boolean isCollection(Type valueType) { //NOSONAR
         if (!(valueType instanceof Class)) {
             return false;
         } else {
@@ -98,9 +98,9 @@ public class DtoJsonConverter {
         }
     }
 
-    private static boolean isMap(Type valueType) {
+    private static boolean isMap(Type valueType) { //NOSONAR
         Type rawType = getRawTypeOf(valueType);
-        return !(rawType instanceof Class) ? false : Map.class.isAssignableFrom((Class) rawType);
+        return !(rawType instanceof Class) ? false : Map.class.isAssignableFrom((Class) rawType); //NOSONAR
     }
 
     private static Type getRawTypeOf(Type valueType) {
@@ -116,10 +116,10 @@ public class DtoJsonConverter {
     }
 
     public static class ObjectAdapter implements JsonDeserializer<Object>, JsonSerializer<Object> {
-        public ObjectAdapter() {
+        public ObjectAdapter() { //NOSONAR
         }
 
-        public JsonElement serialize(Object src, Type typeOfSrc, JsonSerializationContext context) {
+        public JsonElement serialize(Object src, Type typeOfSrc, JsonSerializationContext context) { //NOSONAR
             if (src == null) {
                 return null;
             } else if (!DtoJsonConverter.isPrimitive(typeOfSrc) && !DtoJsonConverter.isMap(typeOfSrc)) {
@@ -149,13 +149,13 @@ public class DtoJsonConverter {
                             try {
                                 serialized.add(field.getName(), context.serialize(field.get(src), field.getType()));
                             } catch (ReflectiveOperationException var11) {
-                                throw new RuntimeException(var11);
+                                throw new RuntimeException(var11); //NOSONAR
                             }
                         }
                     }
 
                     if (objectClass.getSuperclass() != Object.class) {
-                        serialized.addProperty("_discriminator", toFirstLower(objectClass.getSimpleName()));
+                        serialized.addProperty("_discriminator", toFirstLower(objectClass.getSimpleName())); //NOSONAR
                     }
 
                     return serialized;
@@ -165,12 +165,12 @@ public class DtoJsonConverter {
             }
         }
 
-        public Object deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public Object deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException { //NOSONAR
             if (json instanceof JsonArray) {
                 JsonArray asArray = json.getAsJsonArray();
                 Collection<Object> collection = new ArrayList();
                 Type elementType = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
-                asArray.forEach((item) -> collection.add(DtoJsonConverter.objectGson.fromJson(item, elementType)));
+                asArray.forEach((item) -> collection.add(DtoJsonConverter.objectGson.fromJson(item, elementType))); //NOSONAR
                 return collection;
             } else if (json instanceof JsonObject && !DtoJsonConverter.isPrimitive(typeOfT) && !DtoJsonConverter.isMap(typeOfT)) {
                 JsonObject jsonObject = (JsonObject) json;
@@ -192,8 +192,8 @@ public class DtoJsonConverter {
 
                     while (var19.hasNext()) {
                         Entry<String, JsonElement> entry = (Entry) var19.next();
-                        fieldName = (String) entry.getKey();
-                        JsonElement fieldValue = (JsonElement) entry.getValue();
+                        fieldName = (String) entry.getKey(); //NOSONAR
+                        JsonElement fieldValue = (JsonElement) entry.getValue(); //NOSONAR
                         if (!"_discriminator".equals(fieldName)) {
                             Field dtoField = this.getField(dtoClass, fieldName);
                             if (dtoField != null && DtoJsonConverter.isSerializable(dtoField)) {
@@ -206,7 +206,7 @@ public class DtoJsonConverter {
 
                     return dto;
                 } catch (ReflectiveOperationException var14) {
-                    throw new RuntimeException(var14);
+                    throw new RuntimeException(var14); //NOSONAR
                 }
             } else {
                 return DtoJsonConverter.primitiveGson.fromJson(json, typeOfT);
@@ -247,14 +247,14 @@ public class DtoJsonConverter {
     }
 
     public static class BlobAdapter implements JsonSerializer<byte[]>, JsonDeserializer<byte[]> {
-        public BlobAdapter() {
+        public BlobAdapter() { //NOSONAR
         }
 
         public JsonElement serialize(byte[] src, Type typeOfSrc, JsonSerializationContext context) {
             return src == null ? null : new JsonPrimitive(Base64.getEncoder().encodeToString(src));
         }
 
-        public byte[] deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public byte[] deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException { //NOSONAR
             if (json != null && !(json instanceof JsonNull)) {
                 try {
                     return Base64.getDecoder().decode(json.getAsString());
@@ -262,20 +262,20 @@ public class DtoJsonConverter {
                     throw new JsonParseException(var5);
                 }
             } else {
-                return null;
+                return null; //NOSONAR
             }
         }
     }
 
     public static class TimeAdapter implements JsonSerializer<LocalTime>, JsonDeserializer<LocalTime> {
-        public TimeAdapter() {
+        public TimeAdapter() { //NOSONAR
         }
 
         public JsonElement serialize(LocalTime src, Type typeOfSrc, JsonSerializationContext context) {
             return src == null ? null : new JsonPrimitive(DtoJsonConverter.TIME_FORMAT.format(src));
         }
 
-        public LocalTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public LocalTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException { //NOSONAR
             if (json != null && !(json instanceof JsonNull)) {
                 try {
                     return LocalTime.parse(json.getAsString(), DtoJsonConverter.TIME_FORMAT);
@@ -289,14 +289,14 @@ public class DtoJsonConverter {
     }
 
     public static class DateAdapter implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
-        public DateAdapter() {
+        public DateAdapter() { //NOSONAR
         }
 
         public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
             return src == null ? null : new JsonPrimitive(DtoJsonConverter.DATE_FORMAT.format(src));
         }
 
-        public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException { //NOSONAR
             if (json != null && !(json instanceof JsonNull)) {
                 try {
                     return LocalDate.parse(json.getAsString(), DtoJsonConverter.DATE_FORMAT);
@@ -310,14 +310,14 @@ public class DtoJsonConverter {
     }
 
     public static class DateTimeAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {
-        public DateTimeAdapter() {
+        public DateTimeAdapter() { //NOSONAR
         }
 
         public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
             return src == null ? null : new JsonPrimitive(DtoJsonConverter.DATE_TIME_FORMAT.format(OffsetDateTime.ofInstant(src.toInstant(), ZoneOffset.UTC)));
         }
 
-        public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException { //NOSONAR
             if (json != null && !(json instanceof JsonNull)) {
                 try {
                     return new Date(OffsetDateTime.parse(json.getAsString(), DtoJsonConverter.DATE_TIME_FORMAT).toInstant().toEpochMilli());
@@ -331,14 +331,14 @@ public class DtoJsonConverter {
     }
 
     public static class InstantAdapter implements JsonSerializer<Instant>, JsonDeserializer<Instant> {
-        public InstantAdapter() {
+        public InstantAdapter() { //NOSONAR
         }
 
         public JsonElement serialize(Instant src, Type typeOfSrc, JsonSerializationContext context) {
             return src == null ? null : new JsonPrimitive(DtoJsonConverter.DATE_TIME_FORMAT.format(OffsetDateTime.ofInstant(src, ZoneOffset.UTC)));
         }
 
-        public Instant deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public Instant deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException { //NOSONAR
             if (json != null && !(json instanceof JsonNull)) {
                 try {
                     return OffsetDateTime.parse(json.getAsString(), DtoJsonConverter.DATE_TIME_FORMAT).toInstant();

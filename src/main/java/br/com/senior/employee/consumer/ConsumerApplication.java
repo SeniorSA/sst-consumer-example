@@ -14,14 +14,14 @@ import org.springframework.web.client.RestTemplate;
 @EnableAutoConfiguration
 public class ConsumerApplication {
 
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
-	}
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(ConsumerApplication.class, args);
         applicationContext.getBean(PendingEmployeeController.class).execute();
         applicationContext.getBean(PendingLayoutController.class).execute();
-	}
+    }
 }

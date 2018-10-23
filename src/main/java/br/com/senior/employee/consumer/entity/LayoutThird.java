@@ -66,7 +66,7 @@ public class LayoutThird {
 
     @Override
     public String toString() {
-        return "Data: " + dateWhen + "<br />" +
+        return "Data: " + dateWhen + "<br />" + //NOSONAR
                 "Id do layout: " + layoutId + "<br />" +
                 "Número do recibo: " + receiptNumber + "<br />" +
                 "Mensagem de erro: " + message;

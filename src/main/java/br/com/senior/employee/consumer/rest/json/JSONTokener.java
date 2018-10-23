@@ -13,7 +13,7 @@ public class JSONTokener {
     private boolean useLastChar;
 
     public JSONTokener(Reader reader) {
-        this.reader = (Reader) (reader.markSupported() ? reader : new BufferedReader(reader));
+        this.reader = (Reader) (reader.markSupported() ? reader : new BufferedReader(reader)); //NOSONAR
         this.useLastChar = false;
         this.index = 0;
         this.line = 1;
@@ -123,13 +123,13 @@ public class JSONTokener {
         }
     }
 
-    public char nextClean() throws JSONException {
-        label52:
+    public char nextClean() throws JSONException { //NOSONAR
+        label52: //NOSONAR
         while (true) {
             char c = this.next();
             if (c == '/') {
                 switch (this.next()) {
-                    case '*':
+                    case '*': //NOSONAR
                         while (true) {
                             c = this.next();
                             if (c == 0) {
@@ -144,7 +144,7 @@ public class JSONTokener {
                                 this.back();
                             }
                         }
-                    case '/':
+                    case '/': //NOSONAR
                         while (true) {
                             c = this.next();
                             if (c == '\n' || c == '\r' || c == 0) {
@@ -169,9 +169,9 @@ public class JSONTokener {
     }
 
     public String nextString(char quote) throws JSONException {
-        StringBuffer sb = new StringBuffer();
+        StringBuffer sb = new StringBuffer(); //NOSONAR
 
-        while (true) {
+        while (true) { //NOSONAR
             char c = this.next();
             switch (c) {
                 case '\u0000':
@@ -217,7 +217,7 @@ public class JSONTokener {
     }
 
     public String nextTo(char d) throws JSONException {
-        StringBuffer sb = new StringBuffer();
+        StringBuffer sb = new StringBuffer(); //NOSONAR
 
         while (true) {
             char c = this.next();
@@ -234,7 +234,7 @@ public class JSONTokener {
     }
 
     public String nextTo(String delimiters) throws JSONException {
-        StringBuffer sb = new StringBuffer();
+        StringBuffer sb = new StringBuffer(); //NOSONAR
 
         while (true) {
             char c = this.next();
@@ -250,7 +250,7 @@ public class JSONTokener {
         }
     }
 
-    public Object nextValue() throws JSONException {
+    public Object nextValue() throws JSONException { //NOSONAR
         char c = this.nextClean();
         switch (c) {
             case '"':
@@ -264,7 +264,7 @@ public class JSONTokener {
                 this.back();
                 return new JSONObject(this);
             default:
-                StringBuffer sb = new StringBuffer();
+                StringBuffer sb = new StringBuffer(); //NOSONAR
 
                 char b;
                 for (b = c; c >= ' ' && ",:]}/\\\"[{;=#".indexOf(c) < 0; c = this.next()) {
@@ -287,15 +287,15 @@ public class JSONTokener {
                     if (b == '0') {
                         if (s.length() > 2 && (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {
                             try {
-                                return new Integer(Integer.parseInt(s.substring(2), 16));
+                                return new Integer(Integer.parseInt(s.substring(2), 16)); //NOSONAR
                             } catch (Exception var12) {
-                                ;
+                                ; //NOSONAR
                             }
                         } else {
                             try {
-                                return new Integer(Integer.parseInt(s, 8));
+                                return new Integer(Integer.parseInt(s, 8)); //NOSONAR
                             } catch (Exception var11) {
-                                ;
+                                ; //NOSONAR
                             }
                         }
                     }
