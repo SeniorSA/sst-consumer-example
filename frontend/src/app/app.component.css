@@ -1,0 +1,25 @@
+tr {
+  text-align: left;
+}
+ui-panel-titlebar {
+  font-size: 30px !important;
+}
+
+table,
+tr,
+th,
+td {
+  border-width: 0 0 2px !important;
+}
+
+.page-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 1em;
+  color: #333333;
+}
+
+.btn-alignment {
+  float: right;
+}
