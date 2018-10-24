@@ -1,5 +1,6 @@
 package br.com.senior.employee.consumer.pojos.esocial4integration;
 
+import br.com.senior.employee.consumer.pojos.common.IntegrationType;
 import br.com.senior.employee.consumer.pojos.common.SubscriptionType;
 
 import java.util.List;
@@ -137,7 +138,7 @@ public class Integration {
     /**
      * Tipo da integração.
      */
-    public SubscriptionType.IntegrationType integrationType; //NOSONAR
+    public IntegrationType integrationType; //NOSONAR
     /**
      * Data e hora do recebimento do colaborador.
      */
@@ -157,7 +158,7 @@ public class Integration {
     /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public Integration(String id, String externalId, String externalHistoricId, Employee employee, Long companyCode, String companyName, Long companyBranchCode, String companyBranchName, Long employeeCode, String eSocialRegistration, String cpfNumber, String employeeName, StatusType statusType, SubscriptionType.IntegrationType integrationType, java.time.Instant receiptDate, java.time.Instant sendDate, String integrationMessage) { //NOSONAR
+    public Integration(String id, String externalId, String externalHistoricId, Employee employee, Long companyCode, String companyName, Long companyBranchCode, String companyBranchName, Long employeeCode, String eSocialRegistration, String cpfNumber, String employeeName, StatusType statusType, IntegrationType integrationType, java.time.Instant receiptDate, java.time.Instant sendDate, String integrationMessage) { //NOSONAR
         this.id = id;
         this.externalId = externalId;
         this.externalHistoricId = externalHistoricId;
@@ -180,7 +181,7 @@ public class Integration {
     /**
      * This convenience constructor allows initialization of all required fields.
      */
-    public Integration(String externalId, StatusType statusType, SubscriptionType.IntegrationType integrationType, java.time.Instant receiptDate) {
+    public Integration(String externalId, StatusType statusType, IntegrationType integrationType, java.time.Instant receiptDate) {
         this.externalId = externalId;
         this.statusType = statusType;
         this.integrationType = integrationType;

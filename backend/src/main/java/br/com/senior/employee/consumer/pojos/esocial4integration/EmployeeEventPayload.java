@@ -1,5 +1,6 @@
 package br.com.senior.employee.consumer.pojos.esocial4integration;
 
+import br.com.senior.employee.consumer.pojos.common.IntegrationType;
 import br.com.senior.employee.consumer.pojos.common.SubscriptionType;
 
 public class EmployeeEventPayload {
@@ -11,7 +12,7 @@ public class EmployeeEventPayload {
     /**
      * Tipo da atualização do colaborador.
      */
-    public SubscriptionType.IntegrationType integrationType; //NOSONAR
+    public IntegrationType integrationType; //NOSONAR
     /**
      * Id da integração.
      */
@@ -23,7 +24,7 @@ public class EmployeeEventPayload {
     /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public EmployeeEventPayload(Employee employee, SubscriptionType.IntegrationType integrationType, String integrationId) {
+    public EmployeeEventPayload(Employee employee, IntegrationType integrationType, String integrationId) {
         this.employee = employee;
         this.integrationType = integrationType;
         this.integrationId = integrationId;

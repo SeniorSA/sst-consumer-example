@@ -178,7 +178,7 @@ public class EmployeeEntity {
      */
     @Enumerated(EnumType.STRING)
     @Column(name = "integration_type")
-    private SubscriptionType.IntegrationType integrationType;
+    private IntegrationType integrationType;
 
     /**
      * Data de demissão.
@@ -288,7 +288,7 @@ public class EmployeeEntity {
         return this.dismissalDate;
     }
 
-    public SubscriptionType.IntegrationType getIntegrationType() {
+    public IntegrationType getIntegrationType() {
         return integrationType;
     }
 
@@ -392,7 +392,7 @@ public class EmployeeEntity {
         this.dismissalDate = dismissalDate;
     }
 
-    public void setIntegrationType(SubscriptionType.IntegrationType integrationType) {
+    public void setIntegrationType(IntegrationType integrationType) {
         this.integrationType = integrationType;
     }
 
