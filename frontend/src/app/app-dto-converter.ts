@@ -8,6 +8,7 @@ import { GenderType } from './enumerations/gender-type.enum';
 import { IntegrationType } from './enumerations/integration-type.enum';
 import { MaritalStatusType } from './enumerations/marital-status-type.enum';
 import { SituationType } from './enumerations/situation-type.enum';
+import { StatusType } from './enumerations/status-type.enum';
 
 export class AppDtoConverter {
   constructor() {}
@@ -28,31 +29,31 @@ export class AppDtoConverter {
     pendenciesFormGroup: FormGroup,
     formBuilder: FormBuilder
   ) {
-    if (pendencie && !pendencie.workstation) {
-      pendencie.workstation = [];
+    if (pendencie && pendencie.employee && !pendencie.employee.workstation) {
+      pendencie.employee.workstation = [];
     }
-    if (pendencie && !pendencie.shift) {
-      pendencie.shift = [];
+    if (pendencie && pendencie.employee && !pendencie.employee.shift) {
+      pendencie.employee.shift = [];
     }
-    if (pendencie && !pendencie.jobPosition) {
-      pendencie.jobPosition = [];
+    if (pendencie && pendencie.employee && !pendencie.employee.jobPosition) {
+      pendencie.employee.jobPosition = [];
     }
-    if (pendencie && !pendencie.department) {
-      pendencie.department = [];
+    if (pendencie && pendencie.employee && !pendencie.employee.department) {
+      pendencie.employee.department = [];
     }
-    if (pendencie && !pendencie.costCenter) {
-      pendencie.costCenter = [];
+    if (pendencie && pendencie.employee && !pendencie.employee.costCenter) {
+      pendencie.employee.costCenter = [];
     }
-    if (pendencie && !pendencie.companyBranch) {
-      pendencie.companyBranch = [];
+    if (pendencie && pendencie.employee && !pendencie.employee.companyBranch) {
+      pendencie.employee.companyBranch = [];
     }
-    if (pendencie && !pendencie.company) {
-      pendencie.company = [];
+    if (pendencie && pendencie.employee && !pendencie.employee.company) {
+      pendencie.employee.company = [];
     }
-    if (pendencie && !pendencie.deficiency) {
-      pendencie.deficiency = [];
+    if (pendencie && pendencie.employee && !pendencie.employee.deficiency) {
+      pendencie.employee.deficiency = [];
     }
-    pendenciesFormGroup.patchValue({ employee: pendencie });
+    pendenciesFormGroup.patchValue(pendencie);
     if (pendencie && pendencie.esocialCategoryType) {
       pendenciesFormGroup
         .get('employee')
@@ -73,12 +74,30 @@ export class AppDtoConverter {
     if (pendencie && pendencie.receiptDate) {
       pendenciesFormGroup.get('receiptDate').setValue(pendencie.receiptDate);
     }
+    if (pendencie && pendencie.providerCompanyIdentification) {
+      pendenciesFormGroup
+        .get('employee')
+        .get('company')
+        .get('providerCompanyIdentification')
+        .setValue(pendencie.providerCompanyIdentification);
+    }
+    if (pendencie && pendencie.receiptDate) {
+      pendenciesFormGroup
+        .get('employee')
+        .get('referenceDateInformation')
+        .setValue(pendencie.receiptDate);
+    }
 
     this.convertPendencieDate(pendencie, pendenciesFormGroup);
     this.convertPendencieEnum(pendencie, pendenciesFormGroup);
 
-    if (pendencie && pendencie.deficiency && pendencie.deficiency.length) {
-      const df = [...pendencie.deficiency];
+    if (
+      pendencie &&
+      pendencie.employee &&
+      pendencie.employee.deficiency &&
+      pendencie.employee.deficiency.length
+    ) {
+      const df = [...pendencie.employee.deficiency];
       df.map(deficiency => {
         deficiency.isMainDeficiency = this.convertBooleanToString(
           deficiency.isMainDeficiency
@@ -98,24 +117,25 @@ export class AppDtoConverter {
     pendenciesFormGroup
       .get('employee')
       .get('isDeficient')
-      .setValue(this.convertBooleanToString(pendencie.isDeficient));
+      .setValue(this.convertBooleanToString(pendencie.employee.isDeficient));
   }
 
   static convertPendencieDate(pendencie: any, pendenciesFormGroup: FormGroup) {
-    if (pendencie && pendencie.birthday) {
+    if (pendencie && pendencie.employee && pendencie.employee.birthday) {
       pendenciesFormGroup
         .get('employee')
         .get('birthday')
-        .setValue(this.convertDate(pendencie.birthday));
+        .setValue(this.convertDate(pendencie.employee.birthday));
     }
-    if (pendencie && pendencie.hireDate) {
+    if (pendencie && pendencie.employee && pendencie.employee.hireDate) {
       pendenciesFormGroup
         .get('employee')
         .get('hireDate')
-        .setValue(this.convertDate(pendencie.hireDate));
+        .setValue(this.convertDate(pendencie.employee.hireDate));
     }
     if (
       pendencie &&
+      pendencie.employee &&
       pendencie.companyBranch &&
       pendencie.companyBranch.dateWhen
     ) {
@@ -123,48 +143,73 @@ export class AppDtoConverter {
         .get('employee')
         .get('companyBranch')
         .get('dateWhen')
-        .setValue(this.convertDate(pendencie.companyBranch.dateWhen));
+        .setValue(this.convertDate(pendencie.employee.companyBranch.dateWhen));
     }
-    if (pendencie && pendencie.costCenter && pendencie.costCenter.dateWhen) {
+    if (
+      pendencie &&
+      pendencie.employee &&
+      pendencie.employee.costCenter &&
+      pendencie.employee.costCenter.dateWhen
+    ) {
       pendenciesFormGroup
         .get('employee')
         .get('costCenter')
         .get('dateWhen')
-        .setValue(this.convertDate(pendencie.costCenter.dateWhen));
+        .setValue(this.convertDate(pendencie.employee.costCenter.dateWhen));
     }
-    if (pendencie && pendencie.department && pendencie.department.dateWhen) {
+    if (
+      pendencie &&
+      pendencie.employee &&
+      pendencie.employee.department &&
+      pendencie.employee.department.dateWhen
+    ) {
       pendenciesFormGroup
         .get('employee')
         .get('department')
         .get('dateWhen')
-        .setValue(this.convertDate(pendencie.department.dateWhen));
+        .setValue(this.convertDate(pendencie.employee.department.dateWhen));
     }
-    if (pendencie && pendencie.jobPosition && pendencie.jobPosition.dateWhen) {
+    if (
+      pendencie &&
+      pendencie.employee &&
+      pendencie.employee.jobPosition &&
+      pendencie.employee.jobPosition.dateWhen
+    ) {
       pendenciesFormGroup
         .get('employee')
         .get('jobPosition')
         .get('dateWhen')
-        .setValue(this.convertDate(pendencie.jobPosition.dateWhen));
+        .setValue(this.convertDate(pendencie.employee.jobPosition.dateWhen));
     }
-    if (pendencie && pendencie.shift && pendencie.shift.dateWhen) {
+    if (
+      pendencie &&
+      pendencie.employee &&
+      pendencie.employee.shift &&
+      pendencie.employee.shift.dateWhen
+    ) {
       pendenciesFormGroup
         .get('employee')
         .get('shift')
         .get('dateWhen')
-        .setValue(this.convertDate(pendencie.shift.dateWhen));
+        .setValue(this.convertDate(pendencie.employee.shift.dateWhen));
     }
-    if (pendencie && pendencie.workstation && pendencie.workstation.dateWhen) {
+    if (
+      pendencie &&
+      pendencie.employee &&
+      pendencie.employee.workstation &&
+      pendencie.employee.workstation.dateWhen
+    ) {
       pendenciesFormGroup
         .get('employee')
         .get('workstation')
         .get('dateWhen')
-        .setValue(this.convertDate(pendencie.workstation.dateWhen));
+        .setValue(this.convertDate(pendencie.employee.workstation.dateWhen));
     }
-    if (pendencie && pendencie.dismissalDate) {
+    if (pendencie && pendencie.employee && pendencie.employee.dismissalDate) {
       pendenciesFormGroup
         .get('employee')
         .get('dismissalDate')
-        .setValue(this.convertDateTime(pendencie.dismissalDate));
+        .setValue(this.convertDateTime(pendencie.employee.dismissalDate));
     }
   }
 
@@ -190,41 +235,54 @@ export class AppDtoConverter {
         .get('integrationType')
         .setValue(IntegrationType[pendencie.integrationType]);
     }
-    if (pendencie && pendencie.genderType) {
+    if (pendencie && pendencie.employee && pendencie.employee.genderType) {
       pendenciesFormGroup
         .get('employee')
         .get('genderType')
-        .setValue(GenderType[pendencie.genderType]);
+        .setValue(GenderType[pendencie.employee.genderType]);
     }
-    if (pendencie && pendencie.maritalStatusType) {
+    if (
+      pendencie &&
+      pendencie.employee &&
+      pendencie.employee.maritalStatusType
+    ) {
       pendenciesFormGroup
         .get('employee')
         .get('maritalStatusType')
-        .setValue(MaritalStatusType[pendencie.maritalStatusType]);
+        .setValue(MaritalStatusType[pendencie.employee.maritalStatusType]);
     }
-    if (pendencie && pendencie.contractType) {
+    if (pendencie && pendencie.employee && pendencie.employee.contractType) {
       pendenciesFormGroup
         .get('employee')
         .get('contractType')
-        .setValue(ContractType[pendencie.contractType]);
+        .setValue(ContractType[pendencie.employee.contractType]);
     }
-    if (pendencie && pendencie.esocialCategoryType) {
+    if (
+      pendencie &&
+      pendencie.employee &&
+      pendencie.employee.esocialCategoryType
+    ) {
       pendenciesFormGroup
         .get('employee')
         .get('eSocialCategoryType')
-        .setValue(ESocialCategoryType[pendencie.esocialCategoryType]);
+        .setValue(ESocialCategoryType[pendencie.employee.esocialCategoryType]);
     }
-    if (pendencie && pendencie.employeeType) {
+    if (pendencie && pendencie.employee && pendencie.employee.employeeType) {
       pendenciesFormGroup
         .get('employee')
         .get('employeeType')
-        .setValue(EmployeeType[pendencie.employeeType]);
+        .setValue(EmployeeType[pendencie.employee.employeeType]);
     }
-    if (pendencie && pendencie.situationType) {
+    if (pendencie && pendencie.employee && pendencie.employee.situationType) {
       pendenciesFormGroup
         .get('employee')
         .get('situationType')
-        .setValue(SituationType[pendencie.situationType]);
+        .setValue(SituationType[pendencie.employee.situationType]);
+    }
+    if (pendencie && pendencie.statusType) {
+      pendenciesFormGroup
+        .get('statusType')
+        .setValue(StatusType[pendencie.statusType]);
     }
   }
 }
