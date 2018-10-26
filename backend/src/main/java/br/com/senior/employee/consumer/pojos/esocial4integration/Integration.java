@@ -1,7 +1,7 @@
 package br.com.senior.employee.consumer.pojos.esocial4integration;
 
 import br.com.senior.employee.consumer.pojos.common.IntegrationType;
-import br.com.senior.employee.consumer.pojos.common.SubscriptionType;
+import br.com.senior.employee.consumer.pojos.common.StatusType;
 
 import java.util.List;
 

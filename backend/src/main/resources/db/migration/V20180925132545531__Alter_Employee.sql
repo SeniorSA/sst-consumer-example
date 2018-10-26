@@ -1,0 +1,1 @@
+ALTER TABLE employee DROP COLUMN receipt_date;

@@ -1,7 +1,7 @@
 package br.com.senior.employee.consumer;
 
-import br.com.senior.employee.consumer.controller.PendingEmployeeController;
-import br.com.senior.employee.consumer.controller.PendingLayoutController;
+import br.com.senior.employee.consumer.controller.IntegrationController;
+import br.com.senior.employee.consumer.controller.LayoutController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +21,7 @@ public class ConsumerApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(ConsumerApplication.class, args);
-        applicationContext.getBean(PendingEmployeeController.class).execute();
-        applicationContext.getBean(PendingLayoutController.class).execute();
+        applicationContext.getBean(IntegrationController.class).consumeOldPendencies();
+        applicationContext.getBean(LayoutController.class).consumeOldEvents();
     }
 }

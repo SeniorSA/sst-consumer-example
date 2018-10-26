@@ -1,62 +1,23 @@
-package br.com.senior.employee.consumer.handler;
+package br.com.senior.employee.consumer.controller;
 
-import br.com.senior.employee.consumer.configuration.SystemProperties;
+import br.com.senior.employee.consumer.configuration.ApplicationProperties;
 import br.com.senior.employee.consumer.entity.EmployeeEntity;
 import br.com.senior.employee.consumer.pojos.common.SubscriptionType;
 import br.com.senior.employee.consumer.pojos.esocial.*;
-import br.com.senior.employee.consumer.pojos.esocial4integration.EmployeeEventPayload;
-import br.com.senior.employee.consumer.pojos.esocial4integration.IntegrationUpdateStatusInput;
-import br.com.senior.employee.consumer.pojos.esocial4integration.ProviderStatusType;
-import br.com.senior.employee.consumer.repository.EmployeeRepository;
 import br.com.senior.employee.consumer.rest.Rest;
-import br.com.senior.employee.consumer.rest.json.DtoJsonConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Random;
 
-@RestController
-@RequestMapping(path = "/employee")
-public class EmployeeEventController {
+@Component
+public class LayoutS1060Controller {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
     @Autowired
     private Rest rest;
-
-    /**
-     * Endpoint que recebe um POST.
-     * Uma REGRA deve ser cadastrada no EVENTO employeeEvent.
-     * Este endpoint será invocado quando uma ação de admissão, alteração de admissão e movimentações (Centro de custo, Local, Cargo, Posto de trabalho e Afastamentos) do colaborador ocorrer.
-     *
-     * @param payload Dados do colaborador.
-     */
-    @PostMapping(path = "/event")
-    public void employeeEvent(@RequestBody EmployeeEventPayload payload) {
-        /*
-            O payload virá com todos os dados do colaborador independente do tipo de integração (integrationType).
-            Enviamos o integrationType para o provedor SST decidir alterar apenas o que foi alterado do colaborador, ou, por controle do provedor SST salvar sempre todos os dados do colaborador.
-            Aqui é feito o 'parse' dos dados do payload para a base interna do provedor SST.
-         */
-        EmployeeEntity employee = DtoJsonConverter.toDTO(DtoJsonConverter.toJSON(payload.employee), EmployeeEntity.class);
-        employee.setReceiptDate(Instant.now());
-        employee.setIntegrationType(payload.integrationType);
-
-        // Salva os dados do colaborador
-        employeeRepository.save(employee);
-
-        /*
-            Neste ponto o código comunica para a SENIOR que recebeu o evento e que os dados estão salvos na base do prestador SST.
-            Desta forma o cliente saberá que o dado está no provedor SST.
-         */
-        IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(payload.integrationId, ProviderStatusType.ON_PROVIDER);
-        rest.get().postForLocation(SystemProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
-    }
+    @Autowired
+    private ApplicationProperties applicationProperties;
 
     public void layout1060Event(EmployeeEntity employee) {
         /*
@@ -92,7 +53,7 @@ public class EmployeeEventController {
         layoutS1060.jsonText = eSocialS1060;
 
         // Cadastra o layout S-1060 na Senior
-        rest.get().postForLocation(SystemProperties.getG7Location() + "/hcm/esocial/entities/layoutS1060", layoutS1060);
+        rest.get().postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/entities/layoutS1060", layoutS1060);
     }
 
     private String getTemporaryId() {

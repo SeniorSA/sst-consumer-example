@@ -3,17 +3,17 @@
  */
 package br.com.senior.employee.consumer.entity;
 
-import br.com.senior.employee.consumer.pojos.common.*;
+import br.com.senior.employee.consumer.pojos.common.ESocialCategoryType;
+import br.com.senior.employee.consumer.pojos.common.EmployeeType;
+import br.com.senior.employee.consumer.pojos.common.MaritalStatusType;
+import br.com.senior.employee.consumer.pojos.common.SituationType;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.Instant;
 
 @Entity
 @Table(name = "employee")
 public class EmployeeEntity {
-
-    public static final String SECURITY_RESOURCE = "res://senior.com.br/hcm/esocial4integration/entities/employee";
 
     /**
      * Id interno do colaborador.
@@ -23,6 +23,12 @@ public class EmployeeEntity {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false)
     private java.util.UUID id;
+
+    /**
+     * Id externo do colaborador (no Payroll).
+     */
+    @Column(name = "external_id", length = 36)
+    private String externalId;
 
     /**
      * Tipo do colaborador.
@@ -40,7 +46,7 @@ public class EmployeeEntity {
     /**
      * Matrícula do e-Social.
      */
-    @Column(name = "e_social_registration")
+    @Column(name = "e_social_registration", length = 30)
     private String eSocialRegistration;
 
     /**
@@ -58,7 +64,7 @@ public class EmployeeEntity {
     /**
      * Número do NIS.
      */
-    @Column(name = "nis_number")
+    @Column(name = "nis_number", length = 11)
     private String nisNumber;
 
     /**
@@ -172,28 +178,18 @@ public class EmployeeEntity {
             inverseJoinColumns = @JoinColumn(name = "deficiency_id", referencedColumnName = "id"))
     private java.util.List<DeficiencyEntity> deficiency;
 
-
-    /**
-     * Tipo da integração.
-     */
-    @Enumerated(EnumType.STRING)
-    @Column(name = "integration_type")
-    private IntegrationType integrationType;
-
     /**
      * Data de demissão.
      */
     @Column(name = "dismissal_date")
     private java.time.LocalDate dismissalDate;
 
-    /**
-     * Data e hora do recebimento do colaborador.
-     */
-    @Column(name = "receipt_date")
-    private java.time.Instant receiptDate;
-
     public java.util.UUID getId() {
         return this.id;
+    }
+
+    public String getExternalId() {
+        return this.externalId;
     }
 
     public EmployeeType getEmployeeType() {
@@ -288,16 +284,12 @@ public class EmployeeEntity {
         return this.dismissalDate;
     }
 
-    public IntegrationType getIntegrationType() {
-        return integrationType;
-    }
-
-    public Instant getReceiptDate() {
-        return receiptDate;
-    }
-
     public void setId(java.util.UUID id) {
         this.id = id;
+    }
+
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
     }
 
     public void setEmployeeType(EmployeeType employeeType) {
@@ -392,14 +384,6 @@ public class EmployeeEntity {
         this.dismissalDate = dismissalDate;
     }
 
-    public void setIntegrationType(IntegrationType integrationType) {
-        this.integrationType = integrationType;
-    }
-
-    public void setReceiptDate(Instant receiptDate) {
-        this.receiptDate = receiptDate;
-    }
-
     @Override
     public int hashCode() {
         int ret = 1;
@@ -432,6 +416,7 @@ public class EmployeeEntity {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName()).append(" [");
         sb.append("id=").append(id == null ? "null" : id).append(", ");
+        sb.append("externalId=").append(externalId == null ? "null" : externalId).append(", ");
         sb.append("employeeType=").append(employeeType == null ? "null" : employeeType).append(", ");
         sb.append("code=").append(code == null ? "null" : code).append(", ");
         sb.append("eSocialRegistration=").append(eSocialRegistration == null ? "null" : eSocialRegistration).append(", ");

@@ -11,8 +11,6 @@ import javax.persistence.*;
 @Table(name="department")
 public class DepartmentEntity {
 	
-	public static final String SECURITY_RESOURCE = "res://senior.com.br/hcm/esocial4integration/entities/department";
-
 	/**
 	 * Id interno da entidade.
 	 */

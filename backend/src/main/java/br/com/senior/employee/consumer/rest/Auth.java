@@ -1,6 +1,6 @@
 package br.com.senior.employee.consumer.rest;
 
-import br.com.senior.employee.consumer.configuration.SystemProperties;
+import br.com.senior.employee.consumer.configuration.ApplicationProperties;
 import br.com.senior.employee.consumer.pojos.authentication.LoginInput;
 import br.com.senior.employee.consumer.pojos.authentication.LoginOutput;
 import com.google.gson.Gson;
@@ -16,6 +16,8 @@ public class Auth {
 
     @Autowired
     private Gson gson;
+    @Autowired
+    private ApplicationProperties applicationProperties;
     private Long secondsToExpirate;
     private String loginPass;
 
@@ -23,10 +25,10 @@ public class Auth {
         if (secondsToExpirate != null && secondsToExpirate > LocalTime.now().toSecondOfDay()) return loginPass;
 
         LoginInput loginInput = new LoginInput();
-        loginInput.username = SystemProperties.getG7UserName();
-        loginInput.password = SystemProperties.getG7Password();
+        loginInput.username = applicationProperties.getG7UserName();
+        loginInput.password = applicationProperties.getG7Password();
 
-        LoginOutput output = RestTemplateBuilder.build().postForObject(SystemProperties.getG7Location() + "/platform/authentication/actions/login", loginInput, LoginOutput.class);
+        LoginOutput output = RestTemplateBuilder.build().postForObject(applicationProperties.getG7Location() + "/platform/authentication/actions/login", loginInput, LoginOutput.class);
 
         LoginDTO loginDTO = gson.fromJson(output.jsonToken, LoginDTO.class);
         secondsToExpirate = Long.valueOf(loginDTO.expires_in); // tempo em segundos

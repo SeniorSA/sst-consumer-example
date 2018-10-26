@@ -1,0 +1,1 @@
+alter table integration drop constraint uq_integration_external_id;

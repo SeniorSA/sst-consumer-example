@@ -11,8 +11,6 @@ import javax.persistence.*;
 @Table(name="cost_center")
 public class CostCenterEntity {
 	
-	public static final String SECURITY_RESOURCE = "res://senior.com.br/hcm/esocial4integration/entities/costCenter";
-
 	/**
 	 * Id interno da entidade.
 	 */

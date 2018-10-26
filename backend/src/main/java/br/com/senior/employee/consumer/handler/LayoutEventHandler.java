@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/layout")
-public class LayoutEventController {
+public class LayoutEventHandler {
 
     @Autowired
     private LayoutThirdRepository repository;

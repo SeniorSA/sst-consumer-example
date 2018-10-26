@@ -12,8 +12,6 @@ import javax.persistence.*;
 @Table(name="deficiency")
 public class DeficiencyEntity {
 	
-	public static final String SECURITY_RESOURCE = "res://senior.com.br/hcm/esocial4integration/entities/deficiency";
-
 	/**
 	 * Id interno da entidade.
 	 */

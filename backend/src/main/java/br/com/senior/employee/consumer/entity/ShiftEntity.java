@@ -11,8 +11,6 @@ import javax.persistence.*;
 @Table(name="shift")
 public class ShiftEntity {
 	
-	public static final String SECURITY_RESOURCE = "res://senior.com.br/hcm/esocial4integration/entities/shift";
-
 	/**
 	 * Id interno da entidade.
 	 */

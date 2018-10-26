@@ -1,6 +1,7 @@
 /* Entity Employee */
 create table employee (
 	id UUID NOT NULL,
+	external_id VARCHAR(36) NOT NULL /* externalId */,
 	receipt_date TIMESTAMP NOT NULL /* receiptDate */,
 	employee_type VARCHAR(255) /* employeeType */,
 	code NUMERIC(19),
@@ -23,9 +24,7 @@ create table employee (
 	job_position UUID /* jobPosition */,
 	shift UUID,
 	reason_leave UUID /* reasonLeave */,
-	workstation UUID,
-	integration_type VARCHAR(255) NOT NULL,
-	receipt_date TIMESTAMP NOT FULL
+	workstation UUID
 );
 
 alter table employee add constraint pk_employee_id primary key(id);
