@@ -9,6 +9,7 @@ import { IntegrationType } from './enumerations/integration-type.enum';
 import { MaritalStatusType } from './enumerations/marital-status-type.enum';
 import { SituationType } from './enumerations/situation-type.enum';
 import { StatusType } from './enumerations/status-type.enum';
+import { OperationType } from './enumerations/operation-type.enum';
 
 export class AppDtoConverter {
   constructor() {}
@@ -283,6 +284,11 @@ export class AppDtoConverter {
       pendenciesFormGroup
         .get('statusType')
         .setValue(StatusType[pendencie.statusType]);
+    }
+    if (pendencie && pendencie.operationType) {
+      pendenciesFormGroup
+        .get('operationType')
+        .setValue(OperationType[pendencie.operationType]);
     }
   }
 }

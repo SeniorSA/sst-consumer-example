@@ -1,7 +1,7 @@
 package br.com.senior.employee.consumer.handler;
 
-import br.com.senior.employee.consumer.entity.LayoutThird;
-import br.com.senior.employee.consumer.pojos.esocial.LayoutSituationEventPayload;
+import br.com.senior.employee.consumer.client.esocial4integration.LayoutThird;
+import br.com.senior.employee.consumer.client.esocial.LayoutSituationEventPayload;
 import br.com.senior.employee.consumer.repository.LayoutThirdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,8 +46,8 @@ public class LayoutEventHandler {
     @PostMapping(path = "/event")
     public void layoutEvent(@RequestBody LayoutSituationEventPayload payload) {
         LayoutThird layoutThird = new LayoutThird();
-        layoutThird.setDateWhen(LocalDateTime.now());
         layoutThird.setId(UUID.randomUUID());
+        layoutThird.setDateWhen(LocalDateTime.now());
         layoutThird.setLayoutId(payload.layoutId);
         layoutThird.setReceiptNumber(payload.receiptNumber);
         layoutThird.setMessage(payload.message);

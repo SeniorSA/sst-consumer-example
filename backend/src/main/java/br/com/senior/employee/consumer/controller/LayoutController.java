@@ -2,15 +2,17 @@ package br.com.senior.employee.consumer.controller;
 
 import br.com.senior.employee.consumer.configuration.ApplicationProperties;
 import br.com.senior.employee.consumer.handler.LayoutEventHandler;
-import br.com.senior.employee.consumer.pojos.esocial.LayoutSituation;
-import br.com.senior.employee.consumer.pojos.esocial.LayoutSituationEventPayload;
-import br.com.senior.employee.consumer.pojos.esocial.LayoutSituationEventType;
+import br.com.senior.employee.consumer.client.esocial.LayoutSituation;
+import br.com.senior.employee.consumer.client.esocial.LayoutSituationEventPayload;
+import br.com.senior.employee.consumer.client.esocial.LayoutSituationEventType;
 import br.com.senior.employee.consumer.rest.Rest;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+@Log4j
 @Component
 public class LayoutController {
 
@@ -21,13 +23,12 @@ public class LayoutController {
     @Autowired
     private LayoutEventHandler layoutEventController;
 
-    /*
-      Este método é executado ao iniciar este sistema para verificar se existe algum registro de layout pendente de processamento.
-   */
+    /**
+     * Este método é executado ao iniciar este sistema para verificar se existe algum registro de layout pendente de processamento.
+     */
     public void consumeOldEvents() {
-        /*
-            Busca os layouts com o status "Número do recibo recebido, Número do recibo informado manualmente e Erro retornado" no sistema SENIOR.
-         */
+        LOGGER.info("Consumindo eventos antigos.");
+        // Busca os layouts com o status "Número do recibo recebido, Número do recibo informado manualmente e Erro retornado" no sistema SENIOR.
         LayoutSituation.PagedResults list;
         do {
             list = getData().getBody();

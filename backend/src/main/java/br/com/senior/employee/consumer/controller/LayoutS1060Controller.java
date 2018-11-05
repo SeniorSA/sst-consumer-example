@@ -1,9 +1,9 @@
 package br.com.senior.employee.consumer.controller;
 
 import br.com.senior.employee.consumer.configuration.ApplicationProperties;
-import br.com.senior.employee.consumer.entity.EmployeeEntity;
-import br.com.senior.employee.consumer.pojos.common.SubscriptionType;
-import br.com.senior.employee.consumer.pojos.esocial.*;
+import br.com.senior.employee.consumer.client.common.SubscriptionType;
+import br.com.senior.employee.consumer.client.esocial.*;
+import br.com.senior.employee.consumer.client.esocial4integration.EmployeeEntity;
 import br.com.senior.employee.consumer.rest.Rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

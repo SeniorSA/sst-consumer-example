@@ -1,40 +1,26 @@
 package br.com.senior.employee.consumer.handler;
 
-import br.com.senior.employee.consumer.configuration.ApplicationProperties;
-import br.com.senior.employee.consumer.controller.IntegrationController;
-import br.com.senior.employee.consumer.entity.EmployeeEntity;
-import br.com.senior.employee.consumer.entity.IntegrationEntity;
-import br.com.senior.employee.consumer.pojos.common.SubscriptionType;
-import br.com.senior.employee.consumer.pojos.esocial.*;
-import br.com.senior.employee.consumer.pojos.esocial4integration.Integration;
-import br.com.senior.employee.consumer.pojos.esocial4integration.IntegrationPendencyEventPayload;
-import br.com.senior.employee.consumer.pojos.esocial4integration.IntegrationUpdateStatusInput;
-import br.com.senior.employee.consumer.pojos.esocial4integration.ProviderStatusType;
-import br.com.senior.employee.consumer.repository.IntegrationRepository;
-import br.com.senior.employee.consumer.rest.Rest;
-import br.com.senior.employee.consumer.rest.json.DtoJsonConverter;
+import br.com.senior.employee.consumer.controller.integration.EmployeeIntegrationController;
+import br.com.senior.employee.consumer.client.esocial4integration.IntegrationPendencyEventPayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 @RestController
 @RequestMapping(path = "/integration")
 public class IntegrationEventHandler {
 
     @Autowired
-    private IntegrationController integrationController;
+    private EmployeeIntegrationController employeeIntegrationController;
 
     /**
      * Integrar todas as pendências ainda não consumidas.
      */
     @PostMapping(path = "/consumeOldPendencies")
     public void integrationPendency() {
-        integrationController.consumeOldPendencies();
+        employeeIntegrationController.consumeOldPendencies();
     }
 
     /**
@@ -51,7 +37,7 @@ public class IntegrationEventHandler {
             Enviamos o integrationType para o provedor SST decidir alterar apenas o que foi alterado do colaborador, ou, por controle do provedor SST salvar sempre todos os dados do colaborador.
             Aqui é feito o 'parse' dos dados do payload para a base interna do provedor SST.
          */
-        integrationController.integrationPendency(payload.integration);
+        employeeIntegrationController.integrationPendency(payload.integration);
     }
 
 }

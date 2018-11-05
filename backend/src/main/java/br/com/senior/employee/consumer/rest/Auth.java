@@ -1,8 +1,8 @@
 package br.com.senior.employee.consumer.rest;
 
 import br.com.senior.employee.consumer.configuration.ApplicationProperties;
-import br.com.senior.employee.consumer.pojos.authentication.LoginInput;
-import br.com.senior.employee.consumer.pojos.authentication.LoginOutput;
+import br.com.senior.employee.consumer.client.authentication.LoginInput;
+import br.com.senior.employee.consumer.client.authentication.LoginOutput;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

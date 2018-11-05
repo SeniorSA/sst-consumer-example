@@ -48,6 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
         disabled: true
       }),
       receiptDate: this.formBuilder.control({ value: null, disabled: true }),
+      operationType: this.formBuilder.control({ value: null, disabled: true }),
       employee: this.formBuilder.group({
         code: this.formBuilder.control({ value: null, disabled: true }),
         name: this.formBuilder.control({ value: null, disabled: true }),
