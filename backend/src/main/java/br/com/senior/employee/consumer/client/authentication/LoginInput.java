@@ -7,16 +7,16 @@ public class LoginInput {
 
     /**
      * Nome do usuário incluindo o domínio. Exemplo: ana.silva@senior.com.br.
-     * Este campo deve ser informado se o login for baseado em um usuário e senha.
+     * Este campo deve ser informado se o companycredentials for baseado em um usuário e senha.
      */
     public String username; //NOSONAR
     /**
-     * Senha do usuário. Este campo deve ser informado se o login for baseado em um usuário e senha.
+     * Senha do usuário. Este campo deve ser informado se o companycredentials for baseado em um usuário e senha.
      */
     public String password; //NOSONAR
     /**
      * Código de autorização do provedor externo de autenticação. Provedores suportados: SAML.
-     * Este campo deve ser informado se o login for baseado em um código de autorização.
+     * Este campo deve ser informado se o companycredentials for baseado em um código de autorização.
      */
     public String code; //NOSONAR
     /**

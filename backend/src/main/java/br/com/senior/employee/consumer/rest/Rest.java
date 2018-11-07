@@ -1,5 +1,6 @@
 package br.com.senior.employee.consumer.rest;
 
+import br.com.senior.employee.consumer.client.authentication.Credential;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.stereotype.Component;
@@ -7,28 +8,34 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.inject.Singleton;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 @Singleton
 public class Rest {
 
     @Autowired
-    private BasicAuthInterceptor basicAuthInterceptor;
-    private RestTemplate restTemplate;
+    private Auth auth;
+    private Map<String, RestTemplate> restTemplates = new HashMap();
 
-    public RestTemplate get() {
-        if (restTemplate == null) {
+    public RestTemplate get(Credential credential) {
+        if (restTemplates.get(credential.username) == null) {
             try {
-                restTemplate = RestTemplateBuilder.build();
+                RestTemplate restTemplate = RestTemplateBuilder.build();
 
                 final List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+
+                BasicAuthInterceptor basicAuthInterceptor = new BasicAuthInterceptor(auth, credential);
                 interceptors.add(basicAuthInterceptor);
                 restTemplate.setInterceptors(interceptors);
+
+                restTemplates.put(credential.username, restTemplate);
             } catch (Exception e) {
                 throw new RestClientConfigurationException(e);
             }
         }
-        return restTemplate;
+        return restTemplates.get(credential.username);
     }
 }

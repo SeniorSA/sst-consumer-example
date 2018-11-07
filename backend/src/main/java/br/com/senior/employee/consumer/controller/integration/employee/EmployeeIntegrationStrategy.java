@@ -1,4 +1,4 @@
-package br.com.senior.employee.consumer.controller.integration;
+package br.com.senior.employee.consumer.controller.integration.employee;
 
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationEntity;
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationType;
@@ -104,6 +104,7 @@ public abstract class EmployeeIntegrationStrategy {
 
         boolean employeeExists = employeeExists(integration);
 
+        integration.setOperationType(OperationType.UPDATE);
         if (employeeExists) {
             if (integration.getOperationType() == OperationType.UPDATE) {
                 employeeUpdate(integration);

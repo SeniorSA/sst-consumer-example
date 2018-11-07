@@ -13,7 +13,7 @@ export class AppService {
 
   getPendenciesList(): Observable<any> {
     return this.httpClient
-      .get('http://localhost:8099/integrationEntities')
+      .get('http://localhost:8099/integrationEntities?page=0&size=999')
       .pipe(
         map(
           (data: any) =>

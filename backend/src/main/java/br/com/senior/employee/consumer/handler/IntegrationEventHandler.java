@@ -1,12 +1,9 @@
 package br.com.senior.employee.consumer.handler;
 
-import br.com.senior.employee.consumer.controller.integration.EmployeeIntegrationController;
+import br.com.senior.employee.consumer.controller.integration.employee.EmployeeIntegrationController;
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationPendencyEventPayload;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/integration")
@@ -18,9 +15,9 @@ public class IntegrationEventHandler {
     /**
      * Integrar todas as pendências ainda não consumidas.
      */
-    @PostMapping(path = "/consumeOldPendencies")
+    @PostMapping(path = "/consumeEmployeeIntegrations")
     public void integrationPendency() {
-        employeeIntegrationController.consumeOldPendencies();
+        employeeIntegrationController.consumeEmployeeIntegrations();
     }
 
     /**
@@ -31,13 +28,13 @@ public class IntegrationEventHandler {
      * @param payload Dados do colaborador.
      */
     @PostMapping(path = "/pendency")
-    public void integrationPendency(@RequestBody IntegrationPendencyEventPayload payload) {
+    public void integrationPendency(@RequestHeader(name = "x-senior-user") String user, @RequestBody IntegrationPendencyEventPayload payload) {
         /*
             O payload virá com todos os dados do colaborador independente do tipo de integração (integrationType).
             Enviamos o integrationType para o provedor SST decidir alterar apenas o que foi alterado do colaborador, ou, por controle do provedor SST salvar sempre todos os dados do colaborador.
             Aqui é feito o 'parse' dos dados do payload para a base interna do provedor SST.
          */
-        employeeIntegrationController.integrationPendency(payload.integration);
+        employeeIntegrationController.integrationPendency(user, payload.integration);
     }
 
 }

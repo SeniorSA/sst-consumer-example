@@ -85,12 +85,6 @@ public class IntegrationEntity {
     private String integrationMessage;
 
     /**
-     * StackTrace do erro.
-     */
-    @Column(name = "stack_trace")
-    private String stackTrace;
-
-    /**
      * Código da empresa
      */
     @Column(name = "company_code")
@@ -194,10 +188,6 @@ public class IntegrationEntity {
         return this.integrationMessage;
     }
 
-    public String getStackTrace() {
-        return this.stackTrace;
-    }
-
     public Long getCompanyCode() {
         return this.companyCode;
     }
@@ -282,10 +272,6 @@ public class IntegrationEntity {
         this.integrationMessage = integrationMessage;
     }
 
-    public void setStackTrace(String stackTrace) {
-        this.stackTrace = stackTrace;
-    }
-
     public void setCompanyCode(Long companyCode) {
         this.companyCode = companyCode;
     }
@@ -367,7 +353,6 @@ public class IntegrationEntity {
         sb.append("sendDate=").append(sendDate == null ? "null" : sendDate).append(", ");
         sb.append("scheduledDate=").append(scheduledDate == null ? "null" : scheduledDate).append(", ");
         sb.append("integrationMessage=").append(integrationMessage == null ? "null" : integrationMessage).append(", ");
-        sb.append("stackTrace=").append(stackTrace == null ? "null" : stackTrace).append(", ");
         sb.append("companyCode=").append(companyCode == null ? "null" : companyCode).append(", ");
         sb.append("companyName=").append(companyName == null ? "null" : companyName).append(", ");
         sb.append("companyBranchCode=").append(companyBranchCode == null ? "null" : companyBranchCode).append(", ");
