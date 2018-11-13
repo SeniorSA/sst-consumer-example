@@ -14,11 +14,11 @@ public class EsocialIntegrationStrategyImpl extends EsocialIntegrationStrategy {
 
     @Override
     public void eSocialStatusXml(XmlStatus status) {
-        //
+        // Programe aqui a rotina responsável por atualizar o status do XML enviado.
     }
 
     @Override
     public void returnGovernment(LayoutSituation government) {
-        //
+        // Programe aqui a rotina responsável por atualizar o recibo/críticas do governo.
     }
 }

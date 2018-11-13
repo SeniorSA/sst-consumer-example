@@ -31,7 +31,7 @@ public class ConsumerApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(ConsumerApplication.class, args);
         applicationContext.getBean(EmployeeIntegrationController.class).consumeEmployeeIntegrations();
-        applicationContext.getBean(EsocialIntegrationController.class).consumePendenciesStatusIntegration();
+        //applicationContext.getBean(EsocialIntegrationController.class).consumePendenciesStatusIntegration();
         applicationContext.getBean(EsocialIntegrationController.class).consumePendenciesReturnGovernment();
 
         LOGGER.info("Servidor inicializado com sucesso.");

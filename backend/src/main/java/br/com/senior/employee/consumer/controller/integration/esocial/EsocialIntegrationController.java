@@ -82,7 +82,7 @@ public class EsocialIntegrationController {
      */
     private ResponseEntity<LayoutSituation.PagedResults> getDataReturnGovernment(Credential credential) {
         String filter = "statusType eq RECEIPT_RETURNED";
-        return rest.get(credential).exchange(applicationProperties.getG7Location() + "/hcm/esocial/entities/layouSituation?filter=" + filter,
+        return rest.get(credential).exchange(applicationProperties.getG7Location() + "/hcm/esocial/entities/layoutSituation?filter=" + filter,
                 HttpMethod.GET,
                 null,
                 LayoutSituation.PagedResults.class);
@@ -104,7 +104,7 @@ public class EsocialIntegrationController {
     /**
      * Método responsável por verificar se existem pendencias com recibos não consumidos.
      *
-     * @param response
+     * @param response Retorno.
      * @return @{@link boolean}
      */
     private boolean containsPendenciesReturnGovernment(LayoutSituation.PagedResults response) {
@@ -114,7 +114,7 @@ public class EsocialIntegrationController {
     /**
      * Método responsável por verificar se existem pendências com status ero e sucesso não consumidos.
      *
-     * @param response
+     * @param response Retorno.
      * @return @{@link boolean}
      */
     private boolean containsPendenciesStatusXml(XmlStatus.PagedResults response) {
@@ -125,7 +125,7 @@ public class EsocialIntegrationController {
      * Envia o XML.
      *
      * @param credential Credenciais.
-     * @param payload
+     * @param payload    Payload.
      */
     public void sendXml(Credential credential, EsocialEventXmlInput payload) {
         rest.get(credential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/actions/esocialEventXml", payload);
