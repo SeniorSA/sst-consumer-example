@@ -82,7 +82,7 @@ public class EmployeeIntegrationController {
     /**
      * Método responsável por processar a pendência de integração.
      *
-     * @param user
+     * @param user\
      * @param integration Entidade da integração.
      */
     public void integrationPendency(String user, Integration integration) {

@@ -92,5 +92,4 @@ public class XmlSituation {
 
     public XmlSituation() {
     }
-
 }

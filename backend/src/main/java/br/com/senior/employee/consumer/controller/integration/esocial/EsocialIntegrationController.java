@@ -2,19 +2,16 @@ package br.com.senior.employee.consumer.controller.integration.esocial;
 
 import br.com.senior.employee.consumer.client.authentication.Credential;
 import br.com.senior.employee.consumer.client.esocial.*;
+import br.com.senior.employee.consumer.client.esocial4integration.IntegrationUpdateStatusInput;
+import br.com.senior.employee.consumer.client.esocial4integration.ProviderStatusType;
 import br.com.senior.employee.consumer.configuration.ApplicationProperties;
 import br.com.senior.employee.consumer.controller.integration.companycredentials.CompanyCredentialsStrategy;
 import br.com.senior.employee.consumer.rest.Rest;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 @Log4j
 @Component
@@ -30,29 +27,23 @@ public class EsocialIntegrationController {
     private CompanyCredentialsStrategy companyCredentialsStrategy;
 
     /**
-     * Este método é executado ao iniciar este sistema para verificar se existem recibos / criticas não consumidas.
-     */
-    public void consumePendenciesReturnGovernment() {
-        LOGGER.info("Consumindo recibos pendentes.");
-        companyCredentialsStrategy.getCredentials().forEach(c -> {
-            LayoutSituation.PagedResults list;
-            do {
-                list = getDataReturnGovernment(c).getBody();
-                list.contents.forEach(this::returnGovernment);
-            } while (containsPendenciesReturnGovernment(list));
-        });
-    }
-
-    /**
      * Este método é executado ao iniciar este sistema para verificar se existem status dos envios de XML não consumidos.
      */
     public void consumePendenciesStatusIntegration() {
         LOGGER.info("Consumindo status pendentes.");
         companyCredentialsStrategy.getCredentials().forEach(c -> {
-            XmlStatus.PagedResults list;
+            LayoutSituation.PagedResults list;
             do {
                 list = getDataStatusXml(c).getBody();
-                list.contents.forEach(this::statusXml);
+                list.contents.forEach(l -> {
+                    XmlEventData data = new XmlEventData();
+                    data.idEsocialEvent = l.eventId;
+                    data.idXml = l.layoutId;
+                    data.layoutType = l.layoutType;
+                    data.message = l.layoutMessage;
+                    data.statusXml = l.xmlStatusType;
+                    statusXml(data, c);
+                });
             } while (containsPendenciesStatusXml(list));
         });
     }
@@ -62,30 +53,22 @@ public class EsocialIntegrationController {
      *
      * @param xmlStatus Entidade referente ao status do envio do XML.
      */
-    public void statusXml(XmlStatus xmlStatus) {
-        esocialStrategy.eSocialStatusXml(xmlStatus);
-    }
+    public void statusXml(XmlEventData xmlStatus, Credential credential) {
+        try {
+            esocialStrategy.eSocialStatusXml(xmlStatus);
 
-    /**
-     * Método responsável receber o numero do recibo / critica.
-     *
-     * @param esocialEvent Retorno do numero do recibo  criticas do evento do esocial enviado.
-     */
-    public void returnGovernment(LayoutSituation esocialEvent) {
-        esocialStrategy.returnGovernment(esocialEvent);
-    }
+            XmlStatusType statusXml;
 
-    /**
-     * Busca as pendências com status de recibo recebido..
-     *
-     * @return {@Link ResponseEntity<LayoutSituation.PagedResults>}
-     */
-    private ResponseEntity<LayoutSituation.PagedResults> getDataReturnGovernment(Credential credential) {
-        String filter = "statusType eq RECEIPT_RETURNED";
-        return rest.get(credential).exchange(applicationProperties.getG7Location() + "/hcm/esocial/entities/layoutSituation?filter=" + filter,
-                HttpMethod.GET,
-                null,
-                LayoutSituation.PagedResults.class);
+            /**
+             * Neste ponto o código comunica para a SENIOR que recebeu o Status do XML.
+             * Desta forma o sistema da Senior saberá que o dado está no provedor SST.
+             */
+            XmlUpdateStatusInput input = new XmlUpdateStatusInput(xmlStatus.idXml);
+            rest.get(credential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
+            LOGGER.info("O Status do xml ID: " + xmlStatus.idXml + " foi alterado.");
+        } catch (Exception e) {
+            // ERRO
+        }
     }
 
     /**
@@ -93,12 +76,12 @@ public class EsocialIntegrationController {
      *
      * @return {@Link ResponseEntity<XmlSituation.PagedResults>}
      */
-    private ResponseEntity<XmlStatus.PagedResults> getDataStatusXml(Credential credential) {
-        String filter = "statusType eq ERROR_XML or statusType eq SUCESS";
-        return rest.get(credential).exchange(applicationProperties.getG7Location() + "/hcm/esocial/entities/statusIntegration?filter=" + filter,
+    private ResponseEntity<LayoutSituation.PagedResults> getDataStatusXml(Credential credential) {
+        String filter = "providerStatusType eq SENT_TO_PROVIDER";
+        return rest.get(credential).exchange(applicationProperties.getG7Location() + "/hcm/esocial/entities/providerXml?filter=" + filter,
                 HttpMethod.GET,
                 null,
-                XmlStatus.PagedResults.class);
+                LayoutSituation.PagedResults.class);
     }
 
     /**
@@ -117,7 +100,7 @@ public class EsocialIntegrationController {
      * @param response Retorno.
      * @return @{@link boolean}
      */
-    private boolean containsPendenciesStatusXml(XmlStatus.PagedResults response) {
+    private boolean containsPendenciesStatusXml(LayoutSituation.PagedResults response) {
         return response.totalElements > 0;
     }
 

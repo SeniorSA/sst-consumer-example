@@ -4,19 +4,23 @@
 package br.com.senior.employee.consumer.client.esocial;
 
 /**
- * Status do envio do XML.
+ * Status do xml.
  */
 public enum XmlStatusType {
     /**
-     * Erro.
+     * XML Recebido.
      */
-    ERROR,
+    IN_ANALISYS,
     /**
-     * Sucesso no recebimento.
+     * Erro de validação.
      */
-    SUCESS,
+    VALIDATION_ERROR,
     /**
-     * Enviado para validação.
+     * Validação com sucesso.
      */
-    SEND_TO_VALIDATE
+    VALIDATION_SUCCESS,
+    /**
+     * Retorno do governo.
+     */
+    GOVERNMENT_RETURN
 }

@@ -14,10 +14,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
 @Log4j
 @SpringBootApplication
 @EnableAutoConfiguration
@@ -31,8 +27,7 @@ public class ConsumerApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(ConsumerApplication.class, args);
         applicationContext.getBean(EmployeeIntegrationController.class).consumeEmployeeIntegrations();
-        //applicationContext.getBean(EsocialIntegrationController.class).consumePendenciesStatusIntegration();
-        applicationContext.getBean(EsocialIntegrationController.class).consumePendenciesReturnGovernment();
+        applicationContext.getBean(EsocialIntegrationController.class).consumePendenciesStatusIntegration();
 
         LOGGER.info("Servidor inicializado com sucesso.");
     }
