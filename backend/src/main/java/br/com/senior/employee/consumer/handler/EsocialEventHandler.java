@@ -21,18 +21,8 @@ public class EsocialEventHandler {
      * @param payload Status do envio do XML.
      */
     @PostMapping(path = "/statusIntegration")
-    public void esocialStatusIntegration(@RequestBody XmlStatus payload) {
-        esocialIntegrationController.statusXml(payload);
-    }
-
-    /**
-     * Sempre que o governo retornar um numero de recibo ou critica de um evento do Esocial será feito um POST que será consumido por este metodo.
-     *
-     * @param payload Numero do recibo / criticas retornados pelo governo.
-     */
-    @PostMapping(path = "/returnGovernment")
-    public void esocialReturnGovernment(@RequestBody LayoutSituation payload) {
-        esocialIntegrationController.returnGovernment(payload);
+    public void esocialStatusIntegration(@RequestBody StatusIntegrationEventPayload payload) {
+        esocialIntegrationController.statusXml(payload.result);
     }
 
     @PostMapping(path = "/sendXml")
