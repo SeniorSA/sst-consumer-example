@@ -2,8 +2,6 @@ package br.com.senior.employee.consumer.controller.integration.esocial;
 
 import br.com.senior.employee.consumer.client.authentication.Credential;
 import br.com.senior.employee.consumer.client.esocial.*;
-import br.com.senior.employee.consumer.client.esocial4integration.IntegrationUpdateStatusInput;
-import br.com.senior.employee.consumer.client.esocial4integration.ProviderStatusType;
 import br.com.senior.employee.consumer.configuration.ApplicationProperties;
 import br.com.senior.employee.consumer.controller.integration.companycredentials.CompanyCredentialsStrategy;
 import br.com.senior.employee.consumer.rest.Rest;
@@ -36,13 +34,13 @@ public class EsocialIntegrationController {
             do {
                 list = getDataStatusXml(c).getBody();
                 list.contents.forEach(l -> {
-                    XmlEventData data = new XmlEventData();
-                    data.idEsocialEvent = l.eventId;
-                    data.idXml = l.layoutId;
+                    ProviderXml data = new ProviderXml();
+                    data.idEvento = l.eventId;
+                    data.id = l.layoutId;
                     data.layoutType = l.layoutType;
                     data.message = l.layoutMessage;
-                    data.statusXml = l.xmlStatusType;
-                    statusXml(data, c);
+                    data.xmlStatus = l.xmlStatusType;
+                    statusXml(data);
                 });
             } while (containsPendenciesStatusXml(list));
         });
@@ -53,21 +51,24 @@ public class EsocialIntegrationController {
      *
      * @param xmlStatus Entidade referente ao status do envio do XML.
      */
-    public void statusXml(XmlEventData xmlStatus, Credential credential) {
+    public void statusXml(ProviderXml xmlStatus) {
         try {
-            esocialStrategy.eSocialStatusXml(xmlStatus);
-
-            XmlStatusType statusXml;
-
-            /**
-             * Neste ponto o código comunica para a SENIOR que recebeu o Status do XML.
-             * Desta forma o sistema da Senior saberá que o dado está no provedor SST.
-             */
-            XmlUpdateStatusInput input = new XmlUpdateStatusInput(xmlStatus.idXml);
-            rest.get(credential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
-            LOGGER.info("O Status do xml ID: " + xmlStatus.idXml + " foi alterado.");
+            companyCredentialsStrategy.getCredentials().forEach(c -> {
+                esocialStrategy.eSocialStatusXml(xmlStatus);
+                /**
+                 * Neste ponto o código comunica para a SENIOR que recebeu o Status do XML.
+                 * Desta forma o sistema da Senior saberá que o dado está no provedor SST.
+                 */
+                XmlUpdateStatusInput input = new XmlUpdateStatusInput(xmlStatus.id, ProviderStatusType.ON_PROVIDER);
+                rest.get(c).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
+                LOGGER.info("O Status do xml ID: " + xmlStatus.id + " foi alterado.");
+            });
         } catch (Exception e) {
-            // ERRO
+            companyCredentialsStrategy.getCredentials().forEach(c -> {
+                XmlUpdateStatusInput input = new XmlUpdateStatusInput(xmlStatus.id, ProviderStatusType.PROVIDER_ERROR);
+                rest.get(c).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
+                LOGGER.info("O Status do xml ID: " + xmlStatus.id + " foi alterado.");
+            });
         }
     }
 

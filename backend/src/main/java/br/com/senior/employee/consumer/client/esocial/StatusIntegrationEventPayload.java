@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class StatusIntegrationEventPayload {
     
-    public XmlEventData result;
+    public ProviderXml result;
     
     public StatusIntegrationEventPayload() {
     }
@@ -12,7 +12,7 @@ public class StatusIntegrationEventPayload {
     /** 
      * This constructor allows initialization of all fields, required and optional.
      */
-    public StatusIntegrationEventPayload(XmlEventData result) {
+    public StatusIntegrationEventPayload(ProviderXml result) {
         this.result = result;
     }
 
