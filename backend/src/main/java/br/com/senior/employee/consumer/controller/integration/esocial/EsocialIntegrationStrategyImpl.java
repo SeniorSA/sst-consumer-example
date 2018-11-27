@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 public class EsocialIntegrationStrategyImpl extends EsocialIntegrationStrategy {
 
     @Override
-    public void eSocialStatusXml(XmlEventData status) {
+    public void eSocialStatusXml(ProviderXml status) {
         // Programe aqui a rotina responsável por atualizar o status do XML enviado ou atualizar o recibo/críticas do governo.
 
-        switch (status.xmlStatusType) {
+        switch (status.xmlStatus) {
             case GOVERNMENT_RETURN: // Retorno do governo
                 if (status.statusType == StatusType.RECEIPT_RETURNED) {
                     // Tratar o retorno do recibo

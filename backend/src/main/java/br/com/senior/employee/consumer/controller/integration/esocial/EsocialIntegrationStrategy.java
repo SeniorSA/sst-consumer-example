@@ -1,7 +1,7 @@
 package br.com.senior.employee.consumer.controller.integration.esocial;
 
 
-import br.com.senior.employee.consumer.client.esocial.XmlEventData;
+import br.com.senior.employee.consumer.client.esocial.ProviderXml;
 
 public abstract class EsocialIntegrationStrategy {
 
@@ -10,5 +10,5 @@ public abstract class EsocialIntegrationStrategy {
      *
      * @param statusXml Status do XML.
      */
-    abstract void eSocialStatusXml(XmlEventData statusXml);
+    abstract void eSocialStatusXml(ProviderXml statusXml);
 }
