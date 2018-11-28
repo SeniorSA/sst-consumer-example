@@ -2,6 +2,7 @@ package br.com.senior.employee.consumer.handler;
 
 import br.com.senior.employee.consumer.client.esocial.*;
 import br.com.senior.employee.consumer.controller.integration.esocial.EsocialIntegrationController;
+import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,10 +24,11 @@ public class EsocialEventHandler {
     @PostMapping(path = "/statusIntegration")
     public void esocialStatusIntegration(@RequestBody StatusIntegrationEventPayload payload) {
         esocialIntegrationController.statusXml(payload.result);
+
     }
 
     @PostMapping(path = "/sendXml")
-    public void esocialSendXml(@RequestBody EsocialEventXmlPayload payload) {
-        esocialIntegrationController.sendXml(payload.credential, payload.esocialEventXmlInput);
+    public XmlOutput esocialSendXml(@RequestBody EsocialEventXmlPayload payload) {
+       return esocialIntegrationController.sendXml(payload.credential, payload.esocialEventXmlInput);
     }
 }

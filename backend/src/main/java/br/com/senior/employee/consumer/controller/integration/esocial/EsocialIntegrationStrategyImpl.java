@@ -9,25 +9,19 @@ import org.springframework.stereotype.Component;
 public class EsocialIntegrationStrategyImpl extends EsocialIntegrationStrategy {
 
     @Override
-    public void eSocialStatusXml(ProviderXml status) {
-        // Programe aqui a rotina responsável por atualizar o status do XML enviado ou atualizar o recibo/críticas do governo.
-
-        switch (status.xmlStatus) {
+    public void eSocialStatusXml(XmlOutput xmlOutput) {
+        switch (xmlOutput.xmlStatus) {
             case GOVERNMENT_RETURN: // Retorno do governo
-                if (status.statusType == StatusType.RECEIPT_RETURNED) {
+                if (xmlOutput.esocialReturnType == StatusType.RECEIPT_RETURNED) {
                     // Tratar o retorno do recibo
-                } else if (status.statusType == StatusType.ERROR_RETURNED) {
+                } else if (xmlOutput.esocialReturnType == StatusType.ERROR_RETURNED) {
                     // Tratar as críticas/erros retornados pelo governo
                 }
                 break;
             case VALIDATION_ERROR: // Erro na validação do XML
-
                 break;
             case VALIDATION_SUCCESS: // XML validado com sucesso
-
                 break;
-            case IN_ANALISYS: // XML em análise
-
         }
     }
 }
