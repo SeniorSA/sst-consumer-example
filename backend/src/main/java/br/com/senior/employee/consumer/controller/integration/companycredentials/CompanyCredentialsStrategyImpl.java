@@ -12,7 +12,7 @@ public class CompanyCredentialsStrategyImpl implements CompanyCredentialsStrateg
     @Override
     public List<Credential> getCredentials() {
         List<Credential> list = new ArrayList<>();
-        list.add(new Credential("admin@hcmsst.com.br", "Senha1!"));
+        list.add(new Credential("User", "Password"));
         return list;
     }
 }
