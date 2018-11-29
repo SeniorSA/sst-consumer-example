@@ -42,7 +42,7 @@ public class EsocialIntegrationController {
                     data.layoutType = l.layoutType;
                     data.message = l.layoutMessage;
                     data.xmlStatus = l.xmlStatusType;
-                    statusXml(data);
+                    statusXml(c.username, data);
                 });
             } while (containsPendenciesStatusXml(list));
         });
@@ -50,28 +50,25 @@ public class EsocialIntegrationController {
 
     /**
      * Método responsável receber o status do XML.
-     *
+     * @param user
      * @param providerXml Entidade referente ao status do envio do XML.
      */
-    public void statusXml(ProviderXml providerXml) {
+    public void statusXml(String user, ProviderXml providerXml) {
         XmlOutput xmlOutput = setXmlOutputForStatusIntegration(providerXml);
+        Credential credential = Credential.fromUser(user);
         try {
-            companyCredentialsStrategy.getCredentials().forEach(c -> {
-                esocialStrategy.eSocialStatusXml(xmlOutput);
-                /**
-                 * Neste ponto o código comunica para a SENIOR que recebeu o Status do XML.
-                 * Desta forma o sistema da Senior saberá que o dado está no provedor SST.
-                 */
-                XmlUpdateStatusInput input = new XmlUpdateStatusInput(xmlOutput.xmlId, ProviderStatusType.ON_PROVIDER);
-                rest.get(c).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
-                LOGGER.info("O Status do xml ID: " + xmlOutput.xmlId + " foi alterado.");
-            });
+            esocialStrategy.eSocialStatusXml(xmlOutput);
+            /**
+            * Neste ponto o código comunica para a SENIOR que recebeu o Status do XML.
+            * Desta forma o sistema da Senior saberá que o dado está no provedor SST.
+            */
+            XmlUpdateStatusInput input = new XmlUpdateStatusInput(xmlOutput.xmlId, ProviderStatusType.ON_PROVIDER);
+            rest.get(credential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
+            LOGGER.info("O Status do xml ID: " + xmlOutput.xmlId + " foi alterado.");
         } catch (Exception e) {
-            companyCredentialsStrategy.getCredentials().forEach(c -> {
-                XmlUpdateStatusInput input = new XmlUpdateStatusInput(xmlOutput.xmlId, ProviderStatusType.PROVIDER_ERROR);
-                rest.get(c).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
-                LOGGER.info("O Status do xml ID: " + xmlOutput.xmlId + " foi alterado.");
-            });
+            LOGGER.error("Erro na integração do xml ID: " + xmlOutput.xmlId, e);
+            XmlUpdateStatusInput input = new XmlUpdateStatusInput(xmlOutput.xmlId, ProviderStatusType.PROVIDER_ERROR);
+            rest.get(credential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
         }
     }
 
