@@ -132,6 +132,10 @@ public class EsocialIntegrationController {
             xmlOutput.xmlProviderId = providerXml.result.providerXmlId;
         if(providerXml.result.providerCompanyId !=null)
             xmlOutput.companyProviderId = providerXml.result.providerCompanyId;
+        if(providerXml.result.subscriptionType !=null)
+            xmlOutput.subscriptionType = providerXml.result.subscriptionType;
+        if(providerXml.result.subscriptionNumber !=null)
+            xmlOutput.subscriptionNumber = providerXml.result.subscriptionNumber;
         return xmlOutput;
     }
 
