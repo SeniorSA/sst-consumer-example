@@ -128,6 +128,10 @@ public class EsocialIntegrationController {
         xmlOutput.xmlId = providerXml.result.id;
         xmlOutput.xmlStatus = providerXml.result.xmlStatus;
         xmlOutput.message = providerXml.result.message;
+        if(providerXml.result.providerXmlId !=null)
+            xmlOutput.xmlProviderId = providerXml.result.providerXmlId;
+        if(providerXml.result.providerCompanyId !=null)
+            xmlOutput.companyProviderId = providerXml.result.providerCompanyId;
         return xmlOutput;
     }
 
