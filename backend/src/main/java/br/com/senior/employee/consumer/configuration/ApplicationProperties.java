@@ -9,7 +9,7 @@ import javax.inject.Singleton;
 @Component
 public class ApplicationProperties {
 
-    @Value("${platform.url_homologacao}")
+    @Value("${platform.url}")
     private String url;
 
     public String getG7Location() {
