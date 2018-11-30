@@ -32,16 +32,16 @@ public class EsocialIntegrationController {
     public void consumePendenciesStatusIntegration() {
         LOGGER.info("Consumindo status pendentes.");
         companyCredentialsStrategy.getCredentials().forEach(c -> {
-            LayoutSituation.PagedResults list;
+            ProviderXml.PagedResults list;
             do {
                 list = getDataStatusXml(c).getBody();
                 list.contents.forEach(l -> {
                     ProviderXml data = new ProviderXml();
-                    data.idEvento = l.eventId;
-                    data.id = l.layoutId;
+                    data.idEvento = l.idEvento;
+                    data.id = l.id;
                     data.layoutType = l.layoutType;
-                    data.message = l.layoutMessage;
-                    data.xmlStatus = l.xmlStatusType;
+                    data.message = l.message;
+                    data.xmlStatus = l.xmlStatus;
                     statusXml(c.username, data);
                 });
             } while (containsPendenciesStatusXml(list));
@@ -77,12 +77,12 @@ public class EsocialIntegrationController {
      *
      * @return {@Link ResponseEntity<XmlSituation.PagedResults>}
      */
-    private ResponseEntity<LayoutSituation.PagedResults> getDataStatusXml(Credential credential) {
+    private ResponseEntity<ProviderXml.PagedResults> getDataStatusXml(Credential credential) {
         String filter = "providerStatusType eq SENT_TO_PROVIDER";
         return rest.get(credential).exchange(applicationProperties.getG7Location() + "/hcm/esocial/entities/providerXml?filter=" + filter,
                 HttpMethod.GET,
                 null,
-                LayoutSituation.PagedResults.class);
+                ProviderXml.PagedResults.class);
     }
 
     /**
@@ -101,7 +101,7 @@ public class EsocialIntegrationController {
      * @param response Retorno.
      * @return @{@link boolean}
      */
-    private boolean containsPendenciesStatusXml(LayoutSituation.PagedResults response) {
+    private boolean containsPendenciesStatusXml(ProviderXml.PagedResults response) {
         return response.totalElements > 0;
     }
 
@@ -145,8 +145,8 @@ public class EsocialIntegrationController {
             xmlOutput.esocialEventId = providerXml.idEvento;
         if(providerXml.layoutType !=null)
             xmlOutput.esocialLayoutType = providerXml.layoutType;
-        if(providerXml.statusType !=null)
-            xmlOutput.esocialReturnType = providerXml.statusType;
+        if(providerXml.layoutSituation.statusType !=null)
+            xmlOutput.esocialReturnType = providerXml.layoutSituation.statusType;
         if(providerXml.providerXmlId !=null)
             xmlOutput.xmlProviderId = providerXml.providerXmlId;
         if(providerXml.providerCompanyId !=null)
