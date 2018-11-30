@@ -1,0 +1,2 @@
+LOCK TABLE integration IN ACCESS EXCLUSIVE MODE;
+ALTER TABLE integration ADD COLUMN preview_send_date TIMESTAMP;
