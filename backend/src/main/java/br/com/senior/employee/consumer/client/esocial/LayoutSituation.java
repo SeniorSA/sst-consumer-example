@@ -1,27 +1,28 @@
 package br.com.senior.employee.consumer.client.esocial;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Situação de layout do eSocial.
  */
 public class LayoutSituation {
-
+    
     public static class Id {
-
+    	
         public String id;
-
+        
         public Id() {
         }
-
+        
         public Id(String layoutSituationId) {
             this.id = layoutSituationId;
         }
-
+        
         public String getLayoutSituationId() {
             return id;
         }
-
+        
         public String getId() {
             return id;
         }
@@ -101,10 +102,6 @@ public class LayoutSituation {
      */
     public LayoutType layoutType;
     /**
-     * Status do XML.
-     */
-    public XmlStatusType xmlStatusType;
-    /**
      * Origem do layout.
      */
     public LayoutSourceType layoutSourceType;
@@ -148,19 +145,20 @@ public class LayoutSituation {
      * Tipo de ambiente.
      */
     public EnvironmentIdType environmentIdType;
-
+    
     public LayoutSituation() {
     }
     
     /** 
      * This constructor allows initialization of all fields, required and optional.
      */
-    public LayoutSituation(String id, String layoutId, String eventId, java.time.Instant eventDate, LayoutType layoutType, OperationType operationType, StatusType statusType, String layoutMessage, String receiptNumber, String registrationNumber, String employerDocumentNumber, String employeeDocumentNumber, SubscriptionType subscriptionType, EnvironmentIdType environmentIdType) {
+    public LayoutSituation(String id, String layoutId, String eventId, java.time.Instant eventDate, LayoutType layoutType, LayoutSourceType layoutSourceType, OperationType operationType, StatusType statusType, String layoutMessage, String receiptNumber, String registrationNumber, String employerDocumentNumber, String employeeDocumentNumber, SubscriptionType subscriptionType, EnvironmentIdType environmentIdType) {
         this.id = id;
         this.layoutId = layoutId;
         this.eventId = eventId;
         this.eventDate = eventDate;
         this.layoutType = layoutType;
+        this.layoutSourceType = layoutSourceType;
         this.operationType = operationType;
         this.statusType = statusType;
         this.layoutMessage = layoutMessage;
@@ -174,11 +172,12 @@ public class LayoutSituation {
     /** 
      * This convenience constructor allows initialization of all required fields.
      */
-    public LayoutSituation(String layoutId, String eventId, java.time.Instant eventDate, LayoutType layoutType, StatusType statusType, String employerDocumentNumber, SubscriptionType subscriptionType, EnvironmentIdType environmentIdType) {
+    public LayoutSituation(String layoutId, String eventId, java.time.Instant eventDate, LayoutType layoutType, LayoutSourceType layoutSourceType, StatusType statusType, String employerDocumentNumber, SubscriptionType subscriptionType, EnvironmentIdType environmentIdType) {
         this.layoutId = layoutId;
         this.eventId = eventId;
         this.eventDate = eventDate;
         this.layoutType = layoutType;
+        this.layoutSourceType = layoutSourceType;
         this.statusType = statusType;
         this.employerDocumentNumber = employerDocumentNumber;
         this.subscriptionType = subscriptionType;
@@ -211,28 +210,28 @@ public class LayoutSituation {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName()).append(" [");
-        sb.append("id=").append(id == null ? "null" : id).append(", ");
-        sb.append("layoutId=").append(layoutId == null ? "null" : layoutId).append(", ");
-        sb.append("eventId=").append(eventId == null ? "null" : eventId).append(", ");
-        sb.append("eventDate=").append(eventDate == null ? "null" : eventDate).append(", ");
-        sb.append("layoutType=").append(layoutType == null ? "null" : layoutType).append(", ");
-        sb.append("xmlStatusType=").append(xmlStatusType == null ? "null" : xmlStatusType).append(", ");
-        sb.append("layoutSourceType=").append(layoutSourceType == null ? "null" : layoutSourceType).append(", ");
-        sb.append("operationType=").append(operationType == null ? "null" : operationType).append(", ");
-        sb.append("statusType=").append(statusType == null ? "null" : statusType).append(", ");
-        sb.append("layoutMessage=").append(layoutMessage == null ? "null" : layoutMessage).append(", ");
-        sb.append("receiptNumber=").append(receiptNumber == null ? "null" : receiptNumber).append(", ");
-        sb.append("registrationNumber=").append(registrationNumber == null ? "null" : registrationNumber).append(", ");
-        sb.append("employerDocumentNumber=").append(employerDocumentNumber == null ? "null" : employerDocumentNumber).append(", ");
-        sb.append("employeeDocumentNumber=").append(employeeDocumentNumber == null ? "null" : employeeDocumentNumber).append(", ");
-        sb.append("subscriptionType=").append(subscriptionType == null ? "null" : subscriptionType).append(", ");
-        sb.append("environmentIdType=").append(environmentIdType == null ? "null" : environmentIdType);
-        sb.append(']');
-        return sb.toString();
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getClass().getSimpleName()).append(" [");
+    	sb.append("id=").append(id == null ? "null" : id).append(", ");
+    	sb.append("layoutId=").append(layoutId == null ? "null" : layoutId).append(", ");
+    	sb.append("eventId=").append(eventId == null ? "null" : eventId).append(", ");
+    	sb.append("eventDate=").append(eventDate == null ? "null" : eventDate).append(", ");
+    	sb.append("layoutType=").append(layoutType == null ? "null" : layoutType).append(", ");
+    	sb.append("layoutSourceType=").append(layoutSourceType == null ? "null" : layoutSourceType).append(", ");
+    	sb.append("operationType=").append(operationType == null ? "null" : operationType).append(", ");
+    	sb.append("statusType=").append(statusType == null ? "null" : statusType).append(", ");
+    	sb.append("layoutMessage=").append(layoutMessage == null ? "null" : layoutMessage).append(", ");
+    	sb.append("receiptNumber=").append(receiptNumber == null ? "null" : receiptNumber).append(", ");
+    	sb.append("registrationNumber=").append(registrationNumber == null ? "null" : registrationNumber).append(", ");
+    	sb.append("employerDocumentNumber=").append(employerDocumentNumber == null ? "null" : employerDocumentNumber).append(", ");
+    	sb.append("employeeDocumentNumber=").append(employeeDocumentNumber == null ? "null" : employeeDocumentNumber).append(", ");
+    	sb.append("subscriptionType=").append(subscriptionType == null ? "null" : subscriptionType).append(", ");
+    	sb.append("environmentIdType=").append(environmentIdType == null ? "null" : environmentIdType);
+    	sb.append(']');
+    	return sb.toString();
     }
+    
 }

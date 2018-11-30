@@ -1,10 +1,9 @@
 package br.com.senior.employee.consumer.client.esocial;
 
-
 public class EsocialEventXmlInput {
     
     /**
-     * Id do xml dno prestador
+     * Id do xml no prestador
      */
     public String providerXmlId;
     /**

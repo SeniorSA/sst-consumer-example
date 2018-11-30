@@ -5,7 +5,7 @@ import java.util.Map;
 public class XmlUpdateStatusInput {
     
     /**
-     * Id do xml.
+     * Id do ProviderXml.
      */
     public String xmlId;
     /**
@@ -23,7 +23,7 @@ public class XmlUpdateStatusInput {
         this.xmlId = xmlId;
         this.providerStatusType = providerStatusType;
     }
-
+    
     @Override
     public int hashCode() {
         int ret = 1;
