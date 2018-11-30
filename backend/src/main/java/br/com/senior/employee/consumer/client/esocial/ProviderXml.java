@@ -122,10 +122,6 @@ public class ProviderXml {
      */
     public java.time.Instant receiptDate;
     /**
-     * Status type.
-     */
-    public StatusType statusType;
-    /**
      * Id da empresa no prestador SST.
      */
     public String providerCompanyId;
@@ -148,7 +144,7 @@ public class ProviderXml {
     /** 
      * This constructor allows initialization of all fields, required and optional.
      */
-    public ProviderXml(String id, String xml, XmlStatusType xmlStatus, ProviderStatusType providerStatusType, LayoutSituation layoutSituation, String stackTrace, String message, String idEvento, LayoutType layoutType, java.time.Instant receiptDate, StatusType statusType, String providerCompanyId, SubscriptionType subscriptionType, String subscriptionNumber, String providerXmlId) {
+    public ProviderXml(String id, String xml, XmlStatusType xmlStatus, ProviderStatusType providerStatusType, LayoutSituation layoutSituation, String stackTrace, String message, String idEvento, LayoutType layoutType, java.time.Instant receiptDate, String providerCompanyId, SubscriptionType subscriptionType, String subscriptionNumber, String providerXmlId) {
         this.id = id;
         this.xml = xml;
         this.xmlStatus = xmlStatus;
@@ -159,7 +155,6 @@ public class ProviderXml {
         this.idEvento = idEvento;
         this.layoutType = layoutType;
         this.receiptDate = receiptDate;
-        this.statusType = statusType;
         this.providerCompanyId = providerCompanyId;
         this.subscriptionType = subscriptionType;
         this.subscriptionNumber = subscriptionNumber;
@@ -216,7 +211,6 @@ public class ProviderXml {
     	sb.append("idEvento=").append(idEvento == null ? "null" : idEvento).append(", ");
     	sb.append("layoutType=").append(layoutType == null ? "null" : layoutType).append(", ");
     	sb.append("receiptDate=").append(receiptDate == null ? "null" : receiptDate).append(", ");
-    	sb.append("statusType=").append(statusType == null ? "null" : statusType).append(", ");
     	sb.append("providerCompanyId=").append(providerCompanyId == null ? "null" : providerCompanyId).append(", ");
     	sb.append("subscriptionType=").append(subscriptionType == null ? "null" : subscriptionType).append(", ");
     	sb.append("subscriptionNumber=").append(subscriptionNumber == null ? "null" : subscriptionNumber).append(", ");
