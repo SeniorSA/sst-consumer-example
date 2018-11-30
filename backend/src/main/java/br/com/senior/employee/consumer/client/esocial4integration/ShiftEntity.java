@@ -7,10 +7,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-@Entity
 @Table(name="shift")
 public class ShiftEntity {
 	
+	public static final String SECURITY_RESOURCE = "res://senior.com.br/hcm/esocial4integration/entities/shift";
+
 	/**
 	 * Id interno da entidade.
 	 */
@@ -91,7 +92,7 @@ public class ShiftEntity {
 	    if ((id == null) != (other.id == null)) {
 	        return false;
 	    }
-	    if ((id != null) && !id.equals(other.id)) { //NOSONAR
+	    if ((id != null) && !id.equals(other.id)) {
 	        return false;
 	    }
 	    return true;

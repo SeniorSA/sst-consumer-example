@@ -1,3 +1,6 @@
+/**
+ * This is a generated file. DO NOT EDIT ANY CODE HERE, YOUR CHANGES WILL BE LOST.
+ */
 package br.com.senior.employee.consumer.client.esocial4integration;
 
 /**
@@ -13,6 +16,10 @@ public enum IntegrationType {
      */
     EMPLOYEE_CHANGE,
     /**
+     * Demissão do colaborador.
+     */
+    DISMISSAL,
+    /**
      * Histórico de centro de custo.
      */
     HISTORICAL_COST_CENTER,
@@ -20,6 +27,10 @@ public enum IntegrationType {
      * Histórico de departamento.
      */
     HISTORICAL_DEPARTMENT,
+    /**
+     * Histórico de categoria eSocial.
+     */
+    HISTORICAL_ESOCIAL_CATEGORY,
     /**
      * Histórico de cargo.
      */
@@ -35,9 +46,5 @@ public enum IntegrationType {
     /**
      * Histórico de escala.
      */
-    HISTORICAL_WORKSHIFT,
-    /**
-     * Demissão do colaborador.
-     */
-    DISMISSAL
+    HISTORICAL_WORKSHIFT
 }

@@ -1,6 +1,5 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
-
 import java.util.List;
 
 /**
@@ -10,7 +9,7 @@ public class Integration {
     
     public static class Id {
     	
-        public String id; //NOSONAR
+        public String id;
         
         public Id() {
         }
@@ -26,13 +25,14 @@ public class Integration {
         public String getId() {
             return id;
         }
+
     }
     
     public static class PagedResults {
-    	public Long totalPages; //NOSONAR
-    	public Long totalElements; //NOSONAR
+    	public Long totalPages;
+    	public Long totalElements;
     	
-        public List<Integration> contents; //NOSONAR
+        public List<Integration> contents;
         
         public PagedResults() {
         }
@@ -49,12 +49,12 @@ public class Integration {
     }
     
     public static class PageRequest {
-        public Long offset; //NOSONAR
-        public Long size; //NOSONAR
-        public boolean translations; //NOSONAR
-        public String orderBy; //NOSONAR
-        public String filter; //NOSONAR
-        public List<String> displayFields; //NOSONAR
+        public Long offset;
+        public Long size;
+        public boolean translations;
+        public String orderBy;
+        public String filter;
+        public List<String> displayFields;
         
         public PageRequest() {
         }
@@ -83,91 +83,99 @@ public class Integration {
     /**
      * Id da entidade.
      */
-    public String id; //NOSONAR
+    public String id;
     /**
      * Id do colaborador no Payroll.
      */
-    public String externalId; //NOSONAR
+    public String externalId;
     /**
      * Id de histórico do colaborador no Payroll.
      */
-    public String externalHistoricId; //NOSONAR
+    public String externalHistoricId;
     /**
      * Tipo de operação
      */
-    public OperationType operationType; //NOSONAR
+    public OperationType operationType;
     /**
      * Colaborador da integração.
      */
-    public Employee employee; //NOSONAR
+    public Employee employee;
     /**
      * Tipo do status de integração.
      */
-    public StatusType statusType; //NOSONAR
+    public StatusType statusType;
     /**
      * Tipo da integração.
      */
-    public IntegrationType integrationType; //NOSONAR
+    public IntegrationType integrationType;
     /**
      * Data e hora do recebimento do colaborador.
      */
-    public java.time.Instant receiptDate; //NOSONAR
+    public java.time.Instant receiptDate;
     /**
      * Data e hora do envio para o provedor SST.
      */
-    public java.time.Instant sendDate; //NOSONAR
+    public java.time.Instant sendDate;
     /**
      * Data de agendamento para envio da pendencia.
      */
-    public java.time.LocalDate scheduledDate; //NOSONAR
+    public java.time.LocalDate scheduledDate;
     /**
      * Mensagem da integração.
      */
-    public String integrationMessage; //NOSONAR
+    public String integrationMessage;
     /**
      * StackTrace do erro.
      */
-    public String stackTrace; //NOSONAR
+    public String stackTrace;
     /**
      * Código da empresa
      */
-    public Long companyCode; //NOSONAR
+    public Long companyCode;
     /**
      * Nome da empresa.
      */
-    public String companyName; //NOSONAR
+    public String companyName;
     /**
      * Código da filial,=.
      */
-    public Long companyBranchCode; //NOSONAR
+    public Long companyBranchCode;
     /**
      * Nome da filial.
      */
-    public String companyBranchName; //NOSONAR
+    public String companyBranchName;
     /**
      * Código do colaborador.
      */
-    public Long employeeCode; //NOSONAR
+    public Long employeeCode;
     /**
      * Matrícula do e-Social.
      */
-    public String eSocialRegistration; //NOSONAR
+    public String eSocialRegistration;
     /**
      * Número do CPF.
      */
-    public String cpfNumber; //NOSONAR
+    public String cpfNumber;
     /**
      * Nome do colaborador.
      */
-    public String employeeName; //NOSONAR
+    public String employeeName;
     /**
      * Identificação da empresa no prestador SST.
      */
-    public String providerCompanyIdentification; //NOSONAR
+    public String providerCompanyIdentification;
     /**
      * Identificação da empresa no prestador SST.
      */
-    public Long integrationSequence; //NOSONAR
+    public Long integrationSequence;
+    /**
+     * Motivo cancelamento.
+     */
+    public String cancelationReason;
+    /**
+     * Data prevista para envio
+     */
+    public java.time.Instant previewSendDate;
     
     public Integration() {
     }
@@ -175,7 +183,7 @@ public class Integration {
     /** 
      * This constructor allows initialization of all fields, required and optional.
      */
-    public Integration(String id, String externalId, String externalHistoricId, OperationType operationType, Employee employee, StatusType statusType, IntegrationType integrationType, java.time.Instant receiptDate, java.time.Instant sendDate, java.time.LocalDate scheduledDate, String integrationMessage, String stackTrace, Long companyCode, String companyName, Long companyBranchCode, String companyBranchName, Long employeeCode, String eSocialRegistration, String cpfNumber, String employeeName, String providerCompanyIdentification, Long integrationSequence) { //NOSONAR
+    public Integration(String id, String externalId, String externalHistoricId, OperationType operationType, Employee employee, StatusType statusType, IntegrationType integrationType, java.time.Instant receiptDate, java.time.Instant sendDate, java.time.LocalDate scheduledDate, String integrationMessage, String stackTrace, Long companyCode, String companyName, Long companyBranchCode, String companyBranchName, Long employeeCode, String eSocialRegistration, String cpfNumber, String employeeName, String providerCompanyIdentification, Long integrationSequence, String cancelationReason, java.time.Instant previewSendDate) {
         this.id = id;
         this.externalId = externalId;
         this.externalHistoricId = externalHistoricId;
@@ -198,6 +206,8 @@ public class Integration {
         this.employeeName = employeeName;
         this.providerCompanyIdentification = providerCompanyIdentification;
         this.integrationSequence = integrationSequence;
+        this.cancelationReason = cancelationReason;
+        this.previewSendDate = previewSendDate;
     }
     /** 
      * This convenience constructor allows initialization of all required fields.
@@ -209,7 +219,7 @@ public class Integration {
         this.integrationType = integrationType;
         this.receiptDate = receiptDate;
     }
-
+    
     @Override
     public int hashCode() {
         int ret = 1;
@@ -231,14 +241,14 @@ public class Integration {
         if ((id == null) != (other.id == null)) {
             return false;
         }
-        if ((id != null) && !id.equals(other.id)) { //NOSONAR
+        if ((id != null) && !id.equals(other.id)) {
             return false;
         }
         return true;
     }
     
     @Override
-    public String toString() { //NOSONAR
+    public String toString() {
     	StringBuilder sb = new StringBuilder();
     	sb.append(getClass().getSimpleName()).append(" [");
     	sb.append("id=").append(id == null ? "null" : id).append(", ");
@@ -262,7 +272,9 @@ public class Integration {
     	sb.append("cpfNumber=").append(cpfNumber == null ? "null" : cpfNumber).append(", ");
     	sb.append("employeeName=").append(employeeName == null ? "null" : employeeName).append(", ");
     	sb.append("providerCompanyIdentification=").append(providerCompanyIdentification == null ? "null" : providerCompanyIdentification).append(", ");
-    	sb.append("integrationSequence=").append(integrationSequence == null ? "null" : integrationSequence);
+    	sb.append("integrationSequence=").append(integrationSequence == null ? "null" : integrationSequence).append(", ");
+    	sb.append("cancelationReason=").append(cancelationReason == null ? "null" : cancelationReason).append(", ");
+    	sb.append("previewSendDate=").append(previewSendDate == null ? "null" : previewSendDate);
     	sb.append(']');
     	return sb.toString();
     }

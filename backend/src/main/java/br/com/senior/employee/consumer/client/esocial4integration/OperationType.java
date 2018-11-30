@@ -4,7 +4,7 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
 /**
- * Tipo de operação
+ * Tipo de operação.
  */
 public enum OperationType {
     /**

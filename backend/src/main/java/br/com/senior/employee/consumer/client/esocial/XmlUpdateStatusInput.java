@@ -23,7 +23,7 @@ public class XmlUpdateStatusInput {
         this.xmlId = xmlId;
         this.providerStatusType = providerStatusType;
     }
-    
+
     @Override
     public int hashCode() {
         int ret = 1;

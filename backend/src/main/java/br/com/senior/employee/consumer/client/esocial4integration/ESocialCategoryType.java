@@ -6,7 +6,6 @@ package br.com.senior.employee.consumer.client.esocial4integration;
 /**
  * Tipo de categoria do e-Social.
  */
-@SuppressWarnings("squid:S00115")
 public enum ESocialCategoryType {
     /**
      * Empregado - Geral, inclusive o empregado público da administração direta ou indireta contratado pela CLT.
