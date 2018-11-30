@@ -22,6 +22,9 @@ public enum SituationType {
     /**
      * Afastado.
      */
-    AWAY;
-
+    AWAY,
+    /**
+     * Licença.
+     */
+    LICENSE
 }

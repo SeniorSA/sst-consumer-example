@@ -7,10 +7,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-@Table(name="company_branch")
-public class CompanyBranchEntity {
+@Table(name="e_social_category")
+public class ESocialCategoryEntity {
 	
-	public static final String SECURITY_RESOURCE = "res://senior.com.br/hcm/esocial4integration/entities/companyBranch";
+	public static final String SECURITY_RESOURCE = "res://senior.com.br/hcm/esocial4integration/entities/eSocialCategory";
 
 	/**
 	 * Id interno da entidade.
@@ -22,32 +22,14 @@ public class CompanyBranchEntity {
 	private java.util.UUID id;
 	
 	/**
-	 * Código da filial.
-	 */
-	@Column(name = "code")
-	private Long code;
-	
-	/**
-	 * Nome da filial.
-	 */
-	@Column(name = "name")
-	private String name;
-	
-	/**
-	 * Inscrição da filial.
+	 * Chave da categoria eSocial.
 	 */
 	@Enumerated(EnumType.STRING)
-	@Column(name = "subscription_type")
-	private SubscriptionType subscriptionType;
+	@Column(name = "code")
+	private ESocialCategoryType code;
 	
 	/**
-	 * Número da inscrição.
-	 */
-	@Column(name = "subscription_number", length = 14)
-	private String subscriptionNumber;
-	
-	/**
-	 * Data do histórico da filial (A partir de).
+	 * Data do histórico da categoria eSocial (A partir de).
 	 */
 	@Column(name = "date_when")
 	private java.time.LocalDate dateWhen;
@@ -56,20 +38,8 @@ public class CompanyBranchEntity {
 		return this.id;
 	}
 	
-	public Long getCode() {
+	public ESocialCategoryType getCode() {
 		return this.code;
-	}
-	
-	public String getName() {
-		return this.name;
-	}
-	
-	public SubscriptionType getSubscriptionType() {
-		return this.subscriptionType;
-	}
-	
-	public String getSubscriptionNumber() {
-		return this.subscriptionNumber;
 	}
 	
 	public java.time.LocalDate getDateWhen() {
@@ -80,20 +50,8 @@ public class CompanyBranchEntity {
 		this.id = id;
 	}
 	
-	public void setCode(Long code) {
+	public void setCode(ESocialCategoryType code) {
 		this.code = code;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public void setSubscriptionType(SubscriptionType subscriptionType) {
-		this.subscriptionType = subscriptionType;
-	}
-	
-	public void setSubscriptionNumber(String subscriptionNumber) {
-		this.subscriptionNumber = subscriptionNumber;
 	}
 	
 	public void setDateWhen(java.time.LocalDate dateWhen) {
@@ -114,10 +72,10 @@ public class CompanyBranchEntity {
 	    if (this == obj) {
 	        return true;
 	    }
-	    if (!(obj instanceof CompanyBranchEntity)) {
+	    if (!(obj instanceof ESocialCategoryEntity)) {
 	        return false;
 	    }
-	    CompanyBranchEntity other = (CompanyBranchEntity) obj;
+	    ESocialCategoryEntity other = (ESocialCategoryEntity) obj;
 	    if ((id == null) != (other.id == null)) {
 	        return false;
 	    }
@@ -133,9 +91,6 @@ public class CompanyBranchEntity {
 		sb.append(getClass().getSimpleName()).append(" [");
 		sb.append("id=").append(id == null ? "null" : id).append(", ");
 		sb.append("code=").append(code == null ? "null" : code).append(", ");
-		sb.append("name=").append(name == null ? "null" : name).append(", ");
-		sb.append("subscriptionType=").append(subscriptionType == null ? "null" : subscriptionType).append(", ");
-		sb.append("subscriptionNumber=").append(subscriptionNumber == null ? "null" : subscriptionNumber).append(", ");
 		sb.append("dateWhen=").append(dateWhen == null ? "null" : dateWhen);
 		sb.append(']');
 		return sb.toString();

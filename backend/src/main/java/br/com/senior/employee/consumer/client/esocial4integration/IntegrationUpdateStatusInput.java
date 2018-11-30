@@ -1,24 +1,26 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
-public class IntegrationUpdateStatusInput {
+import java.util.Map;
 
+public class IntegrationUpdateStatusInput {
+    
     /**
      * Id da integração.
      */
-    public String integrationId; //NOSONAR
+    public String integrationId;
     /**
      * Status da integração.
      */
-    public ProviderStatusType statusType; //NOSONAR
+    public ProviderStatusType statusType;
     /**
      * Mensagem de erro.
      */
-    public String errorMessage; //NOSONAR
-
+    public String errorMessage;
+    
     public IntegrationUpdateStatusInput() {
     }
-
-    /**
+    
+    /** 
      * This constructor allows initialization of all fields, required and optional.
      */
     public IntegrationUpdateStatusInput(String integrationId, ProviderStatusType statusType, String errorMessage) {
@@ -26,15 +28,14 @@ public class IntegrationUpdateStatusInput {
         this.statusType = statusType;
         this.errorMessage = errorMessage;
     }
-
-    /**
+    /** 
      * This convenience constructor allows initialization of all required fields.
      */
     public IntegrationUpdateStatusInput(String integrationId, ProviderStatusType statusType) {
         this.integrationId = integrationId;
         this.statusType = statusType;
     }
-
+    
     @Override
     public int hashCode() {
         int ret = 1;
@@ -49,7 +50,7 @@ public class IntegrationUpdateStatusInput {
         }
         return ret;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -74,21 +75,21 @@ public class IntegrationUpdateStatusInput {
         if ((errorMessage == null) != (other.errorMessage == null)) {
             return false;
         }
-        if ((errorMessage != null) && !errorMessage.equals(other.errorMessage)) { //NOSONAR
+        if ((errorMessage != null) && !errorMessage.equals(other.errorMessage)) {
             return false;
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName()).append(" [");
-        sb.append("integrationId=").append(integrationId == null ? "null" : integrationId).append(", ");
-        sb.append("statusType=").append(statusType == null ? "null" : statusType).append(", ");
-        sb.append("errorMessage=").append(errorMessage == null ? "null" : errorMessage);
-        sb.append(']');
-        return sb.toString();
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getClass().getSimpleName()).append(" [");
+    	sb.append("integrationId=").append(integrationId == null ? "null" : integrationId).append(", ");
+    	sb.append("statusType=").append(statusType == null ? "null" : statusType).append(", ");
+    	sb.append("errorMessage=").append(errorMessage == null ? "null" : errorMessage);
+    	sb.append(']');
+    	return sb.toString();
     }
-
+    
 }

@@ -7,10 +7,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-@Entity
 @Table(name="deficiency")
 public class DeficiencyEntity {
 	
+	public static final String SECURITY_RESOURCE = "res://senior.com.br/hcm/esocial4integration/entities/deficiency";
+
 	/**
 	 * Id interno da entidade.
 	 */
@@ -57,6 +58,12 @@ public class DeficiencyEntity {
 	@Column(name = "is_rehabilitated")
 	private Boolean isRehabilitated;
 	
+	/**
+	 * Id do colaborador.
+	 */
+	@Column(name = "employee", length = 36)
+	private String employee;
+	
 	public java.util.UUID getId() {
 		return this.id;
 	}
@@ -83,6 +90,10 @@ public class DeficiencyEntity {
 	
 	public Boolean getIsRehabilitated() {
 		return this.isRehabilitated;
+	}
+	
+	public String getEmployee() {
+		return this.employee;
 	}
 	
 	public void setId(java.util.UUID id) {
@@ -113,6 +124,10 @@ public class DeficiencyEntity {
 		this.isRehabilitated = isRehabilitated;
 	}
 	
+	public void setEmployee(String employee) {
+		this.employee = employee;
+	}
+	
 	@Override
 	public int hashCode() {
 	    int ret = 1;
@@ -134,7 +149,7 @@ public class DeficiencyEntity {
 	    if ((id == null) != (other.id == null)) {
 	        return false;
 	    }
-	    if ((id != null) && !id.equals(other.id)) { //NOSONAR
+	    if ((id != null) && !id.equals(other.id)) {
 	        return false;
 	    }
 	    return true;
@@ -150,7 +165,8 @@ public class DeficiencyEntity {
 		sb.append("isMainDeficiency=").append(isMainDeficiency == null ? "null" : isMainDeficiency).append(", ");
 		sb.append("deficiencyType=").append(deficiencyType == null ? "null" : deficiencyType).append(", ");
 		sb.append("dateWhen=").append(dateWhen == null ? "null" : dateWhen).append(", ");
-		sb.append("isRehabilitated=").append(isRehabilitated == null ? "null" : isRehabilitated);
+		sb.append("isRehabilitated=").append(isRehabilitated == null ? "null" : isRehabilitated).append(", ");
+		sb.append("employee=").append(employee == null ? "null" : employee);
 		sb.append(']');
 		return sb.toString();
 	}

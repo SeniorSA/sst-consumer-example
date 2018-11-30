@@ -3,9 +3,9 @@ package br.com.senior.employee.consumer.client.esocial4integration;
 import java.util.List;
 
 /**
- * Local do colaborador.
+ * Categoria eSocial.
  */
-public class Department {
+public class ESocialCategory {
     
     public static class Id {
     	
@@ -14,11 +14,11 @@ public class Department {
         public Id() {
         }
         
-        public Id(String departmentId) {
-            this.id = departmentId;
+        public Id(String eSocialCategoryId) {
+            this.id = eSocialCategoryId;
         }
         
-        public String getDepartmentId() {
+        public String getESocialCategoryId() {
             return id;
         }
         
@@ -32,16 +32,16 @@ public class Department {
     	public Long totalPages;
     	public Long totalElements;
     	
-        public List<Department> contents;
+        public List<ESocialCategory> contents;
         
         public PagedResults() {
         }
         
-        public PagedResults(List<Department> contents) {
+        public PagedResults(List<ESocialCategory> contents) {
             this.contents = contents;
         }
         
-        public PagedResults(List<Department> contents, Long totalPages, Long totalElements) {
+        public PagedResults(List<ESocialCategory> contents, Long totalPages, Long totalElements) {
             this.contents = contents;
             this.totalPages = totalPages;
             this.totalElements = totalElements;
@@ -85,42 +85,30 @@ public class Department {
      */
     public String id;
     /**
-     * Código do local.
+     * Chave da categoria eSocial.
      */
-    public String code;
+    public ESocialCategoryType code;
     /**
-     * Código de organograma do local.
-     */
-    public Long structureCode;
-    /**
-     * Nome do local.
-     */
-    public String name;
-    /**
-     * Data do histórico do Setor (A partir de).
+     * Data do histórico da categoria eSocial (A partir de).
      */
     public java.time.LocalDate dateWhen;
     
-    public Department() {
+    public ESocialCategory() {
     }
     
     /** 
      * This constructor allows initialization of all fields, required and optional.
      */
-    public Department(String id, String code, Long structureCode, String name, java.time.LocalDate dateWhen) {
+    public ESocialCategory(String id, ESocialCategoryType code, java.time.LocalDate dateWhen) {
         this.id = id;
         this.code = code;
-        this.structureCode = structureCode;
-        this.name = name;
         this.dateWhen = dateWhen;
     }
     /** 
      * This convenience constructor allows initialization of all required fields.
      */
-    public Department(String code, Long structureCode, String name, java.time.LocalDate dateWhen) {
+    public ESocialCategory(ESocialCategoryType code, java.time.LocalDate dateWhen) {
         this.code = code;
-        this.structureCode = structureCode;
-        this.name = name;
         this.dateWhen = dateWhen;
     }
     
@@ -138,10 +126,10 @@ public class Department {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Department)) {
+        if (!(obj instanceof ESocialCategory)) {
             return false;
         }
-        Department other = (Department) obj;
+        ESocialCategory other = (ESocialCategory) obj;
         if ((id == null) != (other.id == null)) {
             return false;
         }
@@ -157,8 +145,6 @@ public class Department {
     	sb.append(getClass().getSimpleName()).append(" [");
     	sb.append("id=").append(id == null ? "null" : id).append(", ");
     	sb.append("code=").append(code == null ? "null" : code).append(", ");
-    	sb.append("structureCode=").append(structureCode == null ? "null" : structureCode).append(", ");
-    	sb.append("name=").append(name == null ? "null" : name).append(", ");
     	sb.append("dateWhen=").append(dateWhen == null ? "null" : dateWhen);
     	sb.append(']');
     	return sb.toString();
