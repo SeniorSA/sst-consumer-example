@@ -25,7 +25,7 @@ public class Department {
         public String getId() {
             return id;
         }
-
+        
     }
     
     public static class PagedResults {

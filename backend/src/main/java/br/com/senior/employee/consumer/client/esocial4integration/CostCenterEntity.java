@@ -7,11 +7,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+@Entity
 @Table(name="cost_center")
 public class CostCenterEntity {
 	
-	public static final String SECURITY_RESOURCE = "res://senior.com.br/hcm/esocial4integration/entities/costCenter";
-
 	/**
 	 * Id interno da entidade.
 	 */
@@ -92,7 +91,7 @@ public class CostCenterEntity {
 	    if ((id == null) != (other.id == null)) {
 	        return false;
 	    }
-	    if ((id != null) && !id.equals(other.id)) {
+	    if ((id != null) && !id.equals(other.id)) { //NOSONAR
 	        return false;
 	    }
 	    return true;

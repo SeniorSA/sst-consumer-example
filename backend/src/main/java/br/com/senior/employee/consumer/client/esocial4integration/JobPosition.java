@@ -25,7 +25,7 @@ public class JobPosition {
         public String getId() {
             return id;
         }
-
+        
     }
     
     public static class PagedResults {

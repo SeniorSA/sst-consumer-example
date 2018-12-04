@@ -1,6 +1,7 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controle de integrações.
@@ -25,7 +26,7 @@ public class Integration {
         public String getId() {
             return id;
         }
-
+        
     }
     
     public static class PagedResults {
@@ -121,6 +122,10 @@ public class Integration {
      */
     public java.time.LocalDate scheduledDate;
     /**
+     * Data do histórico gerado.
+     */
+    public java.time.LocalDate dateWhen;
+    /**
      * Mensagem da integração.
      */
     public String integrationMessage;
@@ -176,6 +181,10 @@ public class Integration {
      * Data prevista para envio
      */
     public java.time.Instant previewSendDate;
+    /**
+     * Lote do histórico de posto de trabalho
+     */
+    public String lotWorkstation;
     
     public Integration() {
     }
@@ -183,7 +192,7 @@ public class Integration {
     /** 
      * This constructor allows initialization of all fields, required and optional.
      */
-    public Integration(String id, String externalId, String externalHistoricId, OperationType operationType, Employee employee, StatusType statusType, IntegrationType integrationType, java.time.Instant receiptDate, java.time.Instant sendDate, java.time.LocalDate scheduledDate, String integrationMessage, String stackTrace, Long companyCode, String companyName, Long companyBranchCode, String companyBranchName, Long employeeCode, String eSocialRegistration, String cpfNumber, String employeeName, String providerCompanyIdentification, Long integrationSequence, String cancelationReason, java.time.Instant previewSendDate) {
+    public Integration(String id, String externalId, String externalHistoricId, OperationType operationType, Employee employee, StatusType statusType, IntegrationType integrationType, java.time.Instant receiptDate, java.time.Instant sendDate, java.time.LocalDate scheduledDate, java.time.LocalDate dateWhen, String integrationMessage, String stackTrace, Long companyCode, String companyName, Long companyBranchCode, String companyBranchName, Long employeeCode, String eSocialRegistration, String cpfNumber, String employeeName, String providerCompanyIdentification, Long integrationSequence, String cancelationReason, java.time.Instant previewSendDate, String lotWorkstation) {
         this.id = id;
         this.externalId = externalId;
         this.externalHistoricId = externalHistoricId;
@@ -194,6 +203,7 @@ public class Integration {
         this.receiptDate = receiptDate;
         this.sendDate = sendDate;
         this.scheduledDate = scheduledDate;
+        this.dateWhen = dateWhen;
         this.integrationMessage = integrationMessage;
         this.stackTrace = stackTrace;
         this.companyCode = companyCode;
@@ -208,16 +218,18 @@ public class Integration {
         this.integrationSequence = integrationSequence;
         this.cancelationReason = cancelationReason;
         this.previewSendDate = previewSendDate;
+        this.lotWorkstation = lotWorkstation;
     }
     /** 
      * This convenience constructor allows initialization of all required fields.
      */
-    public Integration(String externalId, OperationType operationType, StatusType statusType, IntegrationType integrationType, java.time.Instant receiptDate) {
+    public Integration(String externalId, OperationType operationType, StatusType statusType, IntegrationType integrationType, java.time.Instant receiptDate, String lotWorkstation) {
         this.externalId = externalId;
         this.operationType = operationType;
         this.statusType = statusType;
         this.integrationType = integrationType;
         this.receiptDate = receiptDate;
+        this.lotWorkstation = lotWorkstation;
     }
     
     @Override
@@ -261,6 +273,7 @@ public class Integration {
     	sb.append("receiptDate=").append(receiptDate == null ? "null" : receiptDate).append(", ");
     	sb.append("sendDate=").append(sendDate == null ? "null" : sendDate).append(", ");
     	sb.append("scheduledDate=").append(scheduledDate == null ? "null" : scheduledDate).append(", ");
+    	sb.append("dateWhen=").append(dateWhen == null ? "null" : dateWhen).append(", ");
     	sb.append("integrationMessage=").append(integrationMessage == null ? "null" : integrationMessage).append(", ");
     	sb.append("stackTrace=").append(stackTrace == null ? "null" : stackTrace).append(", ");
     	sb.append("companyCode=").append(companyCode == null ? "null" : companyCode).append(", ");
@@ -274,7 +287,8 @@ public class Integration {
     	sb.append("providerCompanyIdentification=").append(providerCompanyIdentification == null ? "null" : providerCompanyIdentification).append(", ");
     	sb.append("integrationSequence=").append(integrationSequence == null ? "null" : integrationSequence).append(", ");
     	sb.append("cancelationReason=").append(cancelationReason == null ? "null" : cancelationReason).append(", ");
-    	sb.append("previewSendDate=").append(previewSendDate == null ? "null" : previewSendDate);
+    	sb.append("previewSendDate=").append(previewSendDate == null ? "null" : previewSendDate).append(", ");
+    	sb.append("lotWorkstation=").append(lotWorkstation == null ? "null" : lotWorkstation);
     	sb.append(']');
     	return sb.toString();
     }

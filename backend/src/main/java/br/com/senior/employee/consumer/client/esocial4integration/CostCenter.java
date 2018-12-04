@@ -1,6 +1,7 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Centro de custo do colaborador.
@@ -25,7 +26,7 @@ public class CostCenter {
         public String getId() {
             return id;
         }
-
+        
     }
     
     public static class PagedResults {

@@ -3,24 +3,23 @@
  */
 package br.com.senior.employee.consumer.client.esocial4integration;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
-@Table(name="integration")
-public class IntegrationEntity extends CommonEntity {
+@Entity
+@Table(name = "integration")
+public class IntegrationEntity {
 	
-	public static final String SECURITY_RESOURCE = "res://senior.com.br/hcm/esocial4integration/entities/integration";
-
 	/**
 	 * Id da entidade.
 	 */
-	/* *** COMMENTED BY USER ***
 	@Id
 	@GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	@Column(name = "id", updatable = false)
 	private java.util.UUID id;
-	*/
-	
+
 	/**
 	 * Id do colaborador no Payroll.
 	 */
@@ -78,6 +77,12 @@ public class IntegrationEntity extends CommonEntity {
 	 */
 	@Column(name = "scheduled_date")
 	private java.time.LocalDate scheduledDate;
+	
+	/**
+	 * Data do histórico gerado.
+	 */
+	@Column(name = "date_when")
+	private java.time.LocalDate dateWhen;
 	
 	/**
 	 * Mensagem da integração.
@@ -163,12 +168,16 @@ public class IntegrationEntity extends CommonEntity {
 	@Column(name = "preview_send_date")
 	private java.time.Instant previewSendDate;
 	
-	/* *** COMMENTED BY USER ***
+	/**
+	 * Lote do histórico de posto de trabalho
+	 */
+	@Column(name = "lot_workstation")
+	private String lotWorkstation;
+	
 	public java.util.UUID getId() {
 		return this.id;
 	}
-	*/
-	
+
 	public String getExternalId() {
 		return this.externalId;
 	}
@@ -203,6 +212,10 @@ public class IntegrationEntity extends CommonEntity {
 	
 	public java.time.LocalDate getScheduledDate() {
 		return this.scheduledDate;
+	}
+	
+	public java.time.LocalDate getDateWhen() {
+		return this.dateWhen;
 	}
 	
 	public String getIntegrationMessage() {
@@ -261,12 +274,14 @@ public class IntegrationEntity extends CommonEntity {
 		return this.previewSendDate;
 	}
 	
-	/* *** COMMENTED BY USER ***
+	public String getLotWorkstation() {
+		return this.lotWorkstation;
+	}
+	
 	public void setId(java.util.UUID id) {
 		this.id = id;
 	}
-	*/
-	
+
 	public void setExternalId(String externalId) {
 		this.externalId = externalId;
 	}
@@ -301,6 +316,10 @@ public class IntegrationEntity extends CommonEntity {
 	
 	public void setScheduledDate(java.time.LocalDate scheduledDate) {
 		this.scheduledDate = scheduledDate;
+	}
+	
+	public void setDateWhen(java.time.LocalDate dateWhen) {
+		this.dateWhen = dateWhen;
 	}
 	
 	public void setIntegrationMessage(String integrationMessage) {
@@ -359,6 +378,10 @@ public class IntegrationEntity extends CommonEntity {
 		this.previewSendDate = previewSendDate;
 	}
 	
+	public void setLotWorkstation(String lotWorkstation) {
+		this.lotWorkstation = lotWorkstation;
+	}
+	
 	@Override
 	public int hashCode() {
 	    int ret = 1;
@@ -380,14 +403,14 @@ public class IntegrationEntity extends CommonEntity {
 	    if ((id == null) != (other.id == null)) {
 	        return false;
 	    }
-	    if ((id != null) && !id.equals(other.id)) {
+	    if ((id != null) && !id.equals(other.id)) { //NOSONAR
 	        return false;
 	    }
 	    return true;
 	}
 	
 	@Override
-	public String toString() {
+	public String toString() { //NOSONAR
 		StringBuilder sb = new StringBuilder();
 		sb.append(getClass().getSimpleName()).append(" [");
 		sb.append("externalId=").append(externalId == null ? "null" : externalId).append(", ");
@@ -399,6 +422,7 @@ public class IntegrationEntity extends CommonEntity {
 		sb.append("receiptDate=").append(receiptDate == null ? "null" : receiptDate).append(", ");
 		sb.append("sendDate=").append(sendDate == null ? "null" : sendDate).append(", ");
 		sb.append("scheduledDate=").append(scheduledDate == null ? "null" : scheduledDate).append(", ");
+		sb.append("dateWhen=").append(dateWhen == null ? "null" : dateWhen).append(", ");
 		sb.append("integrationMessage=").append(integrationMessage == null ? "null" : integrationMessage).append(", ");
 		sb.append("stackTrace=").append(stackTrace == null ? "null" : stackTrace).append(", ");
 		sb.append("companyCode=").append(companyCode == null ? "null" : companyCode).append(", ");
@@ -412,7 +436,8 @@ public class IntegrationEntity extends CommonEntity {
 		sb.append("providerCompanyIdentification=").append(providerCompanyIdentification == null ? "null" : providerCompanyIdentification).append(", ");
 		sb.append("integrationSequence=").append(integrationSequence == null ? "null" : integrationSequence).append(", ");
 		sb.append("cancelationReason=").append(cancelationReason == null ? "null" : cancelationReason).append(", ");
-		sb.append("previewSendDate=").append(previewSendDate == null ? "null" : previewSendDate);
+		sb.append("previewSendDate=").append(previewSendDate == null ? "null" : previewSendDate).append(", ");
+		sb.append("lotWorkstation=").append(lotWorkstation == null ? "null" : lotWorkstation);
 		sb.append(']');
 		return sb.toString();
 	}
