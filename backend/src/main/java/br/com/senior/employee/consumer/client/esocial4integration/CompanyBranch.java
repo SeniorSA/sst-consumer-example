@@ -1,5 +1,7 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
+import br.com.senior.employee.consumer.client.common.SubscriptionType;
+
 import java.util.List;
 import java.util.Map;
 

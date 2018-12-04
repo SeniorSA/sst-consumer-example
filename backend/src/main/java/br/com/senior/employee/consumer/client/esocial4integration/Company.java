@@ -1,6 +1,7 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Empresa.
@@ -25,6 +26,7 @@ public class Company {
         public String getId() {
             return id;
         }
+        
 
     }
     
@@ -112,6 +114,7 @@ public class Company {
         this.name = name;
     }
     
+
     @Override
     public int hashCode() {
         int ret = 1;

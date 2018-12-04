@@ -1,11 +1,13 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
+import java.util.Map;
+
 public class IntegrationPendencyEventPayload {
     
     /**
      * Dados de integração.
      */
-    public Integration integration; //NOSONAR
+    public Integration integration;
     
     public IntegrationPendencyEventPayload() {
     }
@@ -38,7 +40,7 @@ public class IntegrationPendencyEventPayload {
         if ((integration == null) != (other.integration == null)) {
             return false;
         }
-        if ((integration != null) && !integration.equals(other.integration)) { //NOSONAR
+        if ((integration != null) && !integration.equals(other.integration)) {
             return false;
         }
         return true;

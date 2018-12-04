@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+@Entity
 @Table(name="e_social_category")
 public class ESocialCategoryEntity {
 	

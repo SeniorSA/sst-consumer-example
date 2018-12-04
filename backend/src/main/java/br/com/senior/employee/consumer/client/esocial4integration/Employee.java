@@ -1,6 +1,7 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Colaborador.
@@ -25,7 +26,7 @@ public class Employee {
         public String getId() {
             return id;
         }
-
+        
     }
     
     public static class PagedResults {
