@@ -145,7 +145,7 @@ public class EsocialIntegrationController {
             xmlOutput.esocialEventId = providerXml.idEvento;
         if(providerXml.layoutType !=null)
             xmlOutput.esocialLayoutType = providerXml.layoutType;
-        if(providerXml.layoutSituation.statusType !=null)
+        if ((providerXml.layoutSituation != null) && (providerXml.layoutSituation.statusType !=null))
             xmlOutput.esocialReturnType = providerXml.layoutSituation.statusType;
         if(providerXml.providerXmlId !=null)
             xmlOutput.xmlProviderId = providerXml.providerXmlId;
