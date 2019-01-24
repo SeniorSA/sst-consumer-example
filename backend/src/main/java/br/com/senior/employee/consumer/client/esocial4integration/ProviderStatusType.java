@@ -12,7 +12,7 @@ public enum ProviderStatusType {
      */
     ON_PROVIDER,
     /**
-     * Erro no prestador de SST.
+     * Erro no prestador SST durante a integração.
      */
-    PROVIDER_ERROR
+    INTEGRATION_ERROR
 }
