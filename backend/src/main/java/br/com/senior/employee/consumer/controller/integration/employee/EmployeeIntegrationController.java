@@ -105,7 +105,7 @@ public class EmployeeIntegrationController {
             LOGGER.info("A pendência ID: " + integration.id + " foi consumida.");
         } catch (Exception e) {
             LOGGER.error("Erro na integração da pendência ID: " + integration.id, e);
-            IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.PROVIDER_ERROR);
+            IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.INTEGRATION_ERROR, e.getMessage());
             rest.get(credential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
         }
     }

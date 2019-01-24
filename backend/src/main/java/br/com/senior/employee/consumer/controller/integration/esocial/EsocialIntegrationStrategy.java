@@ -11,5 +11,5 @@ public abstract class EsocialIntegrationStrategy {
      *
      * @param xmlOutput Status do XML.
      */
-    abstract void eSocialStatusXml(XmlOutput xmlOutput);
+    abstract void eSocialStatusXml(XmlOutput xmlOutput) throws Exception;
 }

@@ -67,7 +67,7 @@ public class EsocialIntegrationController {
             LOGGER.info("O Status do xml ID: " + xmlOutput.xmlId + " foi alterado.");
         } catch (Exception e) {
             LOGGER.error("Erro na integração do xml ID: " + xmlOutput.xmlId, e);
-            XmlUpdateStatusInput input = new XmlUpdateStatusInput(xmlOutput.xmlId, ProviderStatusType.PROVIDER_ERROR);
+            XmlUpdateStatusInput input = new XmlUpdateStatusInput(xmlOutput.xmlId, ProviderStatusType.PROVIDER_ERROR, e.getMessage());
             rest.get(credential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
         }
     }

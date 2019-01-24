@@ -16,7 +16,7 @@ public abstract class EmployeeIntegrationStrategy {
      *
      * @param integration Entidade da integração.
      */
-    final void processPendency(IntegrationEntity integration) {
+    final void processPendency(IntegrationEntity integration) throws Exception {
         if (employeeExists(integration)) {
             employeeUpdate(integration);
         } else {
@@ -37,12 +37,12 @@ public abstract class EmployeeIntegrationStrategy {
      *
      * @param integration Entidade da integração.
      */
-    abstract void employeeInsert(IntegrationEntity integration);
+    abstract void employeeInsert(IntegrationEntity integration) throws Exception;
 
     /**
      * Rotina responsável inserir um colaborador.
      *
      * @param integration Entidade da integração.
      */
-    abstract void employeeUpdate(IntegrationEntity integration);
+    abstract void employeeUpdate(IntegrationEntity integration) throws Exception;
 }

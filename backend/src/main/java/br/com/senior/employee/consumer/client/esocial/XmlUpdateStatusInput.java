@@ -3,7 +3,7 @@ package br.com.senior.employee.consumer.client.esocial;
 import java.util.Map;
 
 public class XmlUpdateStatusInput {
-    
+
     /**
      * Id do ProviderXml.
      */
@@ -12,17 +12,30 @@ public class XmlUpdateStatusInput {
      * Status do provedor.
      */
     public ProviderStatusType providerStatusType;
-    
+    /**
+     * Mensagem de erro retornada pelo provedor.
+     */
+    public String providerErrorMessage;
+
     public XmlUpdateStatusInput() {
     }
-    
-    /** 
+
+    /**
      * This constructor allows initialization of all fields, required and optional.
+     */
+    public XmlUpdateStatusInput(String xmlId, ProviderStatusType providerStatusType, String providerErrorMessage) {
+        this.xmlId = xmlId;
+        this.providerStatusType = providerStatusType;
+        this.providerErrorMessage = providerErrorMessage;
+    }
+    /**
+     * This convenience constructor allows initialization of all required fields.
      */
     public XmlUpdateStatusInput(String xmlId, ProviderStatusType providerStatusType) {
         this.xmlId = xmlId;
         this.providerStatusType = providerStatusType;
     }
+
 
     @Override
     public int hashCode() {
@@ -35,7 +48,7 @@ public class XmlUpdateStatusInput {
         }
         return ret;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -57,17 +70,24 @@ public class XmlUpdateStatusInput {
         if ((providerStatusType != null) && !providerStatusType.equals(other.providerStatusType)) {
             return false;
         }
+        if ((providerErrorMessage == null) != (other.providerErrorMessage == null)) {
+            return false;
+        }
+        if ((providerErrorMessage != null) && !providerErrorMessage.equals(other.providerErrorMessage)) {
+            return false;
+        }
         return true;
     }
-    
+
     @Override
     public String toString() {
-    	StringBuilder sb = new StringBuilder();
-    	sb.append(getClass().getSimpleName()).append(" [");
-    	sb.append("xmlId=").append(xmlId == null ? "null" : xmlId).append(", ");
-    	sb.append("providerStatusType=").append(providerStatusType == null ? "null" : providerStatusType);
-    	sb.append(']');
-    	return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName()).append(" [");
+        sb.append("xmlId=").append(xmlId == null ? "null" : xmlId).append(", ");
+        sb.append("providerStatusType=").append(providerStatusType == null ? "null" : providerStatusType).append(", ");
+        sb.append("providerErrorMessage=").append(providerErrorMessage == null ? "null" : providerErrorMessage);
+        sb.append(']');
+        return sb.toString();
     }
-    
+
 }

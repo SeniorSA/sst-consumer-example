@@ -9,6 +9,10 @@ import java.util.List;
 @Component
 public class CompanyCredentialsStrategyImpl implements CompanyCredentialsStrategy {
 
+    /*
+     *  Retorna a lista de credenciais (usuário/senha) referente ao usuário da
+     *  integração com a plataforma SeniorX de cada empresa.
+     */
     @Override
     public List<Credential> getCredentials() {
         List<Credential> list = new ArrayList<>();
