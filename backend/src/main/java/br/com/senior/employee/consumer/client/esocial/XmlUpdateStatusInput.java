@@ -36,7 +36,6 @@ public class XmlUpdateStatusInput {
         this.providerStatusType = providerStatusType;
     }
 
-
     @Override
     public int hashCode() {
         int ret = 1;
@@ -45,6 +44,9 @@ public class XmlUpdateStatusInput {
         }
         if (providerStatusType != null) {
             ret = 31 * ret + providerStatusType.hashCode();
+        }
+        if (providerErrorMessage != null) {
+            ret = 31 * ret + providerErrorMessage.hashCode();
         }
         return ret;
     }
@@ -89,5 +91,4 @@ public class XmlUpdateStatusInput {
         sb.append(']');
         return sb.toString();
     }
-
 }

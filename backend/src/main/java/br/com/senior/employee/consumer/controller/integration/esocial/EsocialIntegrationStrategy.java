@@ -1,7 +1,6 @@
 package br.com.senior.employee.consumer.controller.integration.esocial;
 
 
-import br.com.senior.employee.consumer.client.esocial.ProviderXml;
 import br.com.senior.employee.consumer.client.esocial.XmlOutput;
 
 public abstract class EsocialIntegrationStrategy {
