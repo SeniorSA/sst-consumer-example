@@ -52,6 +52,23 @@ public class EmployeeIntegrationController {
     }
 
     /**
+     * Esse método é responsável por consumir as pendências de integração de um determinado usuário.
+     * @param user
+     */
+    public void consumeEmployeeIntegrationsByTenant(String user) {
+        LOGGER.info("Consumindo pendências do usuário: " + user);
+        Credential credential = Credential.fromUser(user);
+        Integration.PagedResults list = null;
+        do {
+            Optional<ResponseEntity<Integration.PagedResults>> results = getData(credential);
+            if (results.isPresent()) {
+                list = getData(credential).get().getBody();
+                list.contents.forEach(integration -> integrationPendency(credential.username, integration));
+            }
+        } while (containsPendencies(list));
+    }
+
+    /**
      * Busca as pendências não consumidas no sistema SENIOR.
      *
      * @return {@Link ResponseEntity<Integration.PagedResults>}
