@@ -1,1 +1,10 @@
+# folders
 .idea/
+output/**
+target/**
+
+# files
+*.jar
+*.bin
+*.class
+*.iml
