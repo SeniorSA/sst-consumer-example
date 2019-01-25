@@ -20,6 +20,9 @@ public class IntegrationEventHandler {
         employeeIntegrationController.consumeEmployeeIntegrations();
     }
 
+    @PostMapping(path = "/consumeEmployeeIntegrationsByTenant")
+    public void integrationPendencyByTenant(@RequestHeader(name="x-senior-user") String user) { employeeIntegrationController.consumeEmployeeIntegrationsByTenant(user); }
+
     /**
      * Endpoint que recebe um POST.
      * Uma REGRA deve ser cadastrada no EVENTO integrationPendency.
