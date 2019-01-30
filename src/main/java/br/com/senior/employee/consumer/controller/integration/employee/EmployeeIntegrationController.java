@@ -37,7 +37,7 @@ public class EmployeeIntegrationController {
     /**
      * Este método é executado ao iniciar este sistema para verificar se existem pendências não consumidas.
      */
-    public void consumeEmployeeIntegrations() {
+    public void consumePendencies() {
         LOGGER.info("Consumindo pendências antigas.");
         companyCredentialsStrategy.getCredentials().forEach(c -> {
             Integration.PagedResults list = null;
@@ -55,7 +55,7 @@ public class EmployeeIntegrationController {
      * Esse método é responsável por consumir as pendências de integração de um determinado usuário.
      * @param user
      */
-    public void consumeEmployeeIntegrationsByTenant(String user) {
+    public void consumePendenciesByTenant(String user) {
         LOGGER.info("Consumindo pendências do usuário: " + user);
         Credential credential = Credential.fromUser(user);
         Integration.PagedResults list = null;
