@@ -15,13 +15,13 @@ public class IntegrationEventHandler {
     /**
      * Integrar todas as pendências ainda não consumidas.
      */
-    @PostMapping(path = "/consumeEmployeeIntegrations")
+    @PostMapping(path = "/consumePendencies")
     public void integrationPendency() {
-        employeeIntegrationController.consumeEmployeeIntegrations();
+        employeeIntegrationController.consumePendencies();
     }
 
-    @PostMapping(path = "/consumeEmployeeIntegrationsByTenant")
-    public void integrationPendencyByTenant(@RequestHeader(name="x-senior-user") String user) { employeeIntegrationController.consumeEmployeeIntegrationsByTenant(user); }
+    @PostMapping(path = "/consumePendenciesByTenant")
+    public void integrationPendencyByTenant(@RequestHeader(name="x-senior-user") String user) { employeeIntegrationController.consumePendenciesByTenant(user); }
 
     /**
      * Endpoint que recebe um POST.
