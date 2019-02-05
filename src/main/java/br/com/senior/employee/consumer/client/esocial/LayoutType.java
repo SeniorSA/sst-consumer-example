@@ -24,6 +24,10 @@ public enum LayoutType {
      */
     S2220,
     /**
+     * S-2221 - Exame toxicológico do motorista profissional.
+     */
+    S2221,
+    /**
      * S-2240 - Condições Ambientais do Trabalho - Fatores de Risco.
      */
     S2240,
