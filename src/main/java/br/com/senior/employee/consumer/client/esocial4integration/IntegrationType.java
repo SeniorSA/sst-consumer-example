@@ -46,5 +46,13 @@ public enum IntegrationType {
     /**
      * Histórico de escala.
      */
-    HISTORICAL_WORKSHIFT
+    HISTORICAL_WORKSHIFT,
+    /**
+     * Alteração matrícula eSocial
+     */
+    EMPLOYEE_ESOCIAL_REGISTRATION,
+    /**
+     * Carga Inicial
+     */
+    INITIAL_LOAD
 }

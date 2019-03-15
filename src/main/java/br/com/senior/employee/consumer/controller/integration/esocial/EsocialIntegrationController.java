@@ -12,6 +12,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 
 @Log4j
 @Component
@@ -31,21 +33,27 @@ public class EsocialIntegrationController {
      */
     public void consumePendenciesStatusIntegration() {
         LOGGER.info("Consumindo status pendentes.");
-        companyCredentialsStrategy.getCredentials().forEach(c -> {
-            ProviderXml.PagedResults list;
-            do {
-                list = getDataStatusXml(c).getBody();
-                list.contents.forEach(l -> {
-                    ProviderXml data = new ProviderXml();
-                    data.idEvento = l.idEvento;
-                    data.id = l.id;
-                    data.layoutType = l.layoutType;
-                    data.message = l.message;
-                    data.xmlStatus = l.xmlStatus;
-                    statusXml(c.username, data);
-                });
-            } while (containsPendenciesStatusXml(list));
-        });
+            companyCredentialsStrategy.getCredentials().forEach(c -> {
+                ProviderXml.PagedResults list;
+                try {
+                    do {
+                        list = getDataStatusXml(c).getBody();
+                            list.contents.forEach(l -> {
+                                ProviderXml data = new ProviderXml();
+                                data.idEvento = l.idEvento;
+                                data.id = l.id;
+                                data.layoutType = l.layoutType;
+                                data.message = l.message;
+                                data.xmlStatus = l.xmlStatus;
+                                statusXml(c.username, data);
+                            });
+                    } while (containsPendenciesStatusXml(list));
+                } catch (HttpClientErrorException e) {
+                    LOGGER.info("Credencial inválida para o usuário: " + c.username);
+                } catch (ResourceAccessException e) {
+                    LOGGER.info("URL da plataforma SeniorX inválida. Verifique o arquivo configurações da plataforma Senior.");
+                }
+            });
     }
 
     /**
@@ -113,10 +121,18 @@ public class EsocialIntegrationController {
      */
     public XmlOutput sendXml(Credential credential, EsocialEventXmlInput payload) {
         HttpEntity<EsocialEventXmlInput> request = new HttpEntity<>(payload);
-        EsocialEventXmlOutput providerXml = rest.get(credential).postForObject(applicationProperties.getG7Location() + "/hcm/esocial/actions/esocialEventXml",
-                request,
-                EsocialEventXmlOutput.class);
-        XmlOutput xmlOutput = setXmlOutputForSendXml(providerXml);
+        XmlOutput xmlOutput = null;
+        try {
+            EsocialEventXmlOutput providerXml = rest.get(credential).postForObject(applicationProperties.getG7Location() + "/hcm/esocial/actions/esocialEventXml",
+                    request,
+                    EsocialEventXmlOutput.class);
+            xmlOutput = setXmlOutputForSendXml(providerXml);
+            LOGGER.info("O XML do eSocial de id:" + xmlOutput.xmlId + " foi enviado para a plataforma SeniorX.");
+        }catch (HttpClientErrorException e) {
+            LOGGER.info("Credencial inválida para o usuário: " + credential.username);
+        } catch (ResourceAccessException e) {
+            LOGGER.info("URL da plataforma SeniorX inválida. Verifique o arquivo configurações da plataforma Senior.");
+        }
         return xmlOutput;
     }
 
