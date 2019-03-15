@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.util.Optional;
 
@@ -82,6 +84,10 @@ public class EmployeeIntegrationController {
                     Integration.PagedResults.class));
         } catch (HttpServerErrorException e) {
             LOGGER.error("Não foi possível obter os dados de " + credential.username, e);
+        } catch (HttpClientErrorException e) {
+            LOGGER.info("Credencial inválida para o usuário: " + credential.username);
+        } catch (ResourceAccessException e) {
+            LOGGER.info("URL da plataforma SeniorX inválida. Verifique o arquivo configurações da plataforma Senior.");
         }
         return Optional.empty();
     }
