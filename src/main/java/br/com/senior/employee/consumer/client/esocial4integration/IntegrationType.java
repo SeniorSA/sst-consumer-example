@@ -48,6 +48,10 @@ public enum IntegrationType {
      */
     HISTORICAL_WORKSHIFT,
     /**
+     * Histórico de afastamento.
+     */
+    HISTORICAL_LEAVE,
+    /**
      * Alteração matrícula eSocial
      */
     EMPLOYEE_ESOCIAL_REGISTRATION,
