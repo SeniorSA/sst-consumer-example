@@ -112,7 +112,6 @@ Parâmetros de entrada:
 | Parâmetro | Tipo | Obrigatório | Objetivo |
 | --- | --- | --- | --- |
 | credential.username |	Alfanúmerico |	Sim |	Usuário da plataforma Senior. |
-| credential.password |	Alfanúmerico |	Sim	| Senha do usuário. |
 | esocialEventXmlInput.providerXmlId |	Alfanúmerico |	Não |	ID do XML no prestador SST. |
 | esocialEventXmlInput.providerCompanyId |	Alfanúmerico |	Não |	Código da empresa no prestador SST. |
 | esocialEventXmlInput.subscriptionType |	Alfanúmerico |	Não	| Tipo de inscrição da empresa. Valores possíveis: CNPJ, CPF, CAEPF, CNO, CEI |
@@ -123,8 +122,7 @@ Exemplo JSON:
 ```
 {
     "credential" : {
-        "username" : "user@platformsenior.com.br",
-        "password" : "senha123"
+        "username" : "user@platformsenior.com.br"
     },
     "esocialEventXmlInput" : {
         “providerXmlId” : “999999999999”,
