@@ -8,39 +8,55 @@ package br.com.senior.employee.consumer.client.esocial4integration;
  */
 public enum ContractType {
     /**
-     * Colaborador.
+     * Empregado
      */
     EMPLOYEE,
     /**
-     * Diretor.
+     * Diretor
      */
-    DIRECTOR,
+    MANAGER,
     /**
-     * Trabalhador rural.
+     * Trabalhador rural
      */
-    RURAL_WORKER,
+    FARMWORKER,
     /**
-     * Trabalhador doméstico.
+     * Aposentado
      */
-    DOMESTIC_WORKER,
+    RETIRED,
     /**
-     * Estagiário.
+     * Estagiário
      */
-    INTERN,
+    TRAINEE,
     /**
-     * Aprendiz.
+     * Aprendiz
      */
     APPRENTICE,
     /**
-     * Agente público.
+     * Prazo determinado
      */
-    SERVER_PUBLIC,
+    FIXEDDUEDATE,
     /**
-     * Professor.
+     * Diretor aposentado
+     */
+    RETIREDMANAGER,
+    /**
+     * Agente público
+     */
+    PUBLICAGENT,
+    /**
+     * Professor
      */
     TEACHER,
     /**
-     * Cooperado.
+     * Cooperado
      */
-    COOPERATED
+    COOPERATIVEWORKER,
+    /**
+     * Trabalhador domestico
+     */
+    DOMESTICWORKER,
+    /**
+     * Professor, prazo determinado
+     */
+    TEACHERFIXEDDUEDATE
 }
