@@ -287,13 +287,13 @@ public class JSONTokener {
                     if (b == '0') {
                         if (s.length() > 2 && (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {
                             try {
-                                return new Integer(Integer.parseInt(s.substring(2), 16)); //NOSONAR
+                                return Integer.parseInt(s.substring(2), 16); //NOSONAR
                             } catch (Exception var12) {
                                 ; //NOSONAR
                             }
                         } else {
                             try {
-                                return new Integer(Integer.parseInt(s, 8)); //NOSONAR
+                                return Integer.parseInt(s, 8); //NOSONAR
                             } catch (Exception var11) {
                                 ; //NOSONAR
                             }
@@ -301,13 +301,13 @@ public class JSONTokener {
                     }
 
                     try {
-                        return new Integer(s);
+                        return s;
                     } catch (Exception var10) {
                         try {
-                            return new Long(s);
+                            return s;
                         } catch (Exception var9) {
                             try {
-                                return new Double(s);
+                                return s;
                             } catch (Exception var8) {
                                 return s;
                             }

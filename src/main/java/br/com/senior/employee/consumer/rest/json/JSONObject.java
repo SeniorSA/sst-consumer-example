@@ -400,7 +400,7 @@ public class JSONObject {
     public double optDouble(String key, double defaultValue) {
         try {
             Object o = this.opt(key);
-            return o instanceof Number ? ((Number) o).doubleValue() : new Double((String) o);
+            return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o);
         } catch (Exception var5) {
             return defaultValue;
         }
@@ -455,17 +455,17 @@ public class JSONObject {
     }
 
     public JSONObject put(String key, double value) throws JSONException {
-        this.put(key, (Object) (new Double(value))); //NOSONAR
+        this.put(key, (Object) (value)); //NOSONAR
         return this;
     }
 
     public JSONObject put(String key, int value) throws JSONException {
-        this.put(key, (Object) (new Integer(value))); //NOSONAR
+        this.put(key, (Object) (value)); //NOSONAR
         return this;
     }
 
     public JSONObject put(String key, long value) throws JSONException {
-        this.put(key, (Object) (new Long(value))); //NOSONAR
+        this.put(key, (Object) (value)); //NOSONAR
         return this;
     }
 
