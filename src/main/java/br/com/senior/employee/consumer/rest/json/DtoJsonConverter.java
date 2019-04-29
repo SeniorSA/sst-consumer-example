@@ -187,7 +187,7 @@ public class DtoJsonConverter {
                         dtoClass = Class.forName(prefix + fieldName);
                     }
 
-                    Object dto = dtoClass.newInstance();
+                    Object dto = dtoClass.getDeclaredConstructor().newInstance();
                     Iterator var19 = jsonObject.entrySet().iterator();
 
                     while (var19.hasNext()) {

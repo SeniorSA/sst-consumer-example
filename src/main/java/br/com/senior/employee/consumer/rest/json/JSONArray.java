@@ -47,7 +47,7 @@ public class JSONArray {
                     case ')':
                     case ']':
                         if (q != c) {
-                            throw x.syntaxError("Expected a '" + new Character(q) + "'"); //NOSONAR
+                            throw x.syntaxError("Expected a '" + q + "'"); //NOSONAR
                         }
 
                         return;
@@ -283,19 +283,19 @@ public class JSONArray {
     }
 
     public JSONArray put(double value) throws JSONException {
-        Double d = new Double(value); //NOSONAR
+        Double d = value; //NOSONAR
         JSONObject.testValidity(d);
         this.put((Object)d);
         return this;
     }
 
     public JSONArray put(int value) {
-        this.put((Object)(new Integer(value))); //NOSONAR
+        this.put((Object)(value)); //NOSONAR
         return this;
     }
 
     public JSONArray put(long value) {
-        this.put((Object)(new Long(value))); //NOSONAR
+        this.put((Object)(value)); //NOSONAR
         return this;
     }
 
@@ -320,17 +320,17 @@ public class JSONArray {
     }
 
     public JSONArray put(int index, double value) throws JSONException {
-        this.put(index, (Object)(new Double(value))); //NOSONAR
+        this.put(index, (Object)(value)); //NOSONAR
         return this;
     }
 
     public JSONArray put(int index, int value) throws JSONException {
-        this.put(index, (Object)(new Integer(value))); //NOSONAR
+        this.put(index, (Object)(value)); //NOSONAR
         return this;
     }
 
     public JSONArray put(int index, long value) throws JSONException {
-        this.put(index, (Object)(new Long(value))); //NOSONAR
+        this.put(index, (Object)(value)); //NOSONAR
         return this;
     }
 
