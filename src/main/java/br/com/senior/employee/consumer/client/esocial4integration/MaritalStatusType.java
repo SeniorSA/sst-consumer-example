@@ -34,5 +34,9 @@ public enum MaritalStatusType {
     /**
      * Outro tipo de estado civil.
      */
-    OTHER
+    OTHER,
+    /**
+     * Concubinato
+     */
+    CONCUBINAGE,
 }
