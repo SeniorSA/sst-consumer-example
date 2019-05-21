@@ -12,7 +12,10 @@ import br.com.senior.employee.consumer.rest.Rest;
 import br.com.senior.employee.consumer.rest.json.DtoJsonConverter;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -76,12 +79,15 @@ public class EmployeeIntegrationController {
      * @return {@Link ResponseEntity<Integration.PagedResults>}
      */
     private Optional<ResponseEntity<Integration.PagedResults>> getData(Credential credential) {
-        String filter = "statusType eq SENT_TO_PROVIDER";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>("{\"pagination\": null}", headers);
+        String url = applicationProperties.getG7Location() + "/hcm/esocial4integration/queries/retrieveSentIntegrationsQuery";
         try {
-            return Optional.of(rest.get(credential).exchange(applicationProperties.getG7Location() + "/hcm/esocial4integration/entities/integration?filter=" + filter,
-                    HttpMethod.GET,
-                    null,
-                    Integration.PagedResults.class));
+            return Optional.of(rest.get(credential).exchange(url,
+                                                             HttpMethod.POST,
+                                                             request,
+                                                             Integration.PagedResults.class));
         } catch (HttpServerErrorException e) {
             LOGGER.error("Não foi possível obter os dados de " + credential.username, e);
         } catch (HttpClientErrorException e) {
