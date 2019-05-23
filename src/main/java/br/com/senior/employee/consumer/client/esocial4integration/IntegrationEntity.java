@@ -42,7 +42,7 @@ public class IntegrationEntity {
 	/**
 	 * Colaborador da integração.
 	 */
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL, CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinColumn(name = "employee")
 	private EmployeeEntity employee;
 	

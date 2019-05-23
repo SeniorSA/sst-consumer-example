@@ -3,6 +3,8 @@
  */
 package br.com.senior.employee.consumer.client.esocial4integration;
 
+import java.util.ArrayList;
+
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -166,13 +168,10 @@ public class EmployeeEntity {
     private WorkstationEntity workstation;
 
     /**
-     * DeficiÃªncia do colaborador.
+     * Deficiência do colaborador.
      */
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "employee_deficiencies",
-	          joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
-	          inverseJoinColumns = @JoinColumn(name = "deficiencies_id", referencedColumnName = "id"))
-	private java.util.List<DeficiencyEntity> deficiencies;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee", cascade = CascadeType.ALL)
+    private java.util.List<DeficiencyEntity> deficiencies = new ArrayList<>();
 
     /**
      * Data de demissão.
