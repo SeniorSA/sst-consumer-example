@@ -7,6 +7,8 @@ import br.com.senior.employee.consumer.client.esocial4integration.Integration;
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationUpdateStatusInput;
 import br.com.senior.employee.consumer.client.esocial4integration.ProviderStatusType;
 import br.com.senior.employee.consumer.controller.integration.companycredentials.CompanyCredentialsStrategy;
+import br.com.senior.employee.consumer.repository.DeficiencyRepository;
+import br.com.senior.employee.consumer.repository.EmployeeRepository;
 import br.com.senior.employee.consumer.repository.IntegrationRepository;
 import br.com.senior.employee.consumer.rest.Rest;
 import br.com.senior.employee.consumer.rest.json.DtoJsonConverter;
@@ -38,6 +40,10 @@ public class EmployeeIntegrationController {
     private EmployeeIntegrationStrategy integrationStrategy;
     @Autowired
     private CompanyCredentialsStrategy companyCredentialsStrategy;
+    @Autowired
+    private DeficiencyRepository deficiencyRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     /**
      * Este método é executado ao iniciar este sistema para verificar se existem pendências não consumidas.
@@ -121,7 +127,7 @@ public class EmployeeIntegrationController {
             IntegrationEntity entity = DtoJsonConverter.toDTO(DtoJsonConverter.toJSON(integration), IntegrationEntity.class);
 
             // Salva os dados do colaborador
-            integrationRepository.save(entity);
+            entity = savePendency(entity);
 
             //Processa a pendencia de integração
             integrationStrategy.processPendency(entity);
@@ -137,5 +143,26 @@ public class EmployeeIntegrationController {
             IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.INTEGRATION_ERROR, e.getMessage());
             rest.get(credential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
         }
+    }
+
+    /**
+     * Método responsável por consistir os dados vindos com a pendencia de integração pela primeira vez
+     *
+     * @param entity entidade de pendencia de integração
+     * @return entidade de pendencia de integração persistida
+     */
+    private IntegrationEntity savePendency(IntegrationEntity entity) {
+        var deficiencies = entity.getEmployee().getDeficiencies();
+        entity.getEmployee().setDeficiencies(null);
+
+        var employee = employeeRepository.save(entity.getEmployee());
+        entity.setEmployee(employee);
+
+        if (deficiencies != null) {
+            deficiencies.forEach(deficiencyEntity -> deficiencyEntity.setEmployee(employee));
+            deficiencyRepository.saveAll(deficiencies);
+        }
+
+        return integrationRepository.save(entity);
     }
 }

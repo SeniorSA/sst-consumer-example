@@ -109,9 +109,9 @@ public class Deficiency {
      */
     public Boolean isRehabilitated;
     /**
-     * Id do colaborador.
+     * Colaborador.
      */
-    public String employee;
+    public Employee employee;
     
     public Deficiency() {
     }
@@ -119,7 +119,7 @@ public class Deficiency {
     /** 
      * This constructor allows initialization of all fields, required and optional.
      */
-    public Deficiency(String id, Long code, String name, Boolean isMainDeficiency, DeficiencyType deficiencyType, java.time.LocalDate dateWhen, Boolean isRehabilitated, String employee) {
+    public Deficiency(String id, Long code, String name, Boolean isMainDeficiency, DeficiencyType deficiencyType, java.time.LocalDate dateWhen, Boolean isRehabilitated, Employee employee) {
         this.id = id;
         this.code = code;
         this.name = name;
@@ -132,7 +132,7 @@ public class Deficiency {
     /** 
      * This convenience constructor allows initialization of all required fields.
      */
-    public Deficiency(Long code, String name, Boolean isMainDeficiency, DeficiencyType deficiencyType, java.time.LocalDate dateWhen, Boolean isRehabilitated, String employee) {
+    public Deficiency(Long code, String name, Boolean isMainDeficiency, DeficiencyType deficiencyType, java.time.LocalDate dateWhen, Boolean isRehabilitated, Employee employee) {
         this.code = code;
         this.name = name;
         this.isMainDeficiency = isMainDeficiency;
