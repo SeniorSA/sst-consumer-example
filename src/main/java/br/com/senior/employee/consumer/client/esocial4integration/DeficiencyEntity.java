@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="deficiency")
 public class DeficiencyEntity {
-	
+
 	public static final String SECURITY_RESOURCE = "res://senior.com.br/hcm/esocial4integration/entities/deficiency";
 
 	/**
@@ -21,114 +21,115 @@ public class DeficiencyEntity {
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	@Column(name = "id", updatable = false)
 	private java.util.UUID id;
-	
+
 	/**
 	 * Código da deficiência.
 	 */
 	@Column(name = "code")
 	private Long code;
-	
+
 	/**
 	 * Nome da deficiência.
 	 */
 	@Column(name = "name")
 	private String name;
-	
+
 	/**
 	 * É a deficiência principal?
 	 */
 	@Column(name = "is_main_deficiency")
 	private Boolean isMainDeficiency;
-	
+
 	/**
 	 * Tipo da deficiência no e-Social.
 	 */
 	@Enumerated(EnumType.STRING)
 	@Column(name = "deficiency_type")
 	private DeficiencyType deficiencyType;
-	
+
 	/**
 	 * Data de início da deficiência.
 	 */
 	@Column(name = "date_when")
 	private java.time.LocalDate dateWhen;
-	
+
 	/**
 	 * Reabilitado.
 	 */
 	@Column(name = "is_rehabilitated")
 	private Boolean isRehabilitated;
-	
+
 	/**
-	 * Id do colaborador.
+	 * Colaborador.
 	 */
-	@Column(name = "employee", length = 36)
-	private String employee;
-	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "employee")
+	private EmployeeEntity employee;
+
 	public java.util.UUID getId() {
 		return this.id;
 	}
-	
+
 	public Long getCode() {
 		return this.code;
 	}
-	
+
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public Boolean getIsMainDeficiency() {
 		return this.isMainDeficiency;
 	}
-	
+
 	public DeficiencyType getDeficiencyType() {
 		return this.deficiencyType;
 	}
-	
+
 	public java.time.LocalDate getDateWhen() {
 		return this.dateWhen;
 	}
-	
+
 	public Boolean getIsRehabilitated() {
 		return this.isRehabilitated;
 	}
-	
-	public String getEmployee() {
+
+	public EmployeeEntity getEmployee() {
 		return this.employee;
 	}
-	
+
 	public void setId(java.util.UUID id) {
 		this.id = id;
 	}
-	
+
 	public void setCode(Long code) {
 		this.code = code;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public void setIsMainDeficiency(Boolean isMainDeficiency) {
 		this.isMainDeficiency = isMainDeficiency;
 	}
-	
+
 	public void setDeficiencyType(DeficiencyType deficiencyType) {
 		this.deficiencyType = deficiencyType;
 	}
-	
+
 	public void setDateWhen(java.time.LocalDate dateWhen) {
 		this.dateWhen = dateWhen;
 	}
-	
+
 	public void setIsRehabilitated(Boolean isRehabilitated) {
 		this.isRehabilitated = isRehabilitated;
 	}
-	
-	public void setEmployee(String employee) {
+
+	public void setEmployee(EmployeeEntity employee) {
 		this.employee = employee;
 	}
-	
+
 	@Override
 	public int hashCode() {
 	    int ret = 1;
@@ -137,7 +138,7 @@ public class DeficiencyEntity {
 	    }
 	    return ret;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 	    if (this == obj) {
@@ -155,7 +156,7 @@ public class DeficiencyEntity {
 	    }
 	    return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -171,5 +172,5 @@ public class DeficiencyEntity {
 		sb.append(']');
 		return sb.toString();
 	}
-	
+
 }
