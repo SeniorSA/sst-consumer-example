@@ -1,6 +1,6 @@
 package br.com.senior.employee.consumer.controller.integration.employee;
 
-import br.com.senior.employee.consumer.client.authentication.Credential;
+import br.com.senior.employee.consumer.client.authentication.KeyCredential;
 import br.com.senior.employee.consumer.configuration.ApplicationProperties;
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationEntity;
 import br.com.senior.employee.consumer.client.esocial4integration.Integration;
@@ -53,10 +53,10 @@ public class EmployeeIntegrationController {
         companyCredentialsStrategy.getCredentials().forEach(c -> {
             Integration.PagedResults list = null;
             do {
-                Optional<ResponseEntity<Integration.PagedResults>> results = getData(c);
+                Optional<ResponseEntity<Integration.PagedResults>> results = getKeyData(c);
                 if (results.isPresent()) {
-                    list = getData(c).get().getBody();
-                    list.contents.forEach(integration -> integrationPendency(c.username, integration));
+                    list = getKeyData(c).get().getBody();
+                    list.contents.forEach(integration -> integrationPendency(c.accessKey, integration));
                 }
             } while (containsPendencies(list));
         });
@@ -64,17 +64,17 @@ public class EmployeeIntegrationController {
 
     /**
      * Esse método é responsável por consumir as pendências de integração de um determinado usuário.
-     * @param user
+     * @param accessKey Chave de acesso da aplicação.
      */
-    public void consumePendenciesByTenant(String user) {
-        LOGGER.info("Consumindo pendências do usuário: " + user);
-        Credential credential = Credential.fromUser(user);
+    public void consumePendenciesByTenant(String accessKey) {
+        LOGGER.info("Consumindo pendências do tenant: " + accessKey);
+        KeyCredential keyCredential = KeyCredential.getKeyCredentialFromAccessKey(accessKey);
         Integration.PagedResults list = null;
         do {
-            Optional<ResponseEntity<Integration.PagedResults>> results = getData(credential);
+            Optional<ResponseEntity<Integration.PagedResults>> results = getKeyData(keyCredential);
             if (results.isPresent()) {
-                list = getData(credential).get().getBody();
-                list.contents.forEach(integration -> integrationPendency(credential.username, integration));
+                list = getKeyData(keyCredential).get().getBody();
+                list.contents.forEach(integration -> integrationPendency(keyCredential.accessKey, integration));
             }
         } while (containsPendencies(list));
     }
@@ -84,20 +84,20 @@ public class EmployeeIntegrationController {
      *
      * @return {@Link ResponseEntity<Integration.PagedResults>}
      */
-    private Optional<ResponseEntity<Integration.PagedResults>> getData(Credential credential) {
+    private Optional<ResponseEntity<Integration.PagedResults>> getKeyData(KeyCredential credential) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>("{\"pagination\": null}", headers);
         String url = applicationProperties.getG7Location() + "/hcm/esocial4integration/queries/retrieveSentIntegrationsQuery";
         try {
-            return Optional.of(rest.get(credential).exchange(url,
-                                                             HttpMethod.POST,
-                                                             request,
-                                                             Integration.PagedResults.class));
+            return Optional.of(rest.getWithKey(credential).exchange(url,
+                    HttpMethod.POST,
+                    request,
+                    Integration.PagedResults.class));
         } catch (HttpServerErrorException e) {
-            LOGGER.error("Não foi possível obter os dados de " + credential.username, e);
+            LOGGER.error("Não foi possível obter os dados de " + credential.tenantName, e);
         } catch (HttpClientErrorException e) {
-            LOGGER.info("Credencial inválida para o usuário: " + credential.username);
+            LOGGER.info("Credencial inválida para o usuário: " + credential.tenantName);
         } catch (ResourceAccessException e) {
             LOGGER.info("URL da plataforma SeniorX inválida. Verifique o arquivo configurações da plataforma Senior.");
         }
@@ -117,12 +117,12 @@ public class EmployeeIntegrationController {
     /**
      * Método responsável por processar a pendência de integração.
      *
-     * @param user\
+     * @param accessKey Chave de acesso da aplicação.
      * @param integration Entidade da integração.
      */
-    public void integrationPendency(String user, Integration integration) {
+    public void integrationPendency(String accessKey, Integration integration) {
         LOGGER.info("Processando a pendência de integração ID: " + integration.id);
-        Credential credential = Credential.fromUser(user);
+        KeyCredential keyCredential = KeyCredential.getKeyCredentialFromAccessKey(accessKey);
         try {
             IntegrationEntity entity = DtoJsonConverter.toDTO(DtoJsonConverter.toJSON(integration), IntegrationEntity.class);
 
@@ -136,12 +136,12 @@ public class EmployeeIntegrationController {
              * Desta forma o sistema da Senior saberá que o dado está no provedor SST.
              */
             IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.ON_PROVIDER);
-            rest.get(credential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
+            rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
             LOGGER.info("A pendência ID: " + integration.id + " foi consumida.");
         } catch (Exception e) {
             LOGGER.error("Erro na integração da pendência ID: " + integration.id, e);
             IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.INTEGRATION_ERROR, e.getMessage());
-            rest.get(credential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
+            rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
         }
     }
 

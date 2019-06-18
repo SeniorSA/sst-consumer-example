@@ -1,10 +1,10 @@
 package br.com.senior.employee.consumer.client.esocial;
 
-import br.com.senior.employee.consumer.client.authentication.Credential;
+import br.com.senior.employee.consumer.client.authentication.KeyCredential;
 
 public class EsocialEventXmlPayload {
 
-    public Credential credential;
+    public KeyCredential credential;
     public EsocialEventXmlInput esocialEventXmlInput;
 
 }
