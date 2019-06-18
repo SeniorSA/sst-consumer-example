@@ -1,6 +1,6 @@
 package br.com.senior.employee.consumer.rest;
 
-import br.com.senior.employee.consumer.client.authentication.Credential;
+import br.com.senior.employee.consumer.client.authentication.KeyCredential;
 import br.com.senior.employee.consumer.controller.integration.companycredentials.CompanyCredentialsStrategyImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -21,29 +21,24 @@ public class Rest {
     @Autowired
     private CompanyCredentialsStrategyImpl companyCredentialsStrategy;
 
-    public RestTemplate get(Credential credential) {
+    public RestTemplate getWithKey(KeyCredential keyCredential) {
         RestTemplate restTemplate = RestTemplateBuilder.build();
         try {
-                Credential credentialFromUser = getCredentialFromUser(credential.username);
+            KeyCredential credentialFromAccessKey = getCredentialFromAccessKey(keyCredential.accessKey);
 
-                final List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
-                BasicAuthInterceptor basicAuthInterceptor = new BasicAuthInterceptor(auth, credentialFromUser);
-                interceptors.add(basicAuthInterceptor);
-                restTemplate.setInterceptors(interceptors);
+            final List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+            BasicAuthInterceptor basicAuthInterceptor = new BasicAuthInterceptor(auth, credentialFromAccessKey);
+            interceptors.add(basicAuthInterceptor);
+            restTemplate.setInterceptors(interceptors);
 
-            } catch (Exception e) {
-                throw new RestClientConfigurationException(e);
-            }
+        } catch (Exception e) {
+            throw new RestClientConfigurationException(e);
+        }
         return restTemplate;
     }
 
-    /**
-     * Busca por uma credencial registrada com base em um determinado usuário.
-     * @param username nome do usuário a ser buscado.
-     * @return a credencial do usuário.
-     */
-    private Credential getCredentialFromUser(String username) {
-        Stream<Credential> credentialStream = companyCredentialsStrategy.getCredentials().stream().filter(cr -> cr.username.equals(username));
+    private KeyCredential getCredentialFromAccessKey(String accessKey) {
+        Stream<KeyCredential> credentialStream = companyCredentialsStrategy.getCredentials().stream().filter(kc -> kc.accessKey.equals(accessKey));
         return credentialStream.findFirst().get();
     }
 }

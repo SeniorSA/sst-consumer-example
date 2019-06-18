@@ -21,7 +21,7 @@ public class IntegrationEventHandler {
     }
 
     @PostMapping(path = "/consumePendenciesByTenant")
-    public void integrationPendencyByTenant(@RequestHeader(name="x-senior-user") String user) { employeeIntegrationController.consumePendenciesByTenant(user); }
+    public void integrationPendencyByTenant(@RequestHeader(name="x-senior-key") String accessKey) { employeeIntegrationController.consumePendenciesByTenant(accessKey); }
 
     /**
      * Endpoint que recebe um POST.
@@ -31,13 +31,13 @@ public class IntegrationEventHandler {
      * @param payload Dados do colaborador.
      */
     @PostMapping(path = "/pendency")
-    public void integrationPendency(@RequestHeader(name = "x-senior-user") String user, @RequestBody IntegrationPendencyEventPayload payload) {
+    public void integrationPendency(@RequestHeader(name = "x-senior-key") String accessKey, @RequestBody IntegrationPendencyEventPayload payload) {
         /*
             O payload virá com todos os dados do colaborador independente do tipo de integração (integrationType).
             Enviamos o integrationType para o provedor SST decidir alterar apenas o que foi alterado do colaborador, ou, por controle do provedor SST salvar sempre todos os dados do colaborador.
             Aqui é feito o 'parse' dos dados do payload para a base interna do provedor SST.
          */
-        employeeIntegrationController.integrationPendency(user, payload.integration);
+        employeeIntegrationController.integrationPendency(accessKey, payload.integration);
     }
 
 }

@@ -16,6 +16,10 @@ public enum StatusType {
      */
     E_DOC_COMMUNICATION_ERROR,
     /**
+     * Configuração do mensageiro dos eventos não informado ou incompleto.
+     */
+    NO_E_DOC_CONFIGURATION_FOUND,
+    /**
      * Erro na geração do XML.
      */
     XML_GENERATION_ERROR,
@@ -50,5 +54,13 @@ public enum StatusType {
     /**
      * Evento cancelado.
      */
-    EVENT_CANCELED
+    EVENT_CANCELED,
+    /**
+     * Processando a pendência.
+     */
+    INTEGRATING,
+    /**
+     * Pendência regerada
+     */
+    CANCEL_REGENERATED
 }

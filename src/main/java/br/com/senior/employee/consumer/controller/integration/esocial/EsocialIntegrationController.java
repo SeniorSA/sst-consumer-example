@@ -1,6 +1,6 @@
 package br.com.senior.employee.consumer.controller.integration.esocial;
 
-import br.com.senior.employee.consumer.client.authentication.Credential;
+import br.com.senior.employee.consumer.client.authentication.KeyCredential;
 import br.com.senior.employee.consumer.client.esocial.*;
 import br.com.senior.employee.consumer.configuration.ApplicationProperties;
 import br.com.senior.employee.consumer.controller.integration.companycredentials.CompanyCredentialsStrategy;
@@ -11,7 +11,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 
@@ -45,11 +44,11 @@ public class EsocialIntegrationController {
                                 data.layoutType = l.layoutType;
                                 data.message = l.message;
                                 data.xmlStatus = l.xmlStatus;
-                                statusXml(c.username, data);
+                                statusXml(c.accessKey, data);
                             });
                     } while (containsPendenciesStatusXml(list));
                 } catch (HttpClientErrorException e) {
-                    LOGGER.info("Credencial inválida para o usuário: " + c.username);
+                    LOGGER.info("Credencial inválida para o usuário: " + c.tenantName);
                 } catch (ResourceAccessException e) {
                     LOGGER.info("URL da plataforma SeniorX inválida. Verifique o arquivo configurações da plataforma Senior.");
                 }
@@ -58,12 +57,12 @@ public class EsocialIntegrationController {
 
     /**
      * Método responsável receber o status do XML.
-     * @param user
+     * @param accessKey Chave de acesso da aplicação.
      * @param providerXml Entidade referente ao status do envio do XML.
      */
-    public void statusXml(String user, ProviderXml providerXml) {
+    public void statusXml(String accessKey, ProviderXml providerXml) {
         XmlOutput xmlOutput = setXmlOutputForStatusIntegration(providerXml);
-        Credential credential = Credential.fromUser(user);
+        KeyCredential keyCredential = KeyCredential.getKeyCredentialFromAccessKey(accessKey);
         try {
             esocialStrategy.eSocialStatusXml(xmlOutput);
             /**
@@ -71,12 +70,12 @@ public class EsocialIntegrationController {
             * Desta forma o sistema da Senior saberá que o dado está no provedor SST.
             */
             XmlUpdateStatusInput input = new XmlUpdateStatusInput(xmlOutput.xmlId, ProviderStatusType.ON_PROVIDER);
-            rest.get(credential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
+            rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
             LOGGER.info("O Status do xml ID: " + xmlOutput.xmlId + " foi alterado.");
         } catch (Exception e) {
             LOGGER.error("Erro na integração do xml ID: " + xmlOutput.xmlId, e);
             XmlUpdateStatusInput input = new XmlUpdateStatusInput(xmlOutput.xmlId, ProviderStatusType.PROVIDER_ERROR, e.getMessage());
-            rest.get(credential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
+            rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
         }
     }
 
@@ -85,9 +84,9 @@ public class EsocialIntegrationController {
      *
      * @return {@Link ResponseEntity<XmlSituation.PagedResults>}
      */
-    private ResponseEntity<ProviderXml.PagedResults> getDataStatusXml(Credential credential) {
+    private ResponseEntity<ProviderXml.PagedResults> getDataStatusXml(KeyCredential keyCredential) {
         String filter = "providerStatusType eq SENT_TO_PROVIDER";
-        return rest.get(credential).exchange(applicationProperties.getG7Location() + "/hcm/esocial/entities/providerXml?filter=" + filter,
+        return rest.getWithKey(keyCredential).exchange(applicationProperties.getG7Location() + "/hcm/esocial/entities/providerXml?filter=" + filter,
                 HttpMethod.GET,
                 null,
                 ProviderXml.PagedResults.class);
@@ -119,17 +118,17 @@ public class EsocialIntegrationController {
      * @param credential Credenciais.
      * @param payload    Payload.
      */
-    public XmlOutput sendXml(Credential credential, EsocialEventXmlInput payload) {
+    public XmlOutput sendXml(KeyCredential credential, EsocialEventXmlInput payload) {
         HttpEntity<EsocialEventXmlInput> request = new HttpEntity<>(payload);
         XmlOutput xmlOutput = null;
         try {
-            EsocialEventXmlOutput providerXml = rest.get(credential).postForObject(applicationProperties.getG7Location() + "/hcm/esocial/actions/esocialEventXml",
+            EsocialEventXmlOutput providerXml = rest.getWithKey(credential).postForObject(applicationProperties.getG7Location() + "/hcm/esocial/actions/esocialEventXml",
                     request,
                     EsocialEventXmlOutput.class);
             xmlOutput = setXmlOutputForSendXml(providerXml);
             LOGGER.info("O XML do eSocial de id:" + xmlOutput.xmlId + " foi enviado para a plataforma SeniorX.");
         }catch (HttpClientErrorException e) {
-            LOGGER.info("Credencial inválida para o usuário: " + credential.username);
+            LOGGER.info("Credencial inválida para o tenant: " + credential.tenantName);
         } catch (ResourceAccessException e) {
             LOGGER.info("URL da plataforma SeniorX inválida. Verifique o arquivo configurações da plataforma Senior.");
         }
