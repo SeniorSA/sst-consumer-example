@@ -1,0 +1,5 @@
+LOCK TABLE cost_center IN ACCESS EXCLUSIVE MODE;
+
+ALTER TABLE cost_center ALTER code DROP NOT NULL;
+ALTER TABLE cost_center ALTER "name" DROP NOT NULL;
+ALTER TABLE cost_center ALTER date_when DROP NOT NULL;
