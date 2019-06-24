@@ -1,0 +1,3 @@
+LOCK TABLE job_position IN ACCESS EXCLUSIVE MODE;
+
+ALTER TABLE job_position ALTER structure_code DROP NOT NULL;
