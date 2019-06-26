@@ -1,7 +1,6 @@
 package br.com.senior.employee.consumer.controller.integration.employee;
 
 import br.com.senior.employee.consumer.client.authentication.KeyCredential;
-import br.com.senior.employee.consumer.client.esocial4integration.Deficiency;
 import br.com.senior.employee.consumer.client.esocial4integration.DeficiencyEntity;
 import br.com.senior.employee.consumer.client.esocial4integration.EmployeeEntity;
 import br.com.senior.employee.consumer.configuration.ApplicationProperties;
