@@ -17,7 +17,7 @@ public class CompanyCredentialsStrategyImpl implements CompanyCredentialsStrateg
     @Override
     public List<KeyCredential> getCredentials() {
         List<KeyCredential> credentials = new ArrayList<>();
-        credentials.add(new KeyCredential("JBxZyvgq6t0L85Wl49syyEhtyK0a", "pjGpTrlqb4d5qzevIFqx79Mt82sa", "vinicius-luis"));
+        credentials.add(new KeyCredential("Chave de Acesso", "Segredo da Chave de Acesso", "Nome do Tenant"));
         return credentials;
     }
 }
