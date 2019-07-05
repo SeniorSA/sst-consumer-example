@@ -1,6 +1,8 @@
 package br.com.senior.employee.consumer.controller.integration.employee;
 
 import br.com.senior.employee.consumer.client.authentication.KeyCredential;
+import br.com.senior.employee.consumer.client.esocial4integration.DeficiencyEntity;
+import br.com.senior.employee.consumer.client.esocial4integration.EmployeeEntity;
 import br.com.senior.employee.consumer.configuration.ApplicationProperties;
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationEntity;
 import br.com.senior.employee.consumer.client.esocial4integration.Integration;
@@ -24,6 +26,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Log4j
@@ -152,10 +155,10 @@ public class EmployeeIntegrationController {
      * @return entidade de pendencia de integração persistida
      */
     private IntegrationEntity savePendency(IntegrationEntity entity) {
-        var deficiencies = entity.getEmployee().getDeficiencies();
+        List<DeficiencyEntity> deficiencies = entity.getEmployee().getDeficiencies();
         entity.getEmployee().setDeficiencies(null);
 
-        var employee = employeeRepository.save(entity.getEmployee());
+        EmployeeEntity employee = employeeRepository.save(entity.getEmployee());
         entity.setEmployee(employee);
 
         if (deficiencies != null) {
