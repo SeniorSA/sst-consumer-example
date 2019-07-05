@@ -165,6 +165,13 @@ public class EmployeeEntity {
     private WorkstationEntity workstation;
 
     /**
+     * Motivo do afastamento.
+     */
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "reason_leave")
+    private ReasonLeaveEntity reasonLeave;
+
+    /**
      * Deficiência do colaborador.
      */
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee", cascade = CascadeType.ALL)
@@ -324,9 +331,13 @@ public class EmployeeEntity {
         return this.workstation;
     }
 
-	public java.util.List<DeficiencyEntity> getDeficiencies() {
-		return this.deficiencies;
-	}
+    public ReasonLeaveEntity getReasonLeave() {
+        return reasonLeave;
+    }
+
+    public java.util.List<DeficiencyEntity> getDeficiencies() {
+        return this.deficiencies;
+    }
 
     public java.time.LocalDate getDismissalDate() {
         return this.dismissalDate;
@@ -460,9 +471,13 @@ public class EmployeeEntity {
         this.workstation = workstation;
     }
 
-	public void setDeficiencies(java.util.List<DeficiencyEntity> deficiencies) {
-		this.deficiencies = deficiencies;
-	}
+    public void setReasonLeave(ReasonLeaveEntity reasonLeave) {
+        this.reasonLeave = reasonLeave;
+    }
+
+    public void setDeficiencies(java.util.List<DeficiencyEntity> deficiencies) {
+        this.deficiencies = deficiencies;
+    }
 
     public void setDismissalDate(java.time.LocalDate dismissalDate) {
         this.dismissalDate = dismissalDate;
@@ -558,6 +573,7 @@ public class EmployeeEntity {
         sb.append("jobPosition=<").append(jobPosition == null ? "null" : jobPosition).append('>').append(", ");
         sb.append("shift=<").append(shift == null ? "null" : shift).append('>').append(", ");
         sb.append("workstation=<").append(workstation == null ? "null" : workstation).append('>').append(", ");
+        sb.append("reasonLeave=<").append(reasonLeave == null ? "null" : reasonLeave).append('>').append(", ");
         sb.append("dismissalDate=").append(dismissalDate == null ? "null" : dismissalDate);
         sb.append("ctpsNumber=").append(ctpsNumber == null ? "null" : ctpsNumber).append(", ");
         sb.append("ctpsSerie=").append(ctpsSerie == null ? "null" : ctpsSerie).append(", ");
