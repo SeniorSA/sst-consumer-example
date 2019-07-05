@@ -83,7 +83,7 @@ Além da configuração para conexão com o banco de dados, também está presen
 
 
 #### Lista de credencias para integração com a plataforma senior X - CompanyCredentialsStrategyImpl.java
-Todo cliente do módulo Integração SST deverá possuir uma chave de acesso específica cadastrada no gerenciamento de aplicações na plataforma senior x para a integração com o prestador SST. Será através dessa chave que será realizada a autenticação na plataforma senior x para o envio das informações dos colaboradores, assim como o envio dos XML do eSocial.
+Todo cliente do módulo Integração SST deverá possuir uma chave de acesso específica cadastrada no gerenciamento de aplicações na plataforma SeniorX para a integração com o prestador SST. Será através dessa chave que será realizada a autenticação na plataforma SeniorX para o envio das informações dos colaboradores, assim como o envio dos XML do eSocial.
 No método getCredentials, da classe CompanyCredentialsStrategyImpl, deve ser implementada a rotina que busca as chaves de acesso que são utilizadas para a integração com a plataforma SeniorX, de todos os clientes cadastrados no sistema do prestador SST.
 Essa rotina é executada automaticamente quando a aplicação sst-consumer-example for iniciada. Entretante, é papel do desenvolvedor do sistema do prestador SST garantir que ela seja executada sempre que um novo cliente for cadastrado, alterado ou excluído no sistema do prestador, com o objetivo de manter a lista de chaves de acesso sempre atualizada.
 
