@@ -1,7 +1,6 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Colaborador.
@@ -186,13 +185,50 @@ public class Employee {
      */
     public java.time.LocalDate dismissalDate;
 
+    /**
+     * Número da carteira de trabalho
+     */
+    public String ctpsNumber;
+    /**
+     * Série da carteira de trabalho
+     */
+    public String ctpsSerie;
+    /**
+     * Data de emissão da carteira de trabalho
+     */
+    public java.time.LocalDate ctpsIssuanceDate;
+    /**
+     * Digito da carteira de trabalho
+     */
+    public String ctpsSerieDigit;
+    /**
+     * Estado da carteira de trabalho
+     */
+    public State ctpsState;
+    /**
+     * Carteira de identidade
+     */
+    public String rgNumber;
+    /**
+     * Orgão emissor da carteira de identidade
+     */
+    public String rgIssuer;
+    /**
+     * Estado da carteira de identidade
+     */
+    public State rgState;
+    /**
+     * Data de emissão da carteira de identidade
+     */
+    public java.time.LocalDate rgIssuanceDate;
+
     public Employee() {
     }
 
     /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public Employee(String id, String externalId, EmployeeType employeeType, Long code, String eSocialRegistration, String name, String cpfNumber, String nisNumber, java.time.LocalDate birthday, java.time.LocalDate hireDate, MaritalStatusType maritalStatusType, GenderType genderType, SituationType situationType, ContractType contractType, ESocialCategory eSocialCategory, Boolean isDeficient, Company company, CompanyBranch companyBranch, CostCenter costCenter, Department department, JobPosition jobPosition, Shift shift, Workstation workstation, ReasonLeave reasonLeave, List<Deficiency> deficiencies, java.time.LocalDate dismissalDate) {
+    public Employee(String id, String externalId, EmployeeType employeeType, Long code, String eSocialRegistration, String name, String cpfNumber, String nisNumber, java.time.LocalDate birthday, java.time.LocalDate hireDate, MaritalStatusType maritalStatusType, GenderType genderType, SituationType situationType, ContractType contractType, ESocialCategory eSocialCategory, Boolean isDeficient, Company company, CompanyBranch companyBranch, CostCenter costCenter, Department department, JobPosition jobPosition, Shift shift, Workstation workstation, ReasonLeave reasonLeave, List<Deficiency> deficiencies, java.time.LocalDate dismissalDate, String ctpsNumber, String ctpsSerie, java.time.LocalDate ctpsIssuanceDate, String ctpsSerieDigit, State ctpsState, String rgNumber, String rgIssuer, State rgState, java.time.LocalDate rgIssuanceDate) {
         this.id = id;
         this.externalId = externalId;
         this.employeeType = employeeType;
@@ -219,6 +255,15 @@ public class Employee {
         this.reasonLeave = reasonLeave;
         this.deficiencies = deficiencies;
         this.dismissalDate = dismissalDate;
+        this.ctpsNumber = ctpsNumber;
+        this.ctpsSerie = ctpsSerie;
+        this.ctpsIssuanceDate = ctpsIssuanceDate;
+        this.ctpsSerieDigit = ctpsSerieDigit;
+        this.ctpsState = ctpsState;
+        this.rgNumber = rgNumber;
+        this.rgIssuer = rgIssuer;
+        this.rgState = rgState;
+        this.rgIssuanceDate = rgIssuanceDate;
     }
     /**
      * This convenience constructor allows initialization of all required fields.
@@ -288,6 +333,15 @@ public class Employee {
         sb.append("reasonLeave=<").append(reasonLeave == null ? "null" : reasonLeave).append('>').append(", ");
         sb.append("deficiencies=<").append(deficiencies == null ? "null" : deficiencies).append('>').append(", ");
         sb.append("dismissalDate=").append(dismissalDate == null ? "null" : dismissalDate);
+        sb.append("ctpsNumber=").append(ctpsNumber == null ? "null" : ctpsNumber).append(", ");
+        sb.append("ctpsSerie=").append(ctpsSerie == null ? "null" : ctpsSerie).append(", ");
+        sb.append("ctpsIssuanceDate=").append(ctpsIssuanceDate == null ? "null" : ctpsIssuanceDate).append(", ");
+        sb.append("ctpsSerieDigit=").append(ctpsSerieDigit == null ? "null" : ctpsSerieDigit).append(", ");
+        sb.append("ctpsState=").append(ctpsState == null ? "null" : ctpsState).append(", ");
+        sb.append("rgNumber=").append(rgNumber == null ? "null" : rgNumber).append(", ");
+        sb.append("rgIssuer=").append(rgIssuer == null ? "null" : rgIssuer).append(", ");
+        sb.append("rgState=").append(rgState == null ? "null" : rgState).append(", ");
+        sb.append("rgIssuanceDate=").append(rgIssuanceDate == null ? "null" : rgIssuanceDate).append(", ");
         sb.append(']');
         return sb.toString();
     }
