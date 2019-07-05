@@ -1,6 +1,3 @@
-/**
- * This is a generated file. DO NOT EDIT ANY CODE HERE, YOUR CHANGES WILL BE LOST.
- */
 package br.com.senior.employee.consumer.client.esocial4integration;
 
 import java.util.ArrayList;
@@ -168,6 +165,13 @@ public class EmployeeEntity {
     private WorkstationEntity workstation;
 
     /**
+     * Motivo do afastamento.
+     */
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "reason_leave")
+    private ReasonLeaveEntity reasonLeave;
+
+    /**
      * Deficiência do colaborador.
      */
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee", cascade = CascadeType.ALL)
@@ -178,6 +182,62 @@ public class EmployeeEntity {
      */
     @Column(name = "dismissal_date")
     private java.time.LocalDate dismissalDate;
+
+    /**
+     * Número da carteira de trabalho
+     */
+    @Column(name = "ctps_number")
+    private String ctpsNumber;
+
+    /**
+     * Série da carteira de trabalho
+     */
+    @Column(name = "ctps_serie", length = 5)
+    private String ctpsSerie;
+
+    /**
+     * Data de emissão da carteira de trabalho
+     */
+    @Column(name = "ctps_issuance_date")
+    private java.time.LocalDate ctpsIssuanceDate;
+
+    /**
+     * Digito da carteira de trabalho
+     */
+    @Column(name = "ctps_serie_digit", length = 5)
+    private String ctpsSerieDigit;
+
+    /**
+     * Estado da carteira de trabalho
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ctps_state")
+    private State ctpsState;
+
+    /**
+     * Carteira de identidade
+     */
+    @Column(name = "rg_number")
+    private String rgNumber;
+
+    /**
+     * Orgão emissor da carteira de identidade
+     */
+    @Column(name = "rg_issuer")
+    private String rgIssuer;
+
+    /**
+     * Estado da carteira de identidade
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rg_state")
+    private State rgState;
+
+    /**
+     * Data de emissão da carteira de identidade
+     */
+    @Column(name = "rg_issuance_date")
+    private java.time.LocalDate rgIssuanceDate;
 
     public java.util.UUID getId() {
         return this.id;
@@ -271,12 +331,52 @@ public class EmployeeEntity {
         return this.workstation;
     }
 
-	public java.util.List<DeficiencyEntity> getDeficiencies() {
-		return this.deficiencies;
-	}
+    public ReasonLeaveEntity getReasonLeave() {
+        return reasonLeave;
+    }
+
+    public java.util.List<DeficiencyEntity> getDeficiencies() {
+        return this.deficiencies;
+    }
 
     public java.time.LocalDate getDismissalDate() {
         return this.dismissalDate;
+    }
+
+    public String getCtpsNumber() {
+        return ctpsNumber;
+    }
+
+    public String getCtpsSerie() {
+        return ctpsSerie;
+    }
+
+    public java.time.LocalDate getCtpsIssuanceDate() {
+        return ctpsIssuanceDate;
+    }
+
+    public String getCtpsSerieDigit() {
+        return ctpsSerieDigit;
+    }
+
+    public State getCtpsState() {
+        return ctpsState;
+    }
+
+    public String getRgNumber() {
+        return rgNumber;
+    }
+
+    public String getRgIssuer() {
+        return rgIssuer;
+    }
+
+    public State getRgState() {
+        return rgState;
+    }
+
+    public java.time.LocalDate getRgIssuanceDate() {
+        return rgIssuanceDate;
     }
 
     public void setId(java.util.UUID id) {
@@ -371,12 +471,52 @@ public class EmployeeEntity {
         this.workstation = workstation;
     }
 
-	public void setDeficiencies(java.util.List<DeficiencyEntity> deficiencies) {
-		this.deficiencies = deficiencies;
-	}
+    public void setReasonLeave(ReasonLeaveEntity reasonLeave) {
+        this.reasonLeave = reasonLeave;
+    }
+
+    public void setDeficiencies(java.util.List<DeficiencyEntity> deficiencies) {
+        this.deficiencies = deficiencies;
+    }
 
     public void setDismissalDate(java.time.LocalDate dismissalDate) {
         this.dismissalDate = dismissalDate;
+    }
+
+    public void setCtpsNumber(String ctpsNumber) {
+        this.ctpsNumber = ctpsNumber;
+    }
+
+    public void setCtpsSerie(String ctpsSerie) {
+        this.ctpsSerie = ctpsSerie;
+    }
+
+    public void setCtpsIssuanceDate(java.time.LocalDate ctpsIssuanceDate) {
+        this.ctpsIssuanceDate = ctpsIssuanceDate;
+    }
+
+    public void setCtpsSerieDigit(String ctpsSerieDigit) {
+        this.ctpsSerieDigit = ctpsSerieDigit;
+    }
+
+    public void setCtpsState(State ctpsState) {
+        this.ctpsState = ctpsState;
+    }
+
+    public void setRgNumber(String rgNumber) {
+        this.rgNumber = rgNumber;
+    }
+
+    public void setRgIssuer(String rgIssuer) {
+        this.rgIssuer = rgIssuer;
+    }
+
+    public void setRgState(State rgState) {
+        this.rgState = rgState;
+    }
+
+    public void setRgIssuanceDate(java.time.LocalDate rgIssuanceDate) {
+        this.rgIssuanceDate = rgIssuanceDate;
     }
 
     @Override
@@ -433,7 +573,17 @@ public class EmployeeEntity {
         sb.append("jobPosition=<").append(jobPosition == null ? "null" : jobPosition).append('>').append(", ");
         sb.append("shift=<").append(shift == null ? "null" : shift).append('>').append(", ");
         sb.append("workstation=<").append(workstation == null ? "null" : workstation).append('>').append(", ");
+        sb.append("reasonLeave=<").append(reasonLeave == null ? "null" : reasonLeave).append('>').append(", ");
         sb.append("dismissalDate=").append(dismissalDate == null ? "null" : dismissalDate);
+        sb.append("ctpsNumber=").append(ctpsNumber == null ? "null" : ctpsNumber).append(", ");
+        sb.append("ctpsSerie=").append(ctpsSerie == null ? "null" : ctpsSerie).append(", ");
+        sb.append("ctpsIssuanceDate=").append(ctpsIssuanceDate == null ? "null" : ctpsIssuanceDate).append(", ");
+        sb.append("ctpsSerieDigit=").append(ctpsSerieDigit == null ? "null" : ctpsSerieDigit).append(", ");
+        sb.append("ctpsState=").append(ctpsState == null ? "null" : ctpsState).append(", ");
+        sb.append("rgNumber=").append(rgNumber == null ? "null" : rgNumber).append(", ");
+        sb.append("rgIssuer=").append(rgIssuer == null ? "null" : rgIssuer).append(", ");
+        sb.append("rgState=").append(rgState == null ? "null" : rgState).append(", ");
+        sb.append("rgIssuanceDate=").append(rgIssuanceDate == null ? "null" : rgIssuanceDate);
         sb.append(']');
         return sb.toString();
     }
