@@ -92,6 +92,18 @@ public class ReasonLeave {
      * Nome do motivo.
      */
     public String name; //NOSONAR
+    /**
+     * Data de início do afastamento.
+     */
+    public java.time.Instant startDate;
+    /**
+     * Data de previsão de término do afastamento.
+     */
+    public java.time.LocalDate estimatedEndDate;
+    /**
+     * Data de término do afastamento.
+     */
+    public java.time.Instant endDate;
 
     public ReasonLeave() {
     }
@@ -99,18 +111,22 @@ public class ReasonLeave {
     /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public ReasonLeave(String id, Long code, String name) {
+    public ReasonLeave(String id, Long code, String name, java.time.Instant startDate, java.time.LocalDate estimatedEndDate, java.time.Instant endDate) {
         this.id = id;
         this.code = code;
         this.name = name;
+        this.startDate = startDate;
+        this.estimatedEndDate = estimatedEndDate;
+        this.endDate = endDate;
     }
 
     /**
      * This convenience constructor allows initialization of all required fields.
      */
-    public ReasonLeave(Long code, String name) {
+    public ReasonLeave(Long code, String name, java.time.Instant startDate) {
         this.code = code;
         this.name = name;
+        this.startDate = startDate;
     }
 
     @Override
@@ -146,7 +162,10 @@ public class ReasonLeave {
         sb.append(getClass().getSimpleName()).append(" [");
         sb.append("id=").append(id == null ? "null" : id).append(", ");
         sb.append("code=").append(code == null ? "null" : code).append(", ");
-        sb.append("name=").append(name == null ? "null" : name);
+        sb.append("name=").append(name == null ? "null" : name).append(", ");
+        sb.append("startDate=").append(startDate == null ? "null" : startDate).append(", ");
+        sb.append("estimatedEndDate=").append(estimatedEndDate == null ? "null" : estimatedEndDate).append(", ");
+        sb.append("endDate=").append(endDate == null ? "null" : endDate);
         sb.append(']');
         return sb.toString();
     }
