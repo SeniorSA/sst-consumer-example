@@ -137,6 +137,10 @@ public class ProviderXml {
      * Id do xml dno prestador
      */
     public String providerXmlId;
+    /**
+     * Relatório de erro ocorrido no provedor.
+     */
+    public String providerErrorMessage;
     
     public ProviderXml() {
     }
@@ -144,7 +148,7 @@ public class ProviderXml {
     /** 
      * This constructor allows initialization of all fields, required and optional.
      */
-    public ProviderXml(String id, String xml, XmlStatusType xmlStatus, ProviderStatusType providerStatusType, LayoutSituation layoutSituation, String stackTrace, String message, String idEvento, LayoutType layoutType, java.time.Instant receiptDate, String providerCompanyId, SubscriptionType subscriptionType, String subscriptionNumber, String providerXmlId) {
+    public ProviderXml(String id, String xml, XmlStatusType xmlStatus, ProviderStatusType providerStatusType, LayoutSituation layoutSituation, String stackTrace, String message, String idEvento, LayoutType layoutType, java.time.Instant receiptDate, String providerCompanyId, SubscriptionType subscriptionType, String subscriptionNumber, String providerXmlId, String providerErrorMessage) {
         this.id = id;
         this.xml = xml;
         this.xmlStatus = xmlStatus;
@@ -159,6 +163,7 @@ public class ProviderXml {
         this.subscriptionType = subscriptionType;
         this.subscriptionNumber = subscriptionNumber;
         this.providerXmlId = providerXmlId;
+        this.providerErrorMessage = providerErrorMessage;
     }
     /** 
      * This convenience constructor allows initialization of all required fields.
@@ -214,7 +219,8 @@ public class ProviderXml {
     	sb.append("providerCompanyId=").append(providerCompanyId == null ? "null" : providerCompanyId).append(", ");
     	sb.append("subscriptionType=").append(subscriptionType == null ? "null" : subscriptionType).append(", ");
     	sb.append("subscriptionNumber=").append(subscriptionNumber == null ? "null" : subscriptionNumber).append(", ");
-    	sb.append("providerXmlId=").append(providerXmlId == null ? "null" : providerXmlId);
+    	sb.append("providerXmlId=").append(providerXmlId == null ? "null" : providerXmlId).append(", ");
+        sb.append("providerErrorMessage=").append(providerErrorMessage == null ? "null" : providerErrorMessage);
     	sb.append(']');
     	return sb.toString();
     }
