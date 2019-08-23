@@ -39,11 +39,21 @@ public class EsocialIntegrationController {
                         list = getDataStatusXml(c).getBody();
                             list.contents.forEach(l -> {
                                 ProviderXml data = new ProviderXml();
-                                data.idEvento = l.idEvento;
                                 data.id = l.id;
-                                data.layoutType = l.layoutType;
-                                data.message = l.message;
+                                data.xml = l.xml;
                                 data.xmlStatus = l.xmlStatus;
+                                data.providerStatusType = l.providerStatusType;
+                                data.layoutSituation = l.layoutSituation;
+                                data.stackTrace = l.stackTrace;
+                                data.message = l.message;
+                                data.idEvento = l.idEvento;
+                                data.layoutType = l.layoutType;
+                                data.receiptDate = l.receiptDate;
+                                data.providerCompanyId = l.providerCompanyId;
+                                data.subscriptionType = l.subscriptionType;
+                                data.subscriptionNumber = l.subscriptionNumber;
+                                data.providerXmlId = l.providerXmlId;
+                                data.providerErrorMessage = l.providerErrorMessage;
                                 statusXml(c.accessKey, data);
                             });
                     } while (containsPendenciesStatusXml(list));
