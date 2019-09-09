@@ -239,6 +239,12 @@ public class EmployeeEntity {
     @Column(name = "rg_issuance_date")
     private java.time.LocalDate rgIssuanceDate;
 
+    /**
+     * Número de contratos do colaborador
+     */
+    @Column(name = "number_contract_same_hire_date")
+    private Long numberContractSameHireDate;
+
     public java.util.UUID getId() {
         return this.id;
     }
@@ -377,6 +383,10 @@ public class EmployeeEntity {
 
     public java.time.LocalDate getRgIssuanceDate() {
         return rgIssuanceDate;
+    }
+
+    public Long getNumberContractSameHireDate() {
+        return numberContractSameHireDate;
     }
 
     public void setId(java.util.UUID id) {
@@ -519,6 +529,10 @@ public class EmployeeEntity {
         this.rgIssuanceDate = rgIssuanceDate;
     }
 
+    public void setNumberContractSameHireDate(Long numberContractSameHireDate) {
+        this.numberContractSameHireDate = numberContractSameHireDate;
+    }
+
     @Override
     public int hashCode() {
         int ret = 1;
@@ -584,6 +598,7 @@ public class EmployeeEntity {
         sb.append("rgIssuer=").append(rgIssuer == null ? "null" : rgIssuer).append(", ");
         sb.append("rgState=").append(rgState == null ? "null" : rgState).append(", ");
         sb.append("rgIssuanceDate=").append(rgIssuanceDate == null ? "null" : rgIssuanceDate);
+        sb.append("numberContractSameHireDate=").append(numberContractSameHireDate == null ? "null" : numberContractSameHireDate);
         sb.append(']');
         return sb.toString();
     }

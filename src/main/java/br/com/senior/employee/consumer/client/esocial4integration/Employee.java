@@ -222,13 +222,19 @@ public class Employee {
      */
     public java.time.LocalDate rgIssuanceDate;
 
+    /**
+     * Número de contratos do colaborador
+     */
+    public Long numberContractSameHireDate;
+
+
     public Employee() {
     }
 
     /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public Employee(String id, String externalId, EmployeeType employeeType, Long code, String eSocialRegistration, String name, String cpfNumber, String nisNumber, java.time.LocalDate birthday, java.time.LocalDate hireDate, MaritalStatusType maritalStatusType, GenderType genderType, SituationType situationType, ContractType contractType, ESocialCategory eSocialCategory, Boolean isDeficient, Company company, CompanyBranch companyBranch, CostCenter costCenter, Department department, JobPosition jobPosition, Shift shift, Workstation workstation, ReasonLeave reasonLeave, List<Deficiency> deficiencies, java.time.LocalDate dismissalDate, String ctpsNumber, String ctpsSerie, java.time.LocalDate ctpsIssuanceDate, String ctpsSerieDigit, State ctpsState, String rgNumber, String rgIssuer, State rgState, java.time.LocalDate rgIssuanceDate) {
+    public Employee(String id, String externalId, EmployeeType employeeType, Long code, String eSocialRegistration, String name, String cpfNumber, String nisNumber, java.time.LocalDate birthday, java.time.LocalDate hireDate, MaritalStatusType maritalStatusType, GenderType genderType, SituationType situationType, ContractType contractType, ESocialCategory eSocialCategory, Boolean isDeficient, Company company, CompanyBranch companyBranch, CostCenter costCenter, Department department, JobPosition jobPosition, Shift shift, Workstation workstation, ReasonLeave reasonLeave, List<Deficiency> deficiencies, java.time.LocalDate dismissalDate, String ctpsNumber, String ctpsSerie, java.time.LocalDate ctpsIssuanceDate, String ctpsSerieDigit, State ctpsState, String rgNumber, String rgIssuer, State rgState, java.time.LocalDate rgIssuanceDate, Long numberContractSameHireDate) {
         this.id = id;
         this.externalId = externalId;
         this.employeeType = employeeType;
@@ -264,6 +270,7 @@ public class Employee {
         this.rgIssuer = rgIssuer;
         this.rgState = rgState;
         this.rgIssuanceDate = rgIssuanceDate;
+        this.numberContractSameHireDate = numberContractSameHireDate;
     }
     /**
      * This convenience constructor allows initialization of all required fields.
@@ -342,6 +349,7 @@ public class Employee {
         sb.append("rgIssuer=").append(rgIssuer == null ? "null" : rgIssuer).append(", ");
         sb.append("rgState=").append(rgState == null ? "null" : rgState).append(", ");
         sb.append("rgIssuanceDate=").append(rgIssuanceDate == null ? "null" : rgIssuanceDate).append(", ");
+        sb.append("numberContractSameHireDate=").append(numberContractSameHireDate == null ? "null" : numberContractSameHireDate).append(", ");
         sb.append(']');
         return sb.toString();
     }
