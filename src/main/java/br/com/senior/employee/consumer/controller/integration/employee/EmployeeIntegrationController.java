@@ -52,17 +52,17 @@ public class EmployeeIntegrationController {
      * Este método é executado ao iniciar este sistema para verificar se existem pendências não consumidas.
      */
     public void consumePendencies() {
-        LOGGER.info("Consumindo pendências antigas.");
-        companyCredentialsStrategy.getCredentials().forEach(c -> {
-            Integration.PagedResults list = null;
-            do {
-                Optional<ResponseEntity<Integration.PagedResults>> results = getKeyData(c);
-                if (results.isPresent()) {
-                    list = getKeyData(c).get().getBody();
-                    list.contents.forEach(integration -> integrationPendency(c.accessKey, integration));
-                }
-            } while (containsPendencies(list));
-        });
+//        LOGGER.info("Consumindo pendências antigas.");
+//        companyCredentialsStrategy.getCredentials().forEach(c -> {
+//            Integration.PagedResults list = null;
+//            do {
+//                Optional<ResponseEntity<Integration.PagedResults>> results = getKeyData(c);
+//                if (results.isPresent()) {
+//                    list = getKeyData(c).get().getBody();
+//                    list.contents.forEach(integration -> integrationPendency(c.accessKey, integration));
+//                }
+//            } while (containsPendencies(list));
+//        });
     }
 
     /**
@@ -70,16 +70,16 @@ public class EmployeeIntegrationController {
      * @param accessKey Chave de acesso da aplicação.
      */
     public void consumePendenciesByTenant(String accessKey) {
-        LOGGER.info("Consumindo pendências do tenant: " + accessKey);
-        KeyCredential keyCredential = KeyCredential.getKeyCredentialFromAccessKey(accessKey);
-        Integration.PagedResults list = null;
-        do {
-            Optional<ResponseEntity<Integration.PagedResults>> results = getKeyData(keyCredential);
-            if (results.isPresent()) {
-                list = getKeyData(keyCredential).get().getBody();
-                list.contents.forEach(integration -> integrationPendency(keyCredential.accessKey, integration));
-            }
-        } while (containsPendencies(list));
+//        LOGGER.info("Consumindo pendências do tenant: " + accessKey);
+//        KeyCredential keyCredential = KeyCredential.getKeyCredentialFromAccessKey(accessKey);
+//        Integration.PagedResults list = null;
+//        do {
+//            Optional<ResponseEntity<Integration.PagedResults>> results = getKeyData(keyCredential);
+//            if (results.isPresent()) {
+//                list = getKeyData(keyCredential).get().getBody();
+//                list.contents.forEach(integration -> integrationPendency(keyCredential.accessKey, integration));
+//            }
+//        } while (containsPendencies(list));
     }
 
     /**
