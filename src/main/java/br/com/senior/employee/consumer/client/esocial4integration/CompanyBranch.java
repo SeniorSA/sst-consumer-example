@@ -92,9 +92,13 @@ public class CompanyBranch {
      */
     public Long code;
     /**
-     * Nome da filial.
+     * Razão social.
      */
     public String name;
+    /**
+     * Nome da filial.
+     */
+    public String companyBranchName;
     /**
      * Inscrição da filial.
      */
@@ -114,10 +118,11 @@ public class CompanyBranch {
     /** 
      * This constructor allows initialization of all fields, required and optional.
      */
-    public CompanyBranch(String id, Long code, String name, SubscriptionType subscriptionType, String subscriptionNumber, java.time.LocalDate dateWhen) {
+    public CompanyBranch(String id, Long code, String name, String companyBranchName, SubscriptionType subscriptionType, String subscriptionNumber, java.time.LocalDate dateWhen) {
         this.id = id;
         this.code = code;
         this.name = name;
+        this.companyBranchName = companyBranchName;
         this.subscriptionType = subscriptionType;
         this.subscriptionNumber = subscriptionNumber;
         this.dateWhen = dateWhen;
@@ -125,9 +130,10 @@ public class CompanyBranch {
     /** 
      * This convenience constructor allows initialization of all required fields.
      */
-    public CompanyBranch(Long code, String name, SubscriptionType subscriptionType, String subscriptionNumber, java.time.LocalDate dateWhen) {
+    public CompanyBranch(Long code, String name, String companyBranchName, SubscriptionType subscriptionType, String subscriptionNumber, java.time.LocalDate dateWhen) {
         this.code = code;
         this.name = name;
+        this.companyBranchName = companyBranchName;
         this.subscriptionType = subscriptionType;
         this.subscriptionNumber = subscriptionNumber;
         this.dateWhen = dateWhen;
@@ -167,6 +173,7 @@ public class CompanyBranch {
     	sb.append("id=").append(id == null ? "null" : id).append(", ");
     	sb.append("code=").append(code == null ? "null" : code).append(", ");
     	sb.append("name=").append(name == null ? "null" : name).append(", ");
+        sb.append("companyBranchName=").append(companyBranchName == null ? "null" : companyBranchName).append(", ");
     	sb.append("subscriptionType=").append(subscriptionType == null ? "null" : subscriptionType).append(", ");
     	sb.append("subscriptionNumber=").append(subscriptionNumber == null ? "null" : subscriptionNumber).append(", ");
     	sb.append("dateWhen=").append(dateWhen == null ? "null" : dateWhen);

@@ -115,10 +115,16 @@ public class IntegrationEntity {
 	private Long companyBranchCode;
 	
 	/**
-	 * Nome da filial.
+	 * Razão social.
 	 */
 	@Column(name = "company_branch_name")
 	private String companyBranchName;
+
+	/**
+	 * Nome da filial.
+	 */
+	@Column(name = "branch_name")
+	private String branchName;
 	
 	/**
 	 * Código do colaborador.
@@ -241,6 +247,10 @@ public class IntegrationEntity {
 	public String getCompanyBranchName() {
 		return this.companyBranchName;
 	}
+
+	public String getBranchName() {
+		return branchName;
+	}
 	
 	public Long getEmployeeCode() {
 		return this.employeeCode;
@@ -345,6 +355,10 @@ public class IntegrationEntity {
 	public void setCompanyBranchName(String companyBranchName) {
 		this.companyBranchName = companyBranchName;
 	}
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
 	
 	public void setEmployeeCode(Long employeeCode) {
 		this.employeeCode = employeeCode;
@@ -429,6 +443,7 @@ public class IntegrationEntity {
 		sb.append("companyName=").append(companyName == null ? "null" : companyName).append(", ");
 		sb.append("companyBranchCode=").append(companyBranchCode == null ? "null" : companyBranchCode).append(", ");
 		sb.append("companyBranchName=").append(companyBranchName == null ? "null" : companyBranchName).append(", ");
+		sb.append("branchName=").append(branchName == null ? "null" : branchName).append(", ");
 		sb.append("employeeCode=").append(employeeCode == null ? "null" : employeeCode).append(", ");
 		sb.append("eSocialRegistration=").append(eSocialRegistration == null ? "null" : eSocialRegistration).append(", ");
 		sb.append("cpfNumber=").append(cpfNumber == null ? "null" : cpfNumber).append(", ");
