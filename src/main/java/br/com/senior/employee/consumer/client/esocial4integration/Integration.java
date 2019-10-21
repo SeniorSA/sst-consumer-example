@@ -146,9 +146,13 @@ public class Integration {
      */
     public Long companyBranchCode;
     /**
-     * Nome da filial.
+     * Razão social.
      */
     public String companyBranchName;
+    /**
+     * Nome da filial.
+     */
+    public String branchName;
     /**
      * Código do colaborador.
      */
@@ -192,7 +196,7 @@ public class Integration {
     /** 
      * This constructor allows initialization of all fields, required and optional.
      */
-    public Integration(String id, String externalId, String externalHistoricId, OperationType operationType, Employee employee, StatusType statusType, IntegrationType integrationType, java.time.Instant receiptDate, java.time.Instant sendDate, java.time.LocalDate scheduledDate, java.time.LocalDate dateWhen, String integrationMessage, String stackTrace, Long companyCode, String companyName, Long companyBranchCode, String companyBranchName, Long employeeCode, String eSocialRegistration, String cpfNumber, String employeeName, String providerCompanyIdentification, Long integrationSequence, String cancelationReason, java.time.Instant previewSendDate, String lotWorkstation) {
+    public Integration(String id, String externalId, String externalHistoricId, OperationType operationType, Employee employee, StatusType statusType, IntegrationType integrationType, java.time.Instant receiptDate, java.time.Instant sendDate, java.time.LocalDate scheduledDate, java.time.LocalDate dateWhen, String integrationMessage, String stackTrace, Long companyCode, String companyName, Long companyBranchCode, String companyBranchName, String branchName, Long employeeCode, String eSocialRegistration, String cpfNumber, String employeeName, String providerCompanyIdentification, Long integrationSequence, String cancelationReason, java.time.Instant previewSendDate, String lotWorkstation) {
         this.id = id;
         this.externalId = externalId;
         this.externalHistoricId = externalHistoricId;
@@ -210,6 +214,7 @@ public class Integration {
         this.companyName = companyName;
         this.companyBranchCode = companyBranchCode;
         this.companyBranchName = companyBranchName;
+        this.branchName = branchName;
         this.employeeCode = employeeCode;
         this.eSocialRegistration = eSocialRegistration;
         this.cpfNumber = cpfNumber;
@@ -280,6 +285,7 @@ public class Integration {
     	sb.append("companyName=").append(companyName == null ? "null" : companyName).append(", ");
     	sb.append("companyBranchCode=").append(companyBranchCode == null ? "null" : companyBranchCode).append(", ");
     	sb.append("companyBranchName=").append(companyBranchName == null ? "null" : companyBranchName).append(", ");
+        sb.append("branchName=").append(branchName == null ? "null" : branchName).append(", ");
     	sb.append("employeeCode=").append(employeeCode == null ? "null" : employeeCode).append(", ");
     	sb.append("eSocialRegistration=").append(eSocialRegistration == null ? "null" : eSocialRegistration).append(", ");
     	sb.append("cpfNumber=").append(cpfNumber == null ? "null" : cpfNumber).append(", ");
