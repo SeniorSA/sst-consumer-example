@@ -22,5 +22,9 @@ public enum XmlStatusType {
     /**
      * Retorno do governo.
      */
-    GOVERNMENT_RETURN
+    GOVERNMENT_RETURN,
+    /**
+     * Erro ao enviar o XML.
+     */
+    SEND_XML_ERROR
 }

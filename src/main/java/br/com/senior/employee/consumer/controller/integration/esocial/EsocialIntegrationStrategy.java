@@ -11,4 +11,9 @@ public abstract class EsocialIntegrationStrategy {
      * @param xmlOutput Status do XML.
      */
     abstract void eSocialStatusXml(XmlOutput xmlOutput) throws Exception;
+
+    /**
+     * Rotina responsável por enviar o XML para a plataforma da Senior.
+     */
+    abstract void eSocialSendXml() throws Exception;
 }

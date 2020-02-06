@@ -1,12 +1,18 @@
 package br.com.senior.employee.consumer.controller.integration.esocial;
 
+import br.com.senior.employee.consumer.client.authentication.KeyCredential;
 import br.com.senior.employee.consumer.client.esocial.*;
 import lombok.extern.log4j.Log4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Log4j
 @Component
 public class EsocialIntegrationStrategyImpl extends EsocialIntegrationStrategy {
+
+    @Autowired
+    private EsocialIntegrationController esocialIntegrationController;
 
     @Override
     public void eSocialStatusXml(XmlOutput xmlOutput) {
@@ -15,6 +21,25 @@ public class EsocialIntegrationStrategyImpl extends EsocialIntegrationStrategy {
          * retornados ao sistema do prestador SST por esse método.
          */
         switch (xmlOutput.xmlStatus) {
+            case SEND_XML_ERROR:
+                /*
+                 * Ao enviar o XML para a plataforma da Senior, caso ocorra algum
+                 * erro (como por exemplo falha na autenticação), essa rotina será chamada.
+                 * Nesse caso, atualize o status do envio do XML no sistema do
+                 * prestador SST, indicando que houve erro e o XML não foi enviado a
+                 * plataforma da Senior
+                 */
+                break;
+
+            case IN_ANALISYS:
+                /*
+                 * Ao enviar o XML para a plataforma da Senior, caso não ocorra nenhum
+                 * problema no envio, a plataforma da Senior retornará que o XML está em
+                 * análise, ou seja, a estrutura do XML e algumas informações estão sendo validadas.
+                 * Se desejar, atualize o status do envio do XML no sistema do
+                 * prestador SST, indicando que XML está sendo validado.
+                 */
+                break;
             case VALIDATION_SUCCESS:
                 /*
                  * Antes do envio ao governo, todos os XML recebidos do prestador SST são validados.
@@ -49,5 +74,20 @@ public class EsocialIntegrationStrategyImpl extends EsocialIntegrationStrategy {
                 }
                 break;
         }
+    }
+
+    @Override
+    void eSocialSendXml() throws Exception {
+        /*
+         * Esta rotina é responsável por enviar o XML para a plataforma da Senior.
+         * Substitua essa rotina para buscar o XML do sistema do prestador SST e enviá-lo
+         * para a plataforma da Senior.
+         * Outra forma de enviar o XML é através de uma chamada REST do serviço sendXml
+         * conforme {URL_consumer}/esocial/sendXml.
+         */
+        KeyCredential credential = null;
+        EsocialEventXmlInput xml = null;
+
+        esocialIntegrationController.sendXml(credential, xml);
     }
 }
