@@ -1,7 +1,12 @@
 package br.com.senior.employee.consumer.handler;
 
+import java.io.Console;
+
 import br.com.senior.employee.consumer.controller.integration.employee.EmployeeIntegrationController;
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationPendencyEventPayload;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,19 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/integration")
 public class IntegrationEventHandler {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(IntegrationEventHandler.class);
+
     @Autowired
     private EmployeeIntegrationController employeeIntegrationController;
-
-    /**
-     * Integrar todas as pendências ainda não consumidas.
-     */
-    @PostMapping(path = "/consumePendencies")
-    public void integrationPendency() {
-        employeeIntegrationController.consumePendencies();
-    }
-
-    @PostMapping(path = "/consumePendenciesByTenant")
-    public void integrationPendencyByTenant(@RequestHeader(name="x-senior-key") String accessKey) { employeeIntegrationController.consumePendenciesByTenant(accessKey); }
 
     /**
      * Endpoint que recebe um POST.
