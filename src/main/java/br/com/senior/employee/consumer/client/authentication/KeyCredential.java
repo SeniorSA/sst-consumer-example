@@ -14,9 +14,9 @@ public class KeyCredential {
     public String scope;
 
     public KeyCredential(String accessKey, String secret, String tenantName) {
-        this.accessKey = accessKey;
-        this.secret = secret;
-        this.tenantName = tenantName;
+        this.accessKey = accessKey == null ? accessKey : accessKey.trim();
+        this.secret = secret == null ? secret : secret.trim();
+        this.tenantName = tenantName == null ? tenantName : tenantName.trim();
     }
 
     public static KeyCredential getKeyCredentialFromAccessKey(String accessKey) {
