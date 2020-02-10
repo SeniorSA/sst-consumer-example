@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Component
@@ -37,8 +38,12 @@ public class Rest {
         return restTemplate;
     }
 
-    private KeyCredential getCredentialFromAccessKey(String accessKey) {
-        Stream<KeyCredential> credentialStream = companyCredentialsStrategy.getCredentials().stream().filter(kc -> kc.accessKey.equals(accessKey));
-        return credentialStream.findFirst().get();
+    public KeyCredential getCredentialFromAccessKey(String accessKey) {
+        Optional<KeyCredential> keyCredential = companyCredentialsStrategy.getCredentials().stream().filter(kc -> kc.accessKey.equals(accessKey)).findFirst();
+        if (keyCredential.isPresent()) {
+            return keyCredential.get();
+        } else {
+            return null;
+        }
     }
 }
