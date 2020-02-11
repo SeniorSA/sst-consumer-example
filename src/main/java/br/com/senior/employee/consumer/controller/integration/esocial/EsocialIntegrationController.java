@@ -130,40 +130,29 @@ public class EsocialIntegrationController {
      */
     public XmlOutput sendXml(KeyCredential credential, EsocialEventXmlInput payload) {
         HttpEntity<EsocialEventXmlInput> request = new HttpEntity<>(payload);
-        XmlOutput xmlOutputStatusIntegration = new XmlOutput();
+        XmlOutput xmlOutputStatusIntegration = getXmlOutputFromEsocialEventXmlInput(payload);
 
-        try {
-            if(payload.providerXmlId !=null) {
-                xmlOutputStatusIntegration.xmlProviderId = payload.providerXmlId;
+        if (credential == null || credential.accessKey == null || credential.accessKey.isBlank()) {
+            logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Não foi informada uma credencial contendo uma chave de acesso para envio do evento do eSocial.");
+        } else if (rest.getCredentialFromAccessKey(credential.accessKey) == null) {
+            logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Não foi encontrada uma credencial para a chave de acesso: " + credential.accessKey + ".");
+        } else if (payload == null || payload.xml == null || payload.xml.isBlank()) {
+            logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Não foi informado o XML referente ao evento do eSocial.");
+        } else {
+            try {
+                EsocialEventXmlOutput providerXml = rest.getWithKey(credential).postForObject(applicationProperties.getG7Location() + "/hcm/esocial/actions/esocialEventXml", //
+                                                                                                  request, //
+                                                                                                  EsocialEventXmlOutput.class);
+
+                xmlOutputStatusIntegration.xmlId = providerXml.result.id;
+                xmlOutputStatusIntegration.esocialLayoutType = providerXml.result.layoutType;
+
+                LOGGER.info("O XML do eSocial de id:" + xmlOutputStatusIntegration.xmlId + " foi enviado para a plataforma SeniorX.");
+            } catch (HttpClientErrorException e) {
+                logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Falha no envio do evento do eSocial para a plataforma da Senior. Erro: " + e.getMessage());
+            } catch (ResourceAccessException e) {
+                logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Não foi possível enviar o evento do eSocial a plataforma da Senior. Erro: " + e.getMessage());
             }
-            if(payload.providerCompanyId !=null) {
-                xmlOutputStatusIntegration.companyProviderId = payload.providerCompanyId;
-            }
-            if(payload.subscriptionType !=null) {
-                xmlOutputStatusIntegration.subscriptionType = payload.subscriptionType;
-            }
-            if(payload.subscriptionNumber !=null) {
-                xmlOutputStatusIntegration.subscriptionNumber = payload.subscriptionNumber;
-            }
-
-            xmlOutputStatusIntegration.xmlStatus = XmlStatusType.IN_ANALISYS;
-
-            EsocialEventXmlOutput providerXml = rest.getWithKey(credential).postForObject(applicationProperties.getG7Location() + "/hcm/esocial/actions/esocialEventXml",
-                                                                                          request,
-                                                                                          EsocialEventXmlOutput.class);
-
-            xmlOutputStatusIntegration.xmlId = providerXml.result.id;
-            xmlOutputStatusIntegration.esocialLayoutType = providerXml.result.layoutType;
-
-            LOGGER.info("O XML do eSocial de id:" + xmlOutputStatusIntegration.xmlId + " foi enviado para a plataforma SeniorX.");
-        }catch (HttpClientErrorException e) {
-            xmlOutputStatusIntegration.xmlStatus = XmlStatusType.SEND_XML_ERROR;
-            xmlOutputStatusIntegration.message = "Credencial inválida para o tenant: " + credential.tenantName;
-            LOGGER.info("Credencial inválida para o tenant: " + credential.tenantName);
-        } catch (ResourceAccessException e) {
-            xmlOutputStatusIntegration.xmlStatus = XmlStatusType.SEND_XML_ERROR;
-            xmlOutputStatusIntegration.message = "URL da plataforma SeniorX inválida. Verifique o arquivo configurações da plataforma Senior.";
-            LOGGER.info("URL da plataforma SeniorX inválida. Verifique o arquivo configurações da plataforma Senior.");
         }
 
         try{
@@ -173,6 +162,26 @@ public class EsocialIntegrationController {
         }
 
         return xmlOutputStatusIntegration;
+    }
+
+    private XmlOutput getXmlOutputFromEsocialEventXmlInput(EsocialEventXmlInput payload) {
+        XmlOutput xmlOutputStatusIntegration = new XmlOutput();
+
+        if (payload != null) {
+            xmlOutputStatusIntegration.xmlProviderId = payload.providerXmlId;
+            xmlOutputStatusIntegration.companyProviderId = payload.providerCompanyId;
+            xmlOutputStatusIntegration.subscriptionType = payload.subscriptionType;
+            xmlOutputStatusIntegration.subscriptionNumber = payload.subscriptionNumber;
+            xmlOutputStatusIntegration.xmlStatus = XmlStatusType.IN_ANALISYS;
+        }
+
+        return xmlOutputStatusIntegration;
+    }
+
+    private void logInfo(XmlOutput xmlOutputStatusIntegration, XmlStatusType xmlStatusType, String message) {
+        xmlOutputStatusIntegration.xmlStatus = xmlStatusType;
+        xmlOutputStatusIntegration.message = message;
+        LOGGER.info(message);
     }
 
     public XmlOutput setXmlOutputForStatusIntegration(ProviderXml providerXml) {
