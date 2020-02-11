@@ -133,11 +133,11 @@ public class EsocialIntegrationController {
         XmlOutput xmlOutputStatusIntegration = getXmlOutputFromEsocialEventXmlInput(payload);
 
         if (credential == null || credential.accessKey == null || credential.accessKey.isBlank()) {
-            logInfo(xmlOutputStatusIntegration, XmlStatusType.VALIDATION_ERROR, "Não foi informada uma credencial contendo uma chave de acesso no payload recebido.");
+            logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Não foi informada uma credencial contendo uma chave de acesso para envio do evento do eSocial.");
         } else if (rest.getCredentialFromAccessKey(credential.accessKey) == null) {
-            logInfo(xmlOutputStatusIntegration, XmlStatusType.VALIDATION_ERROR, "Não foi encontrada uma credencial para a chave de acesso: " + credential.accessKey + ".");
+            logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Não foi encontrada uma credencial para a chave de acesso: " + credential.accessKey + ".");
         } else if (payload == null || payload.xml == null || payload.xml.isBlank()) {
-            logInfo(xmlOutputStatusIntegration, XmlStatusType.VALIDATION_ERROR, "Não foi informado um xml contendo um evento do esocial no payload recebido.");
+            logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Não foi informado o XML referente ao evento do eSocial.");
         } else {
             try {
                 EsocialEventXmlOutput providerXml = rest.getWithKey(credential).postForObject(applicationProperties.getG7Location() + "/hcm/esocial/actions/esocialEventXml", //
@@ -149,9 +149,9 @@ public class EsocialIntegrationController {
 
                 LOGGER.info("O XML do eSocial de id:" + xmlOutputStatusIntegration.xmlId + " foi enviado para a plataforma SeniorX.");
             } catch (HttpClientErrorException e) {
-                logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Credencial com a chave '" + credential.accessKey + "' é inválida para acesso a plataforma Senior.");
+                logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Falha no envio do evento do eSocial para a plataforma da Senior. Erro: " + e.getMessage());
             } catch (ResourceAccessException e) {
-                logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "URL da plataforma SeniorX inválida. Verifique o arquivo configurações da plataforma Senior.");
+                logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Não foi possível enviar o evento do eSocial a plataforma da Senior. Erro: " + e.getMessage());
             }
         }
 
