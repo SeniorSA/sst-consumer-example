@@ -79,7 +79,11 @@ public class EmployeeIntegrationController {
             rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
             LOGGER.info("A pendência ID: " + integration.id + " foi consumida.");
         } catch (Exception e) {
-            LOGGER.error("Erro na integração da pendência ID: " + integration.id, e);
+            KeyCredential credentialFromAccessKey = rest.getCredentialFromAccessKey(accessKey);
+            LOGGER.error("Erro na integração da pendência ID: " + integration.id + "\n" + //
+                                 "Tenant: " + credentialFromAccessKey.tenantName + //
+                                 " Chave de Acesso: " + credentialFromAccessKey.accessKey + //
+                                 " Segredo da Chave: " + credentialFromAccessKey.secret, e);
             IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.INTEGRATION_ERROR, e.getMessage());
             rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
         }
