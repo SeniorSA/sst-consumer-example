@@ -56,6 +56,12 @@ public class EmployeeIntegrationController {
      */
     public void integrationPendency(String accessKey, Integration integration) {
         LOGGER.info("Processando a pendência de integração ID: " + integration.id);
+
+        if (rest.getCredentialFromAccessKey(accessKey) == null) {
+            LOGGER.error("Não foi encontrada uma credencial para a chave de acesso: " + accessKey + ". A pendência ID: " + integration.id + " não será consumida.");
+            return;
+        }
+
         KeyCredential keyCredential = KeyCredential.getKeyCredentialFromAccessKey(accessKey);
         try {
             IntegrationEntity entity = DtoJsonConverter.toDTO(DtoJsonConverter.toJSON(integration), IntegrationEntity.class);
