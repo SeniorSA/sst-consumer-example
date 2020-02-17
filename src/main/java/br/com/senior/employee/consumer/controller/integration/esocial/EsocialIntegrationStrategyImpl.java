@@ -1,6 +1,5 @@
 package br.com.senior.employee.consumer.controller.integration.esocial;
 
-import br.com.senior.employee.consumer.client.authentication.KeyCredential;
 import br.com.senior.employee.consumer.client.esocial.*;
 import lombok.extern.log4j.Log4j;
 
@@ -74,20 +73,5 @@ public class EsocialIntegrationStrategyImpl extends EsocialIntegrationStrategy {
                 }
                 break;
         }
-    }
-
-    @Override
-    void eSocialSendXml() throws Exception {
-        /*
-         * Esta rotina é responsável por enviar o XML para a plataforma da Senior.
-         * Substitua essa rotina para buscar o XML do sistema do prestador SST e enviá-lo
-         * para a plataforma da Senior.
-         * Outra forma de enviar o XML é através de uma chamada REST do serviço sendXml
-         * conforme {URL_consumer}/esocial/sendXml.
-         */
-        KeyCredential credential = null;
-        EsocialEventXmlInput xml = null;
-
-        esocialIntegrationController.sendXml(credential, xml);
     }
 }

@@ -4,11 +4,15 @@ import br.com.senior.employee.consumer.client.authentication.*;
 import br.com.senior.employee.consumer.configuration.ApplicationProperties;
 import com.google.gson.Gson;
 import lombok.extern.log4j.Log4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
-import java.time.LocalTime;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,8 +30,10 @@ public class Auth {
     public String getKeyToken(KeyCredential credential) {
         LoginDTO cachedLogin = cachedLogins.get(credential.accessKey);
         if (cachedLogin != null) {
-            Long secondsToExpirate = Long.valueOf(cachedLogin.expires_in);
-            if (secondsToExpirate != null && secondsToExpirate > LocalTime.now().toSecondOfDay())
+            LocalDate lastLogin = LocalDate.ofInstant(cachedLogin.loggedIn, ZoneOffset.UTC);
+            LocalDate today = LocalDate.ofInstant(Instant.now(), ZoneOffset.UTC);
+            // Forçamos o reset do token a cada 7 dias.
+            if (lastLogin != null && lastLogin.plusDays(7).isAfter(today))
                 return cachedLogin.access_token;
         }
         try {
@@ -39,6 +45,7 @@ public class Auth {
             KeyLoginOutput accessTokenResponse = requestKeyAuth(accessTokenRequest);
 
             LoginDTO tokenResponse = gson.fromJson(accessTokenResponse.jsonToken, LoginDTO.class);
+            tokenResponse.loggedIn = Instant.now();
             cachedLogins.put(credential.accessKey, tokenResponse);
             return tokenResponse.access_token;
         } catch (Exception e) {
