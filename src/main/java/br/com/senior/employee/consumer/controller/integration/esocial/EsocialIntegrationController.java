@@ -6,6 +6,8 @@ import br.com.senior.employee.consumer.configuration.ApplicationProperties;
 import br.com.senior.employee.consumer.controller.integration.companycredentials.CompanyCredentialsStrategy;
 import br.com.senior.employee.consumer.rest.Rest;
 import lombok.extern.log4j.Log4j;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -132,11 +134,11 @@ public class EsocialIntegrationController {
         HttpEntity<EsocialEventXmlInput> request = new HttpEntity<>(payload);
         XmlOutput xmlOutputStatusIntegration = getXmlOutputFromEsocialEventXmlInput(payload);
 
-        if (credential == null || credential.accessKey == null || credential.accessKey.isBlank()) {
+        if (credential == null || StringUtils.isBlank(credential.accessKey)) {
             logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Não foi informada uma credencial contendo uma chave de acesso para envio do evento do eSocial.");
         } else if (rest.getCredentialFromAccessKey(credential.accessKey) == null) {
             logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Não foi encontrada uma credencial para a chave de acesso: " + credential.accessKey + ".");
-        } else if (payload == null || payload.xml == null || payload.xml.isBlank()) {
+        } else if (payload == null || StringUtils.isBlank(payload.xml)) {
             logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Não foi informado o XML referente ao evento do eSocial.");
         } else {
             try {
