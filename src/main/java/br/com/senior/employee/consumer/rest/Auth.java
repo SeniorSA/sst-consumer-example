@@ -30,8 +30,8 @@ public class Auth {
     public String getKeyToken(KeyCredential credential) {
         LoginDTO cachedLogin = cachedLogins.get(credential.accessKey);
         if (cachedLogin != null) {
-            LocalDate lastLogin = LocalDate.ofInstant(cachedLogin.loggedIn, ZoneOffset.UTC);
-            LocalDate today = LocalDate.ofInstant(Instant.now(), ZoneOffset.UTC);
+            LocalDate lastLogin = cachedLogin.loggedIn.atZone(ZoneOffset.UTC).toLocalDate();
+            LocalDate today = Instant.now().atZone(ZoneOffset.UTC).toLocalDate();
             // Forçamos o reset do token a cada 7 dias.
             if (lastLogin != null && lastLogin.plusDays(7).isAfter(today))
                 return cachedLogin.access_token;
