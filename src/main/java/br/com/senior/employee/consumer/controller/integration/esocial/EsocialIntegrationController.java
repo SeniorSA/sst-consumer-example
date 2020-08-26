@@ -174,7 +174,7 @@ public class EsocialIntegrationController {
             xmlOutputStatusIntegration.companyProviderId = payload.providerCompanyId;
             xmlOutputStatusIntegration.subscriptionType = payload.subscriptionType;
             xmlOutputStatusIntegration.subscriptionNumber = payload.subscriptionNumber;
-            xmlOutputStatusIntegration.xmlStatus = XmlStatusType.IN_ANALISYS;
+            xmlOutputStatusIntegration.xmlStatus = XmlStatusType.IN_ANALYSIS;
         }
 
         return xmlOutputStatusIntegration;

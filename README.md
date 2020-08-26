@@ -144,7 +144,7 @@ Parâmetros de saída:
 | subscriptionType	| Tipo de inscrição da empresa. |
 | subscriptionNumber |	Número de inscrição da empresa. |
 | xmlId	| ID do XML no sistema Senior. (UUID) |
-| xmlStatus	| Status do XML. Valores possíveis: IN_ANALISYS, VALIDATION_SUCESS, VALIDATION_ERROR, GOVERNMENT_RETURN |
+| xmlStatus	| Status do XML. Valores possíveis: IN_ANALYSIS, VALIDATION_SUCESS, VALIDATION_ERROR, GOVERNMENT_RETURN |
 | esocialEventID	| ID do evento do eSocial. |
 | esocialLayoutType	| Leiaute do evento do eSocial, referente ao XML. Valores possíveis: S1060, S2210, S2220, S2221, S2240, S2245, S3000 |
 | esocialReturnType	| Status do retorno do governo. Valores possíveis: RECEIPT_RETURNED   (Retorno do recibo, sem erros e/ou críticas), RECEIPT_MANUAL (Recibo incluído manualmente), ERROR_RETURNED (Retorno com erros e/ou críticas), EVENT_CANCELED (Envio do XML ao governo cancelado) | 
