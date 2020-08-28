@@ -1,9 +1,16 @@
 package br.com.senior.employee.consumer.handler;
 
-import br.com.senior.employee.consumer.client.esocial.*;
-import br.com.senior.employee.consumer.controller.integration.esocial.EsocialIntegrationController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.senior.employee.consumer.client.esocial.SendEsocialXmlPayload;
+import br.com.senior.employee.consumer.client.esocial.StatusIntegrationEventPayload;
+import br.com.senior.employee.consumer.client.esocial.XmlOutput;
+import br.com.senior.employee.consumer.controller.integration.esocial.EsocialIntegrationController;
 
 @RestController
 @RequestMapping(path = "/esocial")
@@ -25,7 +32,7 @@ public class EsocialEventHandler {
     }
 
     @PostMapping(path = "/sendXml")
-    public XmlOutput esocialSendXml(@RequestBody EsocialEventXmlPayload payload) {
-       return esocialIntegrationController.sendXml(payload.credential, payload.esocialEventXmlInput);
+    public XmlOutput esocialSendXml(@RequestBody SendEsocialXmlPayload payload) {
+       return esocialIntegrationController.sendXml(payload.credential, payload.sendEsocialXmlInput);
     }
 }

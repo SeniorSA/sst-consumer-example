@@ -111,11 +111,11 @@ Parâmetros de entrada:
 | Parâmetro | Tipo | Obrigatório | Objetivo |
 | --- | --- | --- | --- |
 | credential.accessKey |	Alfanúmerico |	Sim |	Chave de acesso da aplicação na plataforma SeniorX. |
-| esocialEventXmlInput.providerXmlId |	Alfanúmerico |	Não |	ID do XML no prestador SST. |
-| esocialEventXmlInput.providerCompanyId |	Alfanúmerico |	Não |	Código da empresa no prestador SST. |
-| esocialEventXmlInput.subscriptionType |	Alfanúmerico |	Não	| Tipo de inscrição da empresa. Valores possíveis: CNPJ, CPF, CAEPF, CNO, CEI |
-| esocialEventXmlInput.subscriptionNumber |	Alfanúmerico	| Não	| Número de inscrição da empresa, sem máscara de formatação. |
-| esocialEventXmlInput.xml |	Alfanúmerico |	Sim |	XML do evento do eSocial, sem quebras de linhas. |
+| sendEsocialXmlInput.providerXmlId |	Alfanúmerico |	Não |	ID do XML no prestador SST. |
+| sendEsocialXmlInput.providerCompanyId |	Alfanúmerico |	Não |	Código da empresa no prestador SST. |
+| sendEsocialXmlInput.subscriptionType |	Alfanúmerico |	Não	| Tipo de inscrição da empresa. Valores possíveis: CNPJ, CPF, CAEPF, CNO, CEI |
+| sendEsocialXmlInput.subscriptionNumber |	Alfanúmerico	| Não	| Número de inscrição da empresa, sem máscara de formatação. |
+| sendEsocialXmlInput.xml |	Alfanúmerico |	Sim |	XML do evento do eSocial, sem quebras de linhas. |
 
 Exemplo JSON:
 ```
@@ -123,7 +123,7 @@ Exemplo JSON:
     "credential" : {
         "accessKey" : "FqfWWem3Fv9vaVIEBiO_iHKeKOLa"
     },
-    "esocialEventXmlInput" : {
+    "sendEsocialXmlInput" : {
         “providerXmlId” : “999999999999”,
         “providerCompanyId” : “100200”,
         “subscriptionType” : “CNPJ”,

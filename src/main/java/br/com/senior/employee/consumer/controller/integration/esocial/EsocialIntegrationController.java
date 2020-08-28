@@ -1,12 +1,5 @@
 package br.com.senior.employee.consumer.controller.integration.esocial;
 
-import br.com.senior.employee.consumer.client.authentication.KeyCredential;
-import br.com.senior.employee.consumer.client.esocial.*;
-import br.com.senior.employee.consumer.configuration.ApplicationProperties;
-import br.com.senior.employee.consumer.controller.integration.companycredentials.CompanyCredentialsStrategy;
-import br.com.senior.employee.consumer.rest.Rest;
-import lombok.extern.log4j.Log4j;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -15,6 +8,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
+
+import br.com.senior.employee.consumer.client.authentication.KeyCredential;
+import br.com.senior.employee.consumer.client.esocial.LayoutSituation;
+import br.com.senior.employee.consumer.client.esocial.ProviderStatusType;
+import br.com.senior.employee.consumer.client.esocial.ProviderXml;
+import br.com.senior.employee.consumer.client.esocial.SendEsocialXmlInput;
+import br.com.senior.employee.consumer.client.esocial.SendEsocialXmlOutput;
+import br.com.senior.employee.consumer.client.esocial.XmlOutput;
+import br.com.senior.employee.consumer.client.esocial.XmlStatusType;
+import br.com.senior.employee.consumer.client.esocial.XmlUpdateStatusInput;
+import br.com.senior.employee.consumer.configuration.ApplicationProperties;
+import br.com.senior.employee.consumer.controller.integration.companycredentials.CompanyCredentialsStrategy;
+import br.com.senior.employee.consumer.rest.Rest;
+import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Component
@@ -130,9 +137,9 @@ public class EsocialIntegrationController {
      * @param credential Credenciais.
      * @param payload    Payload.
      */
-    public XmlOutput sendXml(KeyCredential credential, EsocialEventXmlInput payload) {
-        HttpEntity<EsocialEventXmlInput> request = new HttpEntity<>(payload);
-        XmlOutput xmlOutputStatusIntegration = getXmlOutputFromEsocialEventXmlInput(payload);
+    public XmlOutput sendXml(KeyCredential credential, SendEsocialXmlInput payload) {
+        HttpEntity<SendEsocialXmlInput> request = new HttpEntity<>(payload);
+        XmlOutput xmlOutputStatusIntegration = getXmlOutputFromSendEsocialXmlInput(payload);
 
         if (credential == null || StringUtils.isBlank(credential.accessKey)) {
             logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Não foi informada uma credencial contendo uma chave de acesso para envio do evento do eSocial.");
@@ -142,12 +149,11 @@ public class EsocialIntegrationController {
             logInfo(xmlOutputStatusIntegration, XmlStatusType.SEND_XML_ERROR, "Não foi informado o XML referente ao evento do eSocial.");
         } else {
             try {
-                EsocialEventXmlOutput providerXml = rest.getWithKey(credential).postForObject(applicationProperties.getG7Location() + "/hcm/esocial/actions/esocialEventXml", //
-                                                                                                  request, //
-                                                                                                  EsocialEventXmlOutput.class);
+                SendEsocialXmlOutput sendEsocialXmlOutput = rest.getWithKey(credential).postForObject(applicationProperties.getG7Location() + "/hcm/esocial/actions/sendEsocialXml", //
+                                                                                                      request, //
+                                                                                                      SendEsocialXmlOutput.class);
 
-                xmlOutputStatusIntegration.xmlId = providerXml.result.id;
-                xmlOutputStatusIntegration.esocialLayoutType = providerXml.result.layoutType;
+                xmlOutputStatusIntegration.xmlId = sendEsocialXmlOutput.result.id;
 
                 LOGGER.info("O XML do eSocial de id:" + xmlOutputStatusIntegration.xmlId + " foi enviado para a plataforma SeniorX.");
             } catch (HttpClientErrorException e) {
@@ -166,7 +172,7 @@ public class EsocialIntegrationController {
         return xmlOutputStatusIntegration;
     }
 
-    private XmlOutput getXmlOutputFromEsocialEventXmlInput(EsocialEventXmlInput payload) {
+    private XmlOutput getXmlOutputFromSendEsocialXmlInput(SendEsocialXmlInput payload) {
         XmlOutput xmlOutputStatusIntegration = new XmlOutput();
 
         if (payload != null) {
