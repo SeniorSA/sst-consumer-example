@@ -154,6 +154,8 @@ public class EsocialIntegrationController {
                                                                                                       SendEsocialXmlOutput.class);
 
                 xmlOutputStatusIntegration.xmlId = sendEsocialXmlOutput.result.id;
+                xmlOutputStatusIntegration.xmlStatus = sendEsocialXmlOutput.result.xmlStatus;
+                xmlOutputStatusIntegration.message = sendEsocialXmlOutput.result.validationMessage;
 
                 LOGGER.info("O XML do eSocial de id:" + xmlOutputStatusIntegration.xmlId + " foi enviado para a plataforma SeniorX.");
             } catch (HttpClientErrorException e) {
@@ -180,7 +182,6 @@ public class EsocialIntegrationController {
             xmlOutputStatusIntegration.companyProviderId = payload.providerCompanyId;
             xmlOutputStatusIntegration.subscriptionType = payload.subscriptionType;
             xmlOutputStatusIntegration.subscriptionNumber = payload.subscriptionNumber;
-            xmlOutputStatusIntegration.xmlStatus = XmlStatusType.IN_ANALISYS;
         }
 
         return xmlOutputStatusIntegration;
