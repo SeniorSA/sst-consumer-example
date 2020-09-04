@@ -1,17 +1,14 @@
 package br.com.senior.employee.consumer.controller.integration.esocial;
 
-import br.com.senior.employee.consumer.client.esocial.*;
-import lombok.extern.log4j.Log4j;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import br.com.senior.employee.consumer.client.esocial.StatusType;
+import br.com.senior.employee.consumer.client.esocial.XmlOutput;
+import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Component
 public class EsocialIntegrationStrategyImpl extends EsocialIntegrationStrategy {
-
-    @Autowired
-    private EsocialIntegrationController esocialIntegrationController;
 
     @Override
     public void eSocialStatusXml(XmlOutput xmlOutput) {
