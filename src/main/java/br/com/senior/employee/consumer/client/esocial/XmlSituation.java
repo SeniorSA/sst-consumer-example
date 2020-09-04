@@ -87,7 +87,7 @@ public class XmlSituation {
     /**
      * Xml.
      */
-    public EsocialEventXmlInput xml; //NOSONAR
+    public SendEsocialXmlInput xml; //NOSONAR
 
 
     public XmlSituation() {
