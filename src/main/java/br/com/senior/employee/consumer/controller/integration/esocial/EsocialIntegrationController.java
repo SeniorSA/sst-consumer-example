@@ -1,5 +1,7 @@
 package br.com.senior.employee.consumer.controller.integration.esocial;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -15,6 +17,9 @@ import br.com.senior.employee.consumer.client.esocial.ProviderStatusType;
 import br.com.senior.employee.consumer.client.esocial.ProviderXml;
 import br.com.senior.employee.consumer.client.esocial.SendEsocialXmlInput;
 import br.com.senior.employee.consumer.client.esocial.SendEsocialXmlOutput;
+import br.com.senior.employee.consumer.client.esocial.StatusEsocialXmlDTO;
+import br.com.senior.employee.consumer.client.esocial.StatusEsocialXmlInput;
+import br.com.senior.employee.consumer.client.esocial.StatusEsocialXmlOutput;
 import br.com.senior.employee.consumer.client.esocial.XmlOutput;
 import br.com.senior.employee.consumer.client.esocial.XmlStatusType;
 import br.com.senior.employee.consumer.client.esocial.XmlUpdateStatusInput;
@@ -216,5 +221,29 @@ public class EsocialIntegrationController {
             xmlOutput.esocialReceiptNumber = providerXml.layoutSituation.receiptNumber;
 
         return xmlOutput;
+    }
+
+    /**
+     * Busca pelo status de um xml na plataforma senior x
+     *
+     * @param credential credencias de acesso ao senior x
+     * @param statusEsocialXmlInput payload com o id do xml que se quer sabe o status
+     * @return status do xml na plataforma senior x
+     */
+    public List<StatusEsocialXmlDTO> statusEsocialXml(KeyCredential credential, StatusEsocialXmlInput statusEsocialXmlInput) {
+        HttpEntity<StatusEsocialXmlInput> request = new HttpEntity<>(statusEsocialXmlInput);
+        StatusEsocialXmlOutput statusEsocialXmlOutput = new StatusEsocialXmlOutput();
+
+        try {
+            statusEsocialXmlOutput = rest.getWithKey(credential).postForObject(applicationProperties.getG7Location() + "/hcm/esocial/queries/statusEsocialXml", //
+                                                                                                      request, //
+                                                                                                      StatusEsocialXmlOutput.class);
+        } catch (HttpClientErrorException e) {
+            LOGGER.info("Credencial inválida para o usuário: " + credential.tenantName);
+        } catch (ResourceAccessException e) {
+            LOGGER.info("URL da plataforma SeniorX inválida. Verifique o arquivo configurações da plataforma Senior.");
+        }
+
+        return statusEsocialXmlOutput.result;
     }
 }
