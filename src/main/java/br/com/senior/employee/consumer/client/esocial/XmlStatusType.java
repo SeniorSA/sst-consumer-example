@@ -10,7 +10,7 @@ public enum XmlStatusType {
     /**
      * XML Recebido.
      */
-    IN_ANALISYS,
+    IN_ANALYSIS,
     /**
      * Erro de validação.
      */

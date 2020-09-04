@@ -30,7 +30,7 @@ public class EsocialIntegrationStrategyImpl extends EsocialIntegrationStrategy {
                  */
                 break;
 
-            case IN_ANALISYS:
+            case IN_ANALYSIS:
                 /*
                  * Ao enviar o XML para a plataforma da Senior, caso não ocorra nenhum
                  * problema no envio, a plataforma da Senior retornará que o XML está em
