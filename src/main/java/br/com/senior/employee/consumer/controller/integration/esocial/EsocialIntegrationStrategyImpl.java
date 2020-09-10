@@ -54,6 +54,22 @@ public class EsocialIntegrationStrategyImpl extends EsocialIntegrationStrategy {
                  */
                 break;
 
+            case SENDING_TO_GOVERNMENT:
+                /*
+                 * O XML está sendo enviando para o governo.
+                 * Se desejar, atualize o status do envio do XML no sistema do prestador SST, indicando
+                 * que o XML não será enviado ao governo devido a problemas encontrados na validação.
+                 */
+                break;
+
+            case WAITING_GOVERNMENT_RETURN:
+                /*
+                 * O XML já foi enviado para o governo e está aguardando um retorno.
+                 * Se desejar, atualize o status do envio do XML no sistema do prestador SST, indicando
+                 * que o XML não será enviado ao governo devido a problemas encontrados na validação.
+                 */
+                break;
+
             case GOVERNMENT_RETURN:
                 if (xmlOutput.esocialReturnType == StatusType.RECEIPT_RETURNED) {
                     /*
