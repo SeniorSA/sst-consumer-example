@@ -20,6 +20,14 @@ public enum XmlStatusType {
      */
     VALIDATION_SUCCESS,
     /**
+     * Enviando para o governo
+     */
+    SENDING_TO_GOVERNMENT,
+    /**
+     * Aguardando o retorno do governo
+     */
+    WAITING_GOVERNMENT_RETURN,
+    /**
      * Retorno do governo.
      */
     GOVERNMENT_RETURN,
