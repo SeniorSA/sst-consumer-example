@@ -70,6 +70,15 @@ public class EsocialIntegrationStrategyImpl extends EsocialIntegrationStrategy {
                  */
                 break;
 
+            case CANCELED_BY_USER:
+                /**
+                 * O evento do esocial foi cancelado pelo usuário na plataforma Senior X.
+                 * Nesse caso, atualize o status do envio do XML no sistema do
+                 * prestador SST, indicando que o XML foi cancelado pelo usuário na
+                 * plataforma da Senior
+                 */
+                break;
+
             case GOVERNMENT_RETURN:
                 if (xmlOutput.esocialReturnType == StatusType.RECEIPT_RETURNED) {
                     /*
