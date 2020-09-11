@@ -34,5 +34,9 @@ public enum XmlStatusType {
     /**
      * Erro ao enviar o XML.
      */
-    SEND_XML_ERROR
+    SEND_XML_ERROR,
+    /**
+     * Cancelado pelo usuário
+     */
+    CANCELED_BY_USER
 }
