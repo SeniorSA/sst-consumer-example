@@ -1,5 +1,7 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -7,48 +9,48 @@ import java.util.Map;
  * Controle de integrações.
  */
 public class Integration {
-    
+
     public static class Id {
-    	
+
         public String id;
-        
+
         public Id() {
         }
-        
+
         public Id(String integrationId) {
             this.id = integrationId;
         }
-        
+
         public String getIntegrationId() {
             return id;
         }
-        
+
         public String getId() {
             return id;
         }
-        
+
     }
-    
+
     public static class PagedResults {
     	public Long totalPages;
     	public Long totalElements;
-    	
+
         public List<Integration> contents;
-        
+
         public PagedResults() {
         }
-        
+
         public PagedResults(List<Integration> contents) {
             this.contents = contents;
         }
-        
+
         public PagedResults(List<Integration> contents, Long totalPages, Long totalElements) {
             this.contents = contents;
             this.totalPages = totalPages;
             this.totalElements = totalElements;
         }
     }
-    
+
     public static class PageRequest {
         public Long offset;
         public Long size;
@@ -56,22 +58,22 @@ public class Integration {
         public String orderBy;
         public String filter;
         public List<String> displayFields;
-        
+
         public PageRequest() {
         }
-        
+
         public PageRequest(Long offset, Long size) {
             this(offset, size, null, null);
         }
-        
+
         public PageRequest(Long offset, Long size, String orderBy) {
             this(offset, size, orderBy, null);
         }
-        
+
         public PageRequest(Long offset, Long size, String orderBy, String filter) {
             this(offset, size, orderBy, filter, null);
        	}
-        
+
         public PageRequest(Long offset, Long size, String orderBy, String filter, List<String> displayFields) {
         	this.offset = offset;
         	this.size = size;
@@ -189,14 +191,18 @@ public class Integration {
      * Lote do histórico de posto de trabalho
      */
     public String lotWorkstation;
-    
+    /**
+     * Identificação da empresa anterior do colaborador no prestador SST.
+     */
+    public String providerPreviousCompanyIdentification;
+
     public Integration() {
     }
-    
-    /** 
+
+    /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public Integration(String id, String externalId, String externalHistoricId, OperationType operationType, Employee employee, StatusType statusType, IntegrationType integrationType, java.time.Instant receiptDate, java.time.Instant sendDate, java.time.LocalDate scheduledDate, java.time.LocalDate dateWhen, String integrationMessage, String stackTrace, Long companyCode, String companyName, Long companyBranchCode, String companyBranchName, String branchName, Long employeeCode, String eSocialRegistration, String cpfNumber, String employeeName, String providerCompanyIdentification, Long integrationSequence, String cancelationReason, java.time.Instant previewSendDate, String lotWorkstation) {
+    public Integration(String id, String externalId, String externalHistoricId, OperationType operationType, Employee employee, StatusType statusType, IntegrationType integrationType, Instant receiptDate, Instant sendDate, LocalDate scheduledDate, LocalDate dateWhen, String integrationMessage, String stackTrace, Long companyCode, String companyName, Long companyBranchCode, String companyBranchName, String branchName, Long employeeCode, String eSocialRegistration, String cpfNumber, String employeeName, String providerCompanyIdentification, Long integrationSequence, String cancelationReason, Instant previewSendDate, String lotWorkstation, String providerPreviousCompanyIdentification) {
         this.id = id;
         this.externalId = externalId;
         this.externalHistoricId = externalHistoricId;
@@ -224,8 +230,9 @@ public class Integration {
         this.cancelationReason = cancelationReason;
         this.previewSendDate = previewSendDate;
         this.lotWorkstation = lotWorkstation;
+        this.providerPreviousCompanyIdentification = providerPreviousCompanyIdentification;
     }
-    /** 
+    /**
      * This convenience constructor allows initialization of all required fields.
      */
     public Integration(String externalId, OperationType operationType, StatusType statusType, IntegrationType integrationType, java.time.Instant receiptDate, String lotWorkstation) {
@@ -236,7 +243,7 @@ public class Integration {
         this.receiptDate = receiptDate;
         this.lotWorkstation = lotWorkstation;
     }
-    
+
     @Override
     public int hashCode() {
         int ret = 1;
@@ -245,7 +252,7 @@ public class Integration {
         }
         return ret;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -263,7 +270,7 @@ public class Integration {
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
     	StringBuilder sb = new StringBuilder();
@@ -294,9 +301,10 @@ public class Integration {
     	sb.append("integrationSequence=").append(integrationSequence == null ? "null" : integrationSequence).append(", ");
     	sb.append("cancelationReason=").append(cancelationReason == null ? "null" : cancelationReason).append(", ");
     	sb.append("previewSendDate=").append(previewSendDate == null ? "null" : previewSendDate).append(", ");
-    	sb.append("lotWorkstation=").append(lotWorkstation == null ? "null" : lotWorkstation);
+        sb.append("lotWorkstation=").append(lotWorkstation == null ? "null" : lotWorkstation).append(", ");
+        sb.append("providerPreviousCompanyIdentification=").append(providerPreviousCompanyIdentification == null ? "null" : providerPreviousCompanyIdentification);
     	sb.append(']');
     	return sb.toString();
     }
-    
+
 }

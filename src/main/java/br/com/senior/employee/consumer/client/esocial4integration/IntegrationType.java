@@ -8,6 +8,10 @@ package br.com.senior.employee.consumer.client.esocial4integration;
  */
 public enum IntegrationType {
     /**
+     * Carga Inicial
+     */
+    INITIAL_LOAD,
+    /**
      * Novo colaborador.
      */
     NEW_EMPLOYEE,
@@ -16,33 +20,33 @@ public enum IntegrationType {
      */
     EMPLOYEE_CHANGE,
     /**
-     * Demissão do colaborador.
+     * Alteração matrícula eSocial
      */
-    DISMISSAL,
+    EMPLOYEE_ESOCIAL_REGISTRATION,
+    /**
+     * Histórico de empresa.
+     */
+    HISTORICAL_COMPANY,
+    /**
+     * Histórico de filial.
+     */
+    HISTORICAL_COMPANY_BRANCH,
     /**
      * Histórico de centro de custo.
      */
     HISTORICAL_COST_CENTER,
     /**
-     * Histórico de departamento.
-     */
-    HISTORICAL_DEPARTMENT,
-    /**
-     * Histórico de categoria eSocial.
-     */
-    HISTORICAL_ESOCIAL_CATEGORY,
-    /**
-     * Histórico de cargo.
-     */
-    HISTORICAL_JOB_POSITION,
-    /**
      * Histórico de posto de trabalho.
      */
     HISTORICAL_WORKSTATION,
     /**
-     * Histórico de filial.
+     * Histórico de departamento.
      */
-    HISTORICAL_COMPANY_BRANCH,
+    HISTORICAL_DEPARTMENT,
+    /**
+     * Histórico de cargo.
+     */
+    HISTORICAL_JOB_POSITION,
     /**
      * Histórico de escala.
      */
@@ -52,11 +56,11 @@ public enum IntegrationType {
      */
     HISTORICAL_LEAVE,
     /**
-     * Alteração matrícula eSocial
+     * Histórico de categoria eSocial.
      */
-    EMPLOYEE_ESOCIAL_REGISTRATION,
+    HISTORICAL_ESOCIAL_CATEGORY,
     /**
-     * Carga Inicial
+     * Demissão do colaborador.
      */
-    INITIAL_LOAD
+    DISMISSAL
 }
