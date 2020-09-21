@@ -26,6 +26,7 @@ Toda informação publicada pela Senior possui a informação "Motivo da integra
 - Movimentação de categoria do eSocial;
 - Movimentação de cargo;
 - Movimentação de posto de trabalho;
+- Movimentação de empresa;
 - Movimentação de filial;
 - Movimentação de turno;
 - Movimentação de afastamento.
