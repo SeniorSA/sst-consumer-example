@@ -1,6 +1,9 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -245,292 +248,322 @@ public class EmployeeEntity {
     @Column(name = "number_contract_same_hire_date")
     private Long numberContractSameHireDate;
 
-    public java.util.UUID getId() {
-        return this.id;
+    /**
+     * Empresa anterior do colaborador.
+     */
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "previous_company")
+    private CompanyEntity previousCompany;
+
+    /**
+     * Filial anterior do colaborador.
+     */
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "previous_company_branch")
+    private CompanyBranchEntity previousCompanyBranch;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getExternalId() {
-        return this.externalId;
-    }
-
-    public EmployeeType getEmployeeType() {
-        return this.employeeType;
-    }
-
-    public Long getCode() {
-        return this.code;
-    }
-
-    public String getESocialRegistration() {
-        return this.eSocialRegistration;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getCpfNumber() {
-        return this.cpfNumber;
-    }
-
-    public String getNisNumber() {
-        return this.nisNumber;
-    }
-
-    public java.time.LocalDate getBirthday() {
-        return this.birthday;
-    }
-
-    public java.time.LocalDate getHireDate() {
-        return this.hireDate;
-    }
-
-    public MaritalStatusType getMaritalStatusType() {
-        return this.maritalStatusType;
-    }
-
-    public GenderType getGenderType() {
-        return this.genderType;
-    }
-
-    public SituationType getSituationType() {
-        return this.situationType;
-    }
-
-    public ContractType getContractType() {
-        return this.contractType;
-    }
-
-    public ESocialCategoryEntity getESocialCategory() {
-        return this.eSocialCategory;
-    }
-
-    public Boolean getIsDeficient() {
-        return this.isDeficient;
-    }
-
-    public CompanyEntity getCompany() {
-        return this.company;
-    }
-
-    public CompanyBranchEntity getCompanyBranch() {
-        return this.companyBranch;
-    }
-
-    public CostCenterEntity getCostCenter() {
-        return this.costCenter;
-    }
-
-    public DepartmentEntity getDepartment() {
-        return this.department;
-    }
-
-    public JobPositionEntity getJobPosition() {
-        return this.jobPosition;
-    }
-
-    public ShiftEntity getShift() {
-        return this.shift;
-    }
-
-    public WorkstationEntity getWorkstation() {
-        return this.workstation;
-    }
-
-    public ReasonLeaveEntity getReasonLeave() {
-        return reasonLeave;
-    }
-
-    public java.util.List<DeficiencyEntity> getDeficiencies() {
-        return this.deficiencies;
-    }
-
-    public java.time.LocalDate getDismissalDate() {
-        return this.dismissalDate;
-    }
-
-    public String getCtpsNumber() {
-        return ctpsNumber;
-    }
-
-    public String getCtpsSerie() {
-        return ctpsSerie;
-    }
-
-    public java.time.LocalDate getCtpsIssuanceDate() {
-        return ctpsIssuanceDate;
-    }
-
-    public String getCtpsSerieDigit() {
-        return ctpsSerieDigit;
-    }
-
-    public State getCtpsState() {
-        return ctpsState;
-    }
-
-    public String getRgNumber() {
-        return rgNumber;
-    }
-
-    public String getRgIssuer() {
-        return rgIssuer;
-    }
-
-    public State getRgState() {
-        return rgState;
-    }
-
-    public java.time.LocalDate getRgIssuanceDate() {
-        return rgIssuanceDate;
-    }
-
-    public Long getNumberContractSameHireDate() {
-        return numberContractSameHireDate;
-    }
-
-    public void setId(java.util.UUID id) {
-        this.id = id;
+        return externalId;
     }
 
     public void setExternalId(String externalId) {
         this.externalId = externalId;
     }
 
+    public EmployeeType getEmployeeType() {
+        return employeeType;
+    }
+
     public void setEmployeeType(EmployeeType employeeType) {
         this.employeeType = employeeType;
+    }
+
+    public Long getCode() {
+        return code;
     }
 
     public void setCode(Long code) {
         this.code = code;
     }
 
-    public void setESocialRegistration(String eSocialRegistration) {
+    public String geteSocialRegistration() {
+        return eSocialRegistration;
+    }
+
+    public void seteSocialRegistration(String eSocialRegistration) {
         this.eSocialRegistration = eSocialRegistration;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getCpfNumber() {
+        return cpfNumber;
+    }
+
     public void setCpfNumber(String cpfNumber) {
         this.cpfNumber = cpfNumber;
+    }
+
+    public String getNisNumber() {
+        return nisNumber;
     }
 
     public void setNisNumber(String nisNumber) {
         this.nisNumber = nisNumber;
     }
 
-    public void setBirthday(java.time.LocalDate birthday) {
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
-    public void setHireDate(java.time.LocalDate hireDate) {
+    public LocalDate getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(LocalDate hireDate) {
         this.hireDate = hireDate;
+    }
+
+    public MaritalStatusType getMaritalStatusType() {
+        return maritalStatusType;
     }
 
     public void setMaritalStatusType(MaritalStatusType maritalStatusType) {
         this.maritalStatusType = maritalStatusType;
     }
 
+    public GenderType getGenderType() {
+        return genderType;
+    }
+
     public void setGenderType(GenderType genderType) {
         this.genderType = genderType;
+    }
+
+    public SituationType getSituationType() {
+        return situationType;
     }
 
     public void setSituationType(SituationType situationType) {
         this.situationType = situationType;
     }
 
+    public ContractType getContractType() {
+        return contractType;
+    }
+
     public void setContractType(ContractType contractType) {
         this.contractType = contractType;
     }
 
-    public void setESocialCategory(ESocialCategoryEntity eSocialCategory) {
+    public ESocialCategoryEntity geteSocialCategory() {
+        return eSocialCategory;
+    }
+
+    public void seteSocialCategory(ESocialCategoryEntity eSocialCategory) {
         this.eSocialCategory = eSocialCategory;
     }
 
-    public void setIsDeficient(Boolean isDeficient) {
-        this.isDeficient = isDeficient;
+    public Boolean getDeficient() {
+        return isDeficient;
+    }
+
+    public void setDeficient(Boolean deficient) {
+        isDeficient = deficient;
+    }
+
+    public CompanyEntity getCompany() {
+        return company;
     }
 
     public void setCompany(CompanyEntity company) {
         this.company = company;
     }
 
+    public CompanyBranchEntity getCompanyBranch() {
+        return companyBranch;
+    }
+
     public void setCompanyBranch(CompanyBranchEntity companyBranch) {
         this.companyBranch = companyBranch;
+    }
+
+    public CostCenterEntity getCostCenter() {
+        return costCenter;
     }
 
     public void setCostCenter(CostCenterEntity costCenter) {
         this.costCenter = costCenter;
     }
 
+    public DepartmentEntity getDepartment() {
+        return department;
+    }
+
     public void setDepartment(DepartmentEntity department) {
         this.department = department;
+    }
+
+    public JobPositionEntity getJobPosition() {
+        return jobPosition;
     }
 
     public void setJobPosition(JobPositionEntity jobPosition) {
         this.jobPosition = jobPosition;
     }
 
+    public ShiftEntity getShift() {
+        return shift;
+    }
+
     public void setShift(ShiftEntity shift) {
         this.shift = shift;
+    }
+
+    public WorkstationEntity getWorkstation() {
+        return workstation;
     }
 
     public void setWorkstation(WorkstationEntity workstation) {
         this.workstation = workstation;
     }
 
+    public ReasonLeaveEntity getReasonLeave() {
+        return reasonLeave;
+    }
+
     public void setReasonLeave(ReasonLeaveEntity reasonLeave) {
         this.reasonLeave = reasonLeave;
     }
 
-    public void setDeficiencies(java.util.List<DeficiencyEntity> deficiencies) {
+    public List<DeficiencyEntity> getDeficiencies() {
+        return deficiencies;
+    }
+
+    public void setDeficiencies(List<DeficiencyEntity> deficiencies) {
         this.deficiencies = deficiencies;
     }
 
-    public void setDismissalDate(java.time.LocalDate dismissalDate) {
+    public LocalDate getDismissalDate() {
+        return dismissalDate;
+    }
+
+    public void setDismissalDate(LocalDate dismissalDate) {
         this.dismissalDate = dismissalDate;
+    }
+
+    public String getCtpsNumber() {
+        return ctpsNumber;
     }
 
     public void setCtpsNumber(String ctpsNumber) {
         this.ctpsNumber = ctpsNumber;
     }
 
+    public String getCtpsSerie() {
+        return ctpsSerie;
+    }
+
     public void setCtpsSerie(String ctpsSerie) {
         this.ctpsSerie = ctpsSerie;
     }
 
-    public void setCtpsIssuanceDate(java.time.LocalDate ctpsIssuanceDate) {
+    public LocalDate getCtpsIssuanceDate() {
+        return ctpsIssuanceDate;
+    }
+
+    public void setCtpsIssuanceDate(LocalDate ctpsIssuanceDate) {
         this.ctpsIssuanceDate = ctpsIssuanceDate;
+    }
+
+    public String getCtpsSerieDigit() {
+        return ctpsSerieDigit;
     }
 
     public void setCtpsSerieDigit(String ctpsSerieDigit) {
         this.ctpsSerieDigit = ctpsSerieDigit;
     }
 
+    public State getCtpsState() {
+        return ctpsState;
+    }
+
     public void setCtpsState(State ctpsState) {
         this.ctpsState = ctpsState;
+    }
+
+    public String getRgNumber() {
+        return rgNumber;
     }
 
     public void setRgNumber(String rgNumber) {
         this.rgNumber = rgNumber;
     }
 
+    public String getRgIssuer() {
+        return rgIssuer;
+    }
+
     public void setRgIssuer(String rgIssuer) {
         this.rgIssuer = rgIssuer;
+    }
+
+    public State getRgState() {
+        return rgState;
     }
 
     public void setRgState(State rgState) {
         this.rgState = rgState;
     }
 
-    public void setRgIssuanceDate(java.time.LocalDate rgIssuanceDate) {
+    public LocalDate getRgIssuanceDate() {
+        return rgIssuanceDate;
+    }
+
+    public void setRgIssuanceDate(LocalDate rgIssuanceDate) {
         this.rgIssuanceDate = rgIssuanceDate;
+    }
+
+    public Long getNumberContractSameHireDate() {
+        return numberContractSameHireDate;
     }
 
     public void setNumberContractSameHireDate(Long numberContractSameHireDate) {
         this.numberContractSameHireDate = numberContractSameHireDate;
+    }
+
+    public CompanyEntity getPreviousCompany() {
+        return previousCompany;
+    }
+
+    public void setPreviousCompany(CompanyEntity previousCompany) {
+        this.previousCompany = previousCompany;
+    }
+
+    public CompanyBranchEntity getPreviousCompanyBranch() {
+        return previousCompanyBranch;
+    }
+
+    public void setPreviousCompanyBranch(CompanyBranchEntity previousCompanyBranch) {
+        this.previousCompanyBranch = previousCompanyBranch;
     }
 
     @Override
@@ -597,8 +630,9 @@ public class EmployeeEntity {
         sb.append("rgNumber=").append(rgNumber == null ? "null" : rgNumber).append(", ");
         sb.append("rgIssuer=").append(rgIssuer == null ? "null" : rgIssuer).append(", ");
         sb.append("rgState=").append(rgState == null ? "null" : rgState).append(", ");
-        sb.append("rgIssuanceDate=").append(rgIssuanceDate == null ? "null" : rgIssuanceDate);
-        sb.append("numberContractSameHireDate=").append(numberContractSameHireDate == null ? "null" : numberContractSameHireDate);
+        sb.append("rgIssuanceDate=").append(rgIssuanceDate == null ? "null" : rgIssuanceDate).append(", ");
+        sb.append("previousCompany=").append(previousCompany == null ? "null" : previousCompany).append(", ");
+        sb.append("previousCompanyBranch=").append(previousCompanyBranch == null ? "null" : previousCompanyBranch);
         sb.append(']');
         return sb.toString();
     }

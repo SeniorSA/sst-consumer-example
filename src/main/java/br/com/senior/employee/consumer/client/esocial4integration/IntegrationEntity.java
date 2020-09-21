@@ -3,6 +3,10 @@
  */
 package br.com.senior.employee.consumer.client.esocial4integration;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.UUID;
+
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -179,223 +183,237 @@ public class IntegrationEntity {
 	 */
 	@Column(name = "lot_workstation")
 	private String lotWorkstation;
-	
-	public java.util.UUID getId() {
-		return this.id;
+
+	/**
+	 * Identificação da empresa anterior do colaborador no prestador SST.
+	 */
+	@Column(name = "provider_previous_company_identification")
+	private String providerPreviousCompanyIdentification;
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	public String getExternalId() {
-		return this.externalId;
-	}
-	
-	public String getExternalHistoricId() {
-		return this.externalHistoricId;
-	}
-	
-	public OperationType getOperationType() {
-		return this.operationType;
-	}
-	
-	public EmployeeEntity getEmployee() {
-		return this.employee;
-	}
-	
-	public StatusType getStatusType() {
-		return this.statusType;
-	}
-	
-	public IntegrationType getIntegrationType() {
-		return this.integrationType;
-	}
-	
-	public java.time.Instant getReceiptDate() {
-		return this.receiptDate;
-	}
-	
-	public java.time.Instant getSendDate() {
-		return this.sendDate;
-	}
-	
-	public java.time.LocalDate getScheduledDate() {
-		return this.scheduledDate;
-	}
-	
-	public java.time.LocalDate getDateWhen() {
-		return this.dateWhen;
-	}
-	
-	public String getIntegrationMessage() {
-		return this.integrationMessage;
-	}
-	
-	public String getStackTrace() {
-		return this.stackTrace;
-	}
-	
-	public Long getCompanyCode() {
-		return this.companyCode;
-	}
-	
-	public String getCompanyName() {
-		return this.companyName;
-	}
-	
-	public Long getCompanyBranchCode() {
-		return this.companyBranchCode;
-	}
-	
-	public String getCompanyBranchName() {
-		return this.companyBranchName;
-	}
-
-	public String getBranchName() {
-		return branchName;
-	}
-	
-	public Long getEmployeeCode() {
-		return this.employeeCode;
-	}
-	
-	public String getESocialRegistration() {
-		return this.eSocialRegistration;
-	}
-	
-	public String getCpfNumber() {
-		return this.cpfNumber;
-	}
-	
-	public String getEmployeeName() {
-		return this.employeeName;
-	}
-	
-	public String getProviderCompanyIdentification() {
-		return this.providerCompanyIdentification;
-	}
-	
-	public Long getIntegrationSequence() {
-		return this.integrationSequence;
-	}
-	
-	public String getCancelationReason() {
-		return this.cancelationReason;
-	}
-	
-	public java.time.Instant getPreviewSendDate() {
-		return this.previewSendDate;
-	}
-	
-	public String getLotWorkstation() {
-		return this.lotWorkstation;
-	}
-	
-	public void setId(java.util.UUID id) {
-		this.id = id;
+		return externalId;
 	}
 
 	public void setExternalId(String externalId) {
 		this.externalId = externalId;
 	}
-	
+
+	public String getExternalHistoricId() {
+		return externalHistoricId;
+	}
+
 	public void setExternalHistoricId(String externalHistoricId) {
 		this.externalHistoricId = externalHistoricId;
 	}
-	
+
+	public OperationType getOperationType() {
+		return operationType;
+	}
+
 	public void setOperationType(OperationType operationType) {
 		this.operationType = operationType;
 	}
-	
+
+	public EmployeeEntity getEmployee() {
+		return employee;
+	}
+
 	public void setEmployee(EmployeeEntity employee) {
 		this.employee = employee;
 	}
-	
+
+	public StatusType getStatusType() {
+		return statusType;
+	}
+
 	public void setStatusType(StatusType statusType) {
 		this.statusType = statusType;
 	}
-	
+
+	public IntegrationType getIntegrationType() {
+		return integrationType;
+	}
+
 	public void setIntegrationType(IntegrationType integrationType) {
 		this.integrationType = integrationType;
 	}
-	
-	public void setReceiptDate(java.time.Instant receiptDate) {
+
+	public Instant getReceiptDate() {
+		return receiptDate;
+	}
+
+	public void setReceiptDate(Instant receiptDate) {
 		this.receiptDate = receiptDate;
 	}
-	
-	public void setSendDate(java.time.Instant sendDate) {
+
+	public Instant getSendDate() {
+		return sendDate;
+	}
+
+	public void setSendDate(Instant sendDate) {
 		this.sendDate = sendDate;
 	}
-	
-	public void setScheduledDate(java.time.LocalDate scheduledDate) {
+
+	public LocalDate getScheduledDate() {
+		return scheduledDate;
+	}
+
+	public void setScheduledDate(LocalDate scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
-	
-	public void setDateWhen(java.time.LocalDate dateWhen) {
+
+	public LocalDate getDateWhen() {
+		return dateWhen;
+	}
+
+	public void setDateWhen(LocalDate dateWhen) {
 		this.dateWhen = dateWhen;
 	}
-	
+
+	public String getIntegrationMessage() {
+		return integrationMessage;
+	}
+
 	public void setIntegrationMessage(String integrationMessage) {
 		this.integrationMessage = integrationMessage;
 	}
-	
+
+	public String getStackTrace() {
+		return stackTrace;
+	}
+
 	public void setStackTrace(String stackTrace) {
 		this.stackTrace = stackTrace;
 	}
-	
+
+	public Long getCompanyCode() {
+		return companyCode;
+	}
+
 	public void setCompanyCode(Long companyCode) {
 		this.companyCode = companyCode;
 	}
-	
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	
+
+	public Long getCompanyBranchCode() {
+		return companyBranchCode;
+	}
+
 	public void setCompanyBranchCode(Long companyBranchCode) {
 		this.companyBranchCode = companyBranchCode;
 	}
-	
+
+	public String getCompanyBranchName() {
+		return companyBranchName;
+	}
+
 	public void setCompanyBranchName(String companyBranchName) {
 		this.companyBranchName = companyBranchName;
+	}
+
+	public String getBranchName() {
+		return branchName;
 	}
 
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
 	}
-	
+
+	public Long getEmployeeCode() {
+		return employeeCode;
+	}
+
 	public void setEmployeeCode(Long employeeCode) {
 		this.employeeCode = employeeCode;
 	}
-	
-	public void setESocialRegistration(String eSocialRegistration) {
+
+	public String geteSocialRegistration() {
+		return eSocialRegistration;
+	}
+
+	public void seteSocialRegistration(String eSocialRegistration) {
 		this.eSocialRegistration = eSocialRegistration;
 	}
-	
+
+	public String getCpfNumber() {
+		return cpfNumber;
+	}
+
 	public void setCpfNumber(String cpfNumber) {
 		this.cpfNumber = cpfNumber;
 	}
-	
+
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
 	public void setEmployeeName(String employeeName) {
 		this.employeeName = employeeName;
 	}
-	
+
+	public String getProviderCompanyIdentification() {
+		return providerCompanyIdentification;
+	}
+
 	public void setProviderCompanyIdentification(String providerCompanyIdentification) {
 		this.providerCompanyIdentification = providerCompanyIdentification;
 	}
-	
+
+	public Long getIntegrationSequence() {
+		return integrationSequence;
+	}
+
 	public void setIntegrationSequence(Long integrationSequence) {
 		this.integrationSequence = integrationSequence;
 	}
-	
+
+	public String getCancelationReason() {
+		return cancelationReason;
+	}
+
 	public void setCancelationReason(String cancelationReason) {
 		this.cancelationReason = cancelationReason;
 	}
-	
-	public void setPreviewSendDate(java.time.Instant previewSendDate) {
+
+	public Instant getPreviewSendDate() {
+		return previewSendDate;
+	}
+
+	public void setPreviewSendDate(Instant previewSendDate) {
 		this.previewSendDate = previewSendDate;
 	}
-	
+
+	public String getLotWorkstation() {
+		return lotWorkstation;
+	}
+
 	public void setLotWorkstation(String lotWorkstation) {
 		this.lotWorkstation = lotWorkstation;
 	}
-	
+
+	public String getProviderPreviousCompanyIdentification() {
+		return providerPreviousCompanyIdentification;
+	}
+
+	public void setProviderPreviousCompanyIdentification(String providerPreviousCompanyIdentification) {
+		this.providerPreviousCompanyIdentification = providerPreviousCompanyIdentification;
+	}
+
 	@Override
 	public int hashCode() {
 	    int ret = 1;
@@ -452,7 +470,8 @@ public class IntegrationEntity {
 		sb.append("integrationSequence=").append(integrationSequence == null ? "null" : integrationSequence).append(", ");
 		sb.append("cancelationReason=").append(cancelationReason == null ? "null" : cancelationReason).append(", ");
 		sb.append("previewSendDate=").append(previewSendDate == null ? "null" : previewSendDate).append(", ");
-		sb.append("lotWorkstation=").append(lotWorkstation == null ? "null" : lotWorkstation);
+		sb.append("lotWorkstation=").append(lotWorkstation == null ? "null" : lotWorkstation).append(", ");
+		sb.append("providerPreviousCompanyIdentification=").append(providerPreviousCompanyIdentification == null ? "null" : providerPreviousCompanyIdentification);
 		sb.append(']');
 		return sb.toString();
 	}

@@ -1,5 +1,6 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -226,6 +227,14 @@ public class Employee {
      * Número de contratos do colaborador
      */
     public Long numberContractSameHireDate;
+    /**
+     * Empresa anterior do colaborador.
+     */
+    public Company previousCompany;
+    /**
+     * Filial anterior do colaborador.
+     */
+    public CompanyBranch previousCompanyBranch;
 
 
     public Employee() {
@@ -234,7 +243,7 @@ public class Employee {
     /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public Employee(String id, String externalId, EmployeeType employeeType, Long code, String eSocialRegistration, String name, String cpfNumber, String nisNumber, java.time.LocalDate birthday, java.time.LocalDate hireDate, MaritalStatusType maritalStatusType, GenderType genderType, SituationType situationType, ContractType contractType, ESocialCategory eSocialCategory, Boolean isDeficient, Company company, CompanyBranch companyBranch, CostCenter costCenter, Department department, JobPosition jobPosition, Shift shift, Workstation workstation, ReasonLeave reasonLeave, List<Deficiency> deficiencies, java.time.LocalDate dismissalDate, String ctpsNumber, String ctpsSerie, java.time.LocalDate ctpsIssuanceDate, String ctpsSerieDigit, State ctpsState, String rgNumber, String rgIssuer, State rgState, java.time.LocalDate rgIssuanceDate, Long numberContractSameHireDate) {
+    public Employee(String id, String externalId, EmployeeType employeeType, Long code, String eSocialRegistration, String name, String cpfNumber, String nisNumber, LocalDate birthday, LocalDate hireDate, MaritalStatusType maritalStatusType, GenderType genderType, SituationType situationType, ContractType contractType, ESocialCategory eSocialCategory, Boolean isDeficient, Company company, CompanyBranch companyBranch, CostCenter costCenter, Department department, JobPosition jobPosition, Shift shift, Workstation workstation, ReasonLeave reasonLeave, List<Deficiency> deficiencies, LocalDate dismissalDate, String ctpsNumber, String ctpsSerie, LocalDate ctpsIssuanceDate, String ctpsSerieDigit, State ctpsState, String rgNumber, String rgIssuer, State rgState, LocalDate rgIssuanceDate, Long numberContractSameHireDate, Company previousCompany, CompanyBranch previousCompanyBranch) {
         this.id = id;
         this.externalId = externalId;
         this.employeeType = employeeType;
@@ -271,7 +280,10 @@ public class Employee {
         this.rgState = rgState;
         this.rgIssuanceDate = rgIssuanceDate;
         this.numberContractSameHireDate = numberContractSameHireDate;
+        this.previousCompany = previousCompany;
+        this.previousCompanyBranch = previousCompanyBranch;
     }
+
     /**
      * This convenience constructor allows initialization of all required fields.
      */
@@ -350,6 +362,8 @@ public class Employee {
         sb.append("rgState=").append(rgState == null ? "null" : rgState).append(", ");
         sb.append("rgIssuanceDate=").append(rgIssuanceDate == null ? "null" : rgIssuanceDate).append(", ");
         sb.append("numberContractSameHireDate=").append(numberContractSameHireDate == null ? "null" : numberContractSameHireDate).append(", ");
+        sb.append("previousCompany=").append(previousCompany == null ? "null" : previousCompany).append(", ");
+        sb.append("previousCompanyBranch=").append(previousCompanyBranch == null ? "null" : previousCompanyBranch);
         sb.append(']');
         return sb.toString();
     }
