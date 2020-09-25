@@ -3,6 +3,10 @@ package br.com.senior.employee.consumer.client.esocial;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 /**
  * Xml recebido do prestador.
  */
@@ -141,6 +145,10 @@ public class ProviderXml {
      * Relatório de erro ocorrido no provedor.
      */
     public String providerErrorMessage;
+
+    private Long batch;
+
+    private LayoutSourceType layoutSourceType;
     
     public ProviderXml() {
     }

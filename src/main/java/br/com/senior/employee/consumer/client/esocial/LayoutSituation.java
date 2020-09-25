@@ -145,6 +145,18 @@ public class LayoutSituation {
      * Tipo de ambiente.
      */
     public EnvironmentIdType environmentIdType;
+
+    public Long sendPriority;
+
+    public String layoutSituationMessage;
+
+    public String layoutSituationStackTrace;
+
+    public String configurationId;
+
+    public Long batch;
+
+    public String rawGovernmentReturn;
     
     public LayoutSituation() {
     }
