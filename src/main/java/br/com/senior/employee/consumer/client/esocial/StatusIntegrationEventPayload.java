@@ -2,7 +2,7 @@ package br.com.senior.employee.consumer.client.esocial;
 
 public class StatusIntegrationEventPayload {
     
-    public ProviderXml result;
+    public StatusEsocialXmlDTO result;
     
     public StatusIntegrationEventPayload() {
     }
@@ -10,7 +10,7 @@ public class StatusIntegrationEventPayload {
     /** 
      * This constructor allows initialization of all fields, required and optional.
      */
-    public StatusIntegrationEventPayload(ProviderXml result) {
+    public StatusIntegrationEventPayload(StatusEsocialXmlDTO result) {
         this.result = result;
     }
 

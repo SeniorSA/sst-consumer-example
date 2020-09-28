@@ -139,18 +139,15 @@ Parâmetros de saída:
 
 | Parâmetro | Objetivo |
 | --- | --- |
-| xmlProviderId | ID do XML no prestador SST. |
-| companyProviderId	| Código da empresa no prestador SST. |
-| subscriptionType	| Tipo de inscrição da empresa. |
-| subscriptionNumber |	Número de inscrição da empresa. |
-| xmlId	| ID do XML no sistema Senior. (UUID) |
-| xmlStatus	| Status do XML. Valores possíveis: IN_ANALYSIS, VALIDATION_SUCESS, VALIDATION_ERROR, GOVERNMENT_RETURN |
-| esocialEventID	| ID do evento do eSocial. |
-| esocialLayoutType	| Leiaute do evento do eSocial, referente ao XML. Valores possíveis: S1060, S2210, S2220, S2221, S2240, S2245, S3000 |
-| esocialReturnType	| Status do retorno do governo. Valores possíveis: RECEIPT_RETURNED   (Retorno do recibo, sem erros e/ou críticas), RECEIPT_MANUAL (Recibo incluído manualmente), ERROR_RETURNED (Retorno com erros e/ou críticas), EVENT_CANCELED (Envio do XML ao governo cancelado) | 
-| esocialReceiptNumber	| Número do recibo retornado pelo governo. |
-| message |	Erros e críticas do XML retornados pelo governo ou nos casos de erros encontrados durante a validação do XML. | 
-
+| id | Identificador do registro na plataforma senior X. |
+| providerXmlId | ID do XML no prestador SST. |
+| xmlStatus	| Status do XML. Valores possíveis: IN_ANALYSIS, VALIDATION_SUCESS, VALIDATION_ERROR, SENDING_TO_GOVERNMENT, WAITING_GOVERNMENT_RETURN, GOVERNMENT_RETURN, SEND_XML_ERROR, CANCELED_BY_USER. |
+| validationMessage | Mensagem referente a validação do evento. |
+| eventId | ID do evento do eSocial. |
+| governmentReturnType | Tipo de retorno do governo. Valores possíveis: RECEIPT_RETURNED e MESSAGE_RETURNED. |
+| governmentReceiptNumber | Número do recibo retornado pelo governo. |
+| governmentMessage | Mensagens ou críticas retornadas do governo. |
+| rawGovernmentReturn | Retorno do governo. |
 
 #### Recebendo o retorno do recibo ou críticas/erros do governo - EsocialIntegrationStrategyImpl.java
 O status dos eventos do eSocial (XML) enviados a plataforma senior X são retornados ao sistema do prestador SST pelo método eSocialStatusXml, da classe EsocialIntegrationStrategyImpl.
@@ -158,11 +155,11 @@ Antes do envio ao governo, todos os XML recebidos do prestador SST são validado
 pela plataforma SeniorX. Caso encontre erro na validação, o status retornado será VALIDATION_ERROR.
 
 Após envio do XML pela plataforma senior X, o retorno do governo será o número do recibo ou críticas/erros. Se o retorno for o número do recibo, o status será GOVERNMENT_RETURN e o tipo do retorno 
-será RECEIPT_RETURNED. Caso o governo encontre problemas, o status também será GOVERNMENT_RETURN mas o tipo do retorno será ERROR_RETURNED.
+será RECEIPT_RETURNED. Caso o governo encontre problemas, o status também será GOVERNMENT_RETURN mas o tipo do retorno será MESSAGE_RETURNED.
 
 Desta fora, implemente no método eSocialStatusXml, na rotina de validação com sucesso, a atualização do status do envio do XML no sistema do prestador SST, com a indicação que ele está pronto para envio ao governo pela plataforma senior X.
 
-Caso a validação retorne erros, atualize o status do envio do XML no sistema do prestador SST, indicando que o XML não será enviado ao governo devido a problemas encontrados na validação. O erro encontrado na validação pode ser consultado através do atributo xmlOutput.message.
+Caso a validação retorne erros, atualize o status do envio do XML no sistema do prestador SST, indicando que o XML não será enviado ao governo devido a problemas encontrados na validação. O erro encontrado na validação pode ser consultado através do atributo validationMessage.
 
-Para as situações em que o governo retornar o recibo do XML do evento do eSocial, implemente na opção GOVERNMENT_RETURN a verificação do tipo de retorno (xmlOutput.esocialReturnType). Se o tipo de retorno for "recibo retornado" (StatusType.RECEIPT_RETURNED), atualize o status do envio do XML no sistema do prestador SST e atribua o recibo ao respectivo evento. Se o tipo de retorno for "erro retornado" (StatusType.ERROR_RETURNED), atualize o status do envio do XML no sistema do prestador SST com as críticas/erros retornados. As críticas/erros retornados podem ser consultados através do atributo xmlOutput.message.
+Para as situações em que o governo retornar o recibo do XML do evento do eSocial, implemente na opção GOVERNMENT_RETURN a verificação do tipo de retorno (statusEsocialXmlDTO.governmentReturnType). Se o tipo de retorno for "recibo retornado" (GovernmentReturnType.RECEIPT_RETURNED), atualize o status do envio do XML no sistema do prestador SST e atribua o recibo ao respectivo evento. Se o tipo de retorno for "mensagem retornada" (GovernmentReturnType.MESSAGE_RETURNED), atualize o status do envio do XML no sistema do prestador SST com as críticas/erros retornados. As críticas/erros retornados podem ser consultados através do atributo governmentMessage.
 

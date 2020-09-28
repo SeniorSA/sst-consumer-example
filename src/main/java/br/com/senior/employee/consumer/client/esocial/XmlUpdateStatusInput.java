@@ -1,7 +1,5 @@
 package br.com.senior.employee.consumer.client.esocial;
 
-import java.util.Map;
-
 public class XmlUpdateStatusInput {
 
     /**
