@@ -13,7 +13,6 @@ import br.com.senior.employee.consumer.client.esocial.SendEsocialXmlPayload;
 import br.com.senior.employee.consumer.client.esocial.StatusEsocialXmlDTO;
 import br.com.senior.employee.consumer.client.esocial.StatusEsocialXmlPayload;
 import br.com.senior.employee.consumer.client.esocial.StatusIntegrationEventPayload;
-import br.com.senior.employee.consumer.client.esocial.XmlOutput;
 import br.com.senior.employee.consumer.controller.integration.esocial.EsocialIntegrationController;
 
 @RestController
@@ -36,7 +35,7 @@ public class EsocialEventHandler {
     }
 
     @PostMapping(path = "/sendXml")
-    public XmlOutput esocialSendXml(@RequestBody SendEsocialXmlPayload payload) {
+    public StatusEsocialXmlDTO esocialSendXml(@RequestBody SendEsocialXmlPayload payload) {
        return esocialIntegrationController.sendXml(payload.credential, payload.sendEsocialXmlInput);
     }
 
