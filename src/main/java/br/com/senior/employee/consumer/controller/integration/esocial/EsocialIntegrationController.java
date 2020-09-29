@@ -16,8 +16,8 @@ import br.com.senior.employee.consumer.client.esocial.SendEsocialXmlOutput;
 import br.com.senior.employee.consumer.client.esocial.StatusEsocialXmlDTO;
 import br.com.senior.employee.consumer.client.esocial.StatusEsocialXmlInput;
 import br.com.senior.employee.consumer.client.esocial.StatusEsocialXmlOutput;
+import br.com.senior.employee.consumer.client.esocial.StatusEsocialXmlReceivedInput;
 import br.com.senior.employee.consumer.client.esocial.XmlStatusType;
-import br.com.senior.employee.consumer.client.esocial.XmlUpdateStatusInput;
 import br.com.senior.employee.consumer.configuration.ApplicationProperties;
 import br.com.senior.employee.consumer.rest.Rest;
 import lombok.extern.log4j.Log4j;
@@ -48,13 +48,13 @@ public class EsocialIntegrationController {
             * Neste ponto o código comunica para a SENIOR que recebeu o Status do XML.
             * Desta forma o sistema da Senior saberá que o dado está no provedor SST.
             */
-            XmlUpdateStatusInput input = new XmlUpdateStatusInput(statusEsocialXmlDTO.id, ProviderStatusType.ON_PROVIDER);
-            rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
+            StatusEsocialXmlReceivedInput input = new StatusEsocialXmlReceivedInput(statusEsocialXmlDTO.id, ProviderStatusType.ON_PROVIDER);
+            rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/statusEsocialXmlReceived", input);
             LOGGER.info("O Status do xml ID: " + statusEsocialXmlDTO.id + " foi alterado.");
         } catch (Exception e) {
             LOGGER.error("Erro na integração do xml ID: " + statusEsocialXmlDTO.id, e);
-            XmlUpdateStatusInput input = new XmlUpdateStatusInput(statusEsocialXmlDTO.id, ProviderStatusType.PROVIDER_ERROR, e.getMessage());
-            rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/xmlUpdateStatus", input);
+            StatusEsocialXmlReceivedInput input = new StatusEsocialXmlReceivedInput(statusEsocialXmlDTO.id, ProviderStatusType.PROVIDER_ERROR, e.getMessage());
+            rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial/signals/statusEsocialXmlReceived", input);
         }
     }
 
