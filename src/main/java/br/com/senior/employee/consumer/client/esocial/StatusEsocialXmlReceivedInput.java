@@ -1,37 +1,35 @@
 package br.com.senior.employee.consumer.client.esocial;
 
-public class XmlUpdateStatusInput {
-
+public class StatusEsocialXmlReceivedInput {
     /**
      * Id do ProviderXml.
      */
     public String xmlId;
     /**
+     * Id do xml do prestador
+     */
+    public String providerXmlId;
+    /**
      * Status do provedor.
      */
     public ProviderStatusType providerStatusType;
     /**
-     * Mensagem de erro retornada pelo provedor.
+     * Mensagem de erro retornada pelo provedor SST.
      */
     public String providerErrorMessage;
 
-    public XmlUpdateStatusInput() {
+    public StatusEsocialXmlReceivedInput() {
     }
 
-    /**
-     * This constructor allows initialization of all fields, required and optional.
-     */
-    public XmlUpdateStatusInput(String xmlId, ProviderStatusType providerStatusType, String providerErrorMessage) {
+    public StatusEsocialXmlReceivedInput(String xmlId, ProviderStatusType providerStatusType) {
+        this.xmlId = xmlId;
+        this.providerStatusType = providerStatusType;
+    }
+
+    public StatusEsocialXmlReceivedInput(String xmlId, ProviderStatusType providerStatusType, String providerErrorMessage) {
         this.xmlId = xmlId;
         this.providerStatusType = providerStatusType;
         this.providerErrorMessage = providerErrorMessage;
-    }
-    /**
-     * This convenience constructor allows initialization of all required fields.
-     */
-    public XmlUpdateStatusInput(String xmlId, ProviderStatusType providerStatusType) {
-        this.xmlId = xmlId;
-        this.providerStatusType = providerStatusType;
     }
 
     @Override
@@ -39,6 +37,9 @@ public class XmlUpdateStatusInput {
         int ret = 1;
         if (xmlId != null) {
             ret = 31 * ret + xmlId.hashCode();
+        }
+        if (providerXmlId != null) {
+            ret = 31 * ret + providerXmlId.hashCode();
         }
         if (providerStatusType != null) {
             ret = 31 * ret + providerStatusType.hashCode();
@@ -54,14 +55,20 @@ public class XmlUpdateStatusInput {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof XmlUpdateStatusInput)) {
+        if (!(obj instanceof StatusEsocialXmlReceivedInput)) {
             return false;
         }
-        XmlUpdateStatusInput other = (XmlUpdateStatusInput) obj;
+        StatusEsocialXmlReceivedInput other = (StatusEsocialXmlReceivedInput) obj;
         if ((xmlId == null) != (other.xmlId == null)) {
             return false;
         }
         if ((xmlId != null) && !xmlId.equals(other.xmlId)) {
+            return false;
+        }
+        if ((providerXmlId == null) != (other.providerXmlId == null)) {
+            return false;
+        }
+        if ((providerXmlId != null) && !providerXmlId.equals(other.providerXmlId)) {
             return false;
         }
         if ((providerStatusType == null) != (other.providerStatusType == null)) {
@@ -84,9 +91,11 @@ public class XmlUpdateStatusInput {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName()).append(" [");
         sb.append("xmlId=").append(xmlId == null ? "null" : xmlId).append(", ");
+        sb.append("providerXmlId=").append(providerXmlId == null ? "null" : providerXmlId).append(", ");
         sb.append("providerStatusType=").append(providerStatusType == null ? "null" : providerStatusType).append(", ");
         sb.append("providerErrorMessage=").append(providerErrorMessage == null ? "null" : providerErrorMessage);
         sb.append(']');
         return sb.toString();
     }
+
 }
