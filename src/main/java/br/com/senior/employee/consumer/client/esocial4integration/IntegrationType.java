@@ -60,6 +60,10 @@ public enum IntegrationType {
      */
     HISTORICAL_ESOCIAL_CATEGORY,
     /**
+     * Histórico de informações adicionais
+     */
+    HISTORICAL_SALARY_PREMIUM,
+    /**
      * Demissão do colaborador.
      */
     DISMISSAL
