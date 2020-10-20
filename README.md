@@ -21,6 +21,7 @@ Toda informação publicada pela Senior possui a informação "Motivo da integra
 - Admissão;
 - Demissão;
 - Alteração de dados do colaborador;
+- Alteração das informações adicionais;
 - Movimentação de centro de custo;
 - Movimentação de setor;
 - Movimentação de categoria do eSocial;

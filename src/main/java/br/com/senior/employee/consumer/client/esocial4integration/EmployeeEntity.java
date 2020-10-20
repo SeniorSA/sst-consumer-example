@@ -5,9 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "employee")
@@ -261,6 +273,13 @@ public class EmployeeEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "previous_company_branch")
     private CompanyBranchEntity previousCompanyBranch;
+
+    /**
+     * Adicionais no salário do colaborador
+     */
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "salary_premium")
+    private SalaryPremiumEntity salaryPremium;
 
     public UUID getId() {
         return id;
@@ -566,6 +585,14 @@ public class EmployeeEntity {
         this.previousCompanyBranch = previousCompanyBranch;
     }
 
+    public SalaryPremiumEntity getSalaryPremium() {
+        return salaryPremium;
+    }
+
+    public void setSalaryPremium(SalaryPremiumEntity salaryPremium) {
+        this.salaryPremium = salaryPremium;
+    }
+
     @Override
     public int hashCode() {
         int ret = 1;
@@ -632,7 +659,8 @@ public class EmployeeEntity {
         sb.append("rgState=").append(rgState == null ? "null" : rgState).append(", ");
         sb.append("rgIssuanceDate=").append(rgIssuanceDate == null ? "null" : rgIssuanceDate).append(", ");
         sb.append("previousCompany=").append(previousCompany == null ? "null" : previousCompany).append(", ");
-        sb.append("previousCompanyBranch=").append(previousCompanyBranch == null ? "null" : previousCompanyBranch);
+        sb.append("previousCompanyBranch=").append(previousCompanyBranch == null ? "null" : previousCompanyBranch).append(", ");
+        sb.append("salaryPremium=").append(salaryPremium == null ? "null" : salaryPremium);
         sb.append(']');
         return sb.toString();
     }
