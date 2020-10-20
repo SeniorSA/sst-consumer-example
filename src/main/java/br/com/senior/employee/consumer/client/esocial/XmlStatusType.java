@@ -1,6 +1,3 @@
-/**
- * This is a generated file. DO NOT EDIT ANY CODE HERE, YOUR CHANGES WILL BE LOST.
- */
 package br.com.senior.employee.consumer.client.esocial;
 
 /**
@@ -10,7 +7,7 @@ public enum XmlStatusType {
     /**
      * XML Recebido.
      */
-    IN_ANALISYS,
+    IN_ANALYSIS,
     /**
      * Erro de validação.
      */
@@ -20,11 +17,23 @@ public enum XmlStatusType {
      */
     VALIDATION_SUCCESS,
     /**
+     * Enviando para o governo
+     */
+    SENDING_TO_GOVERNMENT,
+    /**
+     * Aguardando o retorno do governo
+     */
+    WAITING_GOVERNMENT_RETURN,
+    /**
      * Retorno do governo.
      */
     GOVERNMENT_RETURN,
     /**
      * Erro ao enviar o XML.
      */
-    SEND_XML_ERROR
+    SEND_XML_ERROR,
+    /**
+     * Cancelado pelo usuário
+     */
+    CANCELED_BY_USER
 }

@@ -1,16 +1,19 @@
 package br.com.senior.employee.consumer.client.esocial;
 
-public class StatusIntegrationEventPayload {
-    
+public class SendEsocialXmlOutput {
+
+    /**
+     * Retorno referente ao envio do evento do eSocial.
+     */
     public StatusEsocialXmlDTO result;
-    
-    public StatusIntegrationEventPayload() {
+
+    public SendEsocialXmlOutput() {
     }
-    
-    /** 
+
+    /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public StatusIntegrationEventPayload(StatusEsocialXmlDTO result) {
+    public SendEsocialXmlOutput(StatusEsocialXmlDTO result) {
         this.result = result;
     }
 
@@ -22,16 +25,16 @@ public class StatusIntegrationEventPayload {
         }
         return ret;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof StatusIntegrationEventPayload)) {
+        if (!(obj instanceof SendEsocialXmlOutput)) {
             return false;
         }
-        StatusIntegrationEventPayload other = (StatusIntegrationEventPayload) obj;
+        SendEsocialXmlOutput other = (SendEsocialXmlOutput) obj;
         if ((result == null) != (other.result == null)) {
             return false;
         }
@@ -40,14 +43,14 @@ public class StatusIntegrationEventPayload {
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
-    	StringBuilder sb = new StringBuilder();
-    	sb.append(getClass().getSimpleName()).append(" [");
-    	sb.append("result=<").append(result == null ? "null" : result).append('>');
-    	sb.append(']');
-    	return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName()).append(" [");
+        sb.append("result=<").append(result == null ? "null" : result).append('>');
+        sb.append(']');
+        return sb.toString();
     }
-    
+
 }
