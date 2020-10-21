@@ -3,9 +3,15 @@
  */
 package br.com.senior.employee.consumer.client.esocial4integration;
 
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="shift")
@@ -37,6 +43,13 @@ public class ShiftEntity {
 	 */
 	@Column(name = "date_when")
 	private java.time.LocalDate dateWhen;
+
+	/**
+	 * Turno da escala
+	 */
+	@Enumerated(EnumType.STRING)
+	@Column(name = "workshift_scale_type")
+	private WorkshiftScaleType workshiftScaleType;
 	
 	public java.util.UUID getId() {
 		return this.id;
@@ -53,6 +66,10 @@ public class ShiftEntity {
 	public java.time.LocalDate getDateWhen() {
 		return this.dateWhen;
 	}
+
+	public WorkshiftScaleType getWorkshiftScaleType() {
+		return workshiftScaleType;
+	}
 	
 	public void setId(java.util.UUID id) {
 		this.id = id;
@@ -68,6 +85,10 @@ public class ShiftEntity {
 	
 	public void setDateWhen(java.time.LocalDate dateWhen) {
 		this.dateWhen = dateWhen;
+	}
+
+	public void setWorkshiftScaleType(WorkshiftScaleType workshiftScaleType) {
+		this.workshiftScaleType = workshiftScaleType;
 	}
 	
 	@Override
@@ -104,7 +125,8 @@ public class ShiftEntity {
 		sb.append("id=").append(id == null ? "null" : id).append(", ");
 		sb.append("code=").append(code == null ? "null" : code).append(", ");
 		sb.append("name=").append(name == null ? "null" : name).append(", ");
-		sb.append("dateWhen=").append(dateWhen == null ? "null" : dateWhen);
+		sb.append("dateWhen=").append(dateWhen == null ? "null" : dateWhen).append(", ");
+		sb.append("workshiftScaleType=").append(workshiftScaleType == null ? "null" : workshiftScaleType);
 		sb.append(']');
 		return sb.toString();
 	}
