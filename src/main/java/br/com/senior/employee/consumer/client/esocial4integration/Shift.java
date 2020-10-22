@@ -96,18 +96,23 @@ public class Shift {
      * Data do histórico da Turno (A partir de).
      */
     public java.time.LocalDate dateWhen;
-    
+    /**
+     * Turno da escala
+     */
+    public WorkshiftScaleType workshiftScaleType;
+
     public Shift() {
     }
     
-    /** 
+    /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public Shift(String id, Long code, String name, java.time.LocalDate dateWhen) {
+    public Shift(String id, Long code, String name, java.time.LocalDate dateWhen, WorkshiftScaleType workshiftScaleType) {
         this.id = id;
         this.code = code;
         this.name = name;
         this.dateWhen = dateWhen;
+        this.workshiftScaleType = workshiftScaleType;
     }
     /** 
      * This convenience constructor allows initialization of all required fields.
@@ -152,7 +157,8 @@ public class Shift {
     	sb.append("id=").append(id == null ? "null" : id).append(", ");
     	sb.append("code=").append(code == null ? "null" : code).append(", ");
     	sb.append("name=").append(name == null ? "null" : name).append(", ");
-    	sb.append("dateWhen=").append(dateWhen == null ? "null" : dateWhen);
+    	sb.append("dateWhen=").append(dateWhen == null ? "null" : dateWhen).append(", ");
+        sb.append("workshiftScaleType=").append(workshiftScaleType == null ? "null" : workshiftScaleType);
     	sb.append(']');
     	return sb.toString();
     }
