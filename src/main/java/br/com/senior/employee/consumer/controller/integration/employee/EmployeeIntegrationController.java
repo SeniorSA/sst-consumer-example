@@ -1,13 +1,18 @@
 package br.com.senior.employee.consumer.controller.integration.employee;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import br.com.senior.employee.consumer.client.authentication.KeyCredential;
 import br.com.senior.employee.consumer.client.esocial4integration.DeficiencyEntity;
 import br.com.senior.employee.consumer.client.esocial4integration.EmployeeEntity;
-import br.com.senior.employee.consumer.configuration.ApplicationProperties;
-import br.com.senior.employee.consumer.client.esocial4integration.IntegrationEntity;
 import br.com.senior.employee.consumer.client.esocial4integration.Integration;
+import br.com.senior.employee.consumer.client.esocial4integration.IntegrationEntity;
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationUpdateStatusInput;
 import br.com.senior.employee.consumer.client.esocial4integration.ProviderStatusType;
+import br.com.senior.employee.consumer.configuration.ApplicationProperties;
 import br.com.senior.employee.consumer.controller.integration.companycredentials.CompanyCredentialsStrategy;
 import br.com.senior.employee.consumer.repository.DeficiencyRepository;
 import br.com.senior.employee.consumer.repository.EmployeeRepository;
@@ -15,19 +20,6 @@ import br.com.senior.employee.consumer.repository.IntegrationRepository;
 import br.com.senior.employee.consumer.rest.Rest;
 import br.com.senior.employee.consumer.rest.json.DtoJsonConverter;
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.ResourceAccessException;
-
-import java.util.List;
-import java.util.Optional;
 
 @Log4j
 @Component

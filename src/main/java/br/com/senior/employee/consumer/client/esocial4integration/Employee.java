@@ -235,6 +235,10 @@ public class Employee {
      * Filial anterior do colaborador.
      */
     public CompanyBranch previousCompanyBranch;
+    /**
+     * Adicionais no salário do colaborador
+     */
+    public SalaryPremium salaryPremium;
 
 
     public Employee() {
@@ -243,7 +247,7 @@ public class Employee {
     /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public Employee(String id, String externalId, EmployeeType employeeType, Long code, String eSocialRegistration, String name, String cpfNumber, String nisNumber, LocalDate birthday, LocalDate hireDate, MaritalStatusType maritalStatusType, GenderType genderType, SituationType situationType, ContractType contractType, ESocialCategory eSocialCategory, Boolean isDeficient, Company company, CompanyBranch companyBranch, CostCenter costCenter, Department department, JobPosition jobPosition, Shift shift, Workstation workstation, ReasonLeave reasonLeave, List<Deficiency> deficiencies, LocalDate dismissalDate, String ctpsNumber, String ctpsSerie, LocalDate ctpsIssuanceDate, String ctpsSerieDigit, State ctpsState, String rgNumber, String rgIssuer, State rgState, LocalDate rgIssuanceDate, Long numberContractSameHireDate, Company previousCompany, CompanyBranch previousCompanyBranch) {
+    public Employee(String id, String externalId, EmployeeType employeeType, Long code, String eSocialRegistration, String name, String cpfNumber, String nisNumber, LocalDate birthday, LocalDate hireDate, MaritalStatusType maritalStatusType, GenderType genderType, SituationType situationType, ContractType contractType, ESocialCategory eSocialCategory, Boolean isDeficient, Company company, CompanyBranch companyBranch, CostCenter costCenter, Department department, JobPosition jobPosition, Shift shift, Workstation workstation, ReasonLeave reasonLeave, List<Deficiency> deficiencies, LocalDate dismissalDate, String ctpsNumber, String ctpsSerie, LocalDate ctpsIssuanceDate, String ctpsSerieDigit, State ctpsState, String rgNumber, String rgIssuer, State rgState, LocalDate rgIssuanceDate, Long numberContractSameHireDate, Company previousCompany, CompanyBranch previousCompanyBranch, SalaryPremium salaryPremium) {
         this.id = id;
         this.externalId = externalId;
         this.employeeType = employeeType;
@@ -282,6 +286,7 @@ public class Employee {
         this.numberContractSameHireDate = numberContractSameHireDate;
         this.previousCompany = previousCompany;
         this.previousCompanyBranch = previousCompanyBranch;
+        this.salaryPremium = salaryPremium;
     }
 
     /**
@@ -363,7 +368,8 @@ public class Employee {
         sb.append("rgIssuanceDate=").append(rgIssuanceDate == null ? "null" : rgIssuanceDate).append(", ");
         sb.append("numberContractSameHireDate=").append(numberContractSameHireDate == null ? "null" : numberContractSameHireDate).append(", ");
         sb.append("previousCompany=").append(previousCompany == null ? "null" : previousCompany).append(", ");
-        sb.append("previousCompanyBranch=").append(previousCompanyBranch == null ? "null" : previousCompanyBranch);
+        sb.append("previousCompanyBranch=").append(previousCompanyBranch == null ? "null" : previousCompanyBranch).append(", ");
+        sb.append("salaryPremium=").append(salaryPremium == null ? "null" : salaryPremium);
         sb.append(']');
         return sb.toString();
     }
