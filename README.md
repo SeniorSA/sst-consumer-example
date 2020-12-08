@@ -44,12 +44,9 @@ Desta forma, é papel do desenvolvedor do sistema do prestador SST, desenvolver 
 
 Os eventos do eSocial (XML) gerados pelo prestador SST devem ser enviados a plataforma senior X através do projeto sst-consumer-example. 
 Os seguintes eventos do eSocial são reconhecidos para envio pelo módulo Integrador SST:
-- S-1060 - Tabela de Ambientes de Trabalho
 - S-2210 - Comunicação de Acidente de Trabalho
 - S-2220 - Monitoramento da Saúde do Trabalhador
-- S-2221 - Exame Toxicológico do Motorista Profissional
 - S-2240 - Condições Ambientais do Trabalho - Fatores de Risco
-- S-2245 - Treinamentos, Capacitações, Exercícios Simulados e Outras Anotações
 - S-3000 - Exclusão de Eventos
 
 O envio dos XML deve ser feito individualmente (um a um). Cada XML enviado é validado, conforme estrutura e atributos do seu leiaute, antes de ser enviado ao 
