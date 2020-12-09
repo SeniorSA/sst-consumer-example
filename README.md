@@ -104,6 +104,8 @@ conforme o motivo de integração no sistema do prestador SST.
 
 > **Observação:** Utilize a informação do motivo de integração (integration.getIntegrationType()) e do tipo de operação (integration.getOperationType() - Insert, Update, Delete) para determinar a alteração necessária no registro do colaborador no sistema do prestador SST.
 
+Diagrama de sequência da integração:
+
 ![](images/api-employee-integration-strategy-impl-diagrama.png)
 
 
