@@ -17,11 +17,24 @@ public abstract class EmployeeIntegrationStrategy {
      * @param integration Entidade da integração.
      */
     final void processPendency(IntegrationEntity integration) throws Exception {
-        if (employeeExists(integration)) {
+        if (isAdmissionExclusion(integration)) {
+            employeeDelete(integration);
+        } else if (employeeExists(integration)) {
             employeeUpdate(integration);
         } else {
             employeeInsert(integration);
         }
+    }
+
+    /**
+     * Retorna se é uma exclusão de uma admissão
+     *
+     * @param integration integração a ser analisada
+     * @return verdadeiro é uma exclusão de uma admissão
+     */
+    public boolean isAdmissionExclusion(IntegrationEntity integration) {
+        return integration.getIntegrationType() == IntegrationType.NEW_EMPLOYEE
+                && integration.getOperationType() == OperationType.DELETE;
     }
 
     /**
@@ -45,4 +58,11 @@ public abstract class EmployeeIntegrationStrategy {
      * @param integration Entidade da integração.
      */
     abstract void employeeUpdate(IntegrationEntity integration) throws Exception;
+
+    /**
+     * Rotina responsável deletar um colaborador.
+     *
+     * @param integration Entidade da integração.
+     */
+    abstract void employeeDelete(IntegrationEntity integration) throws Exception;
 }

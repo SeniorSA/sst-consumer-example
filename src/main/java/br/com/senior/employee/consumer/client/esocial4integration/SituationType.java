@@ -8,6 +8,14 @@ package br.com.senior.employee.consumer.client.esocial4integration;
  */
 public enum SituationType {
     /**
+     * Pré-admissão
+     */
+    PRE_ADMISSION,
+    /**
+     * Pré-admissão cancelada
+     */
+    PRE_ADMISSION_CANCELED,
+    /**
      * Trabalhando.
      */
     WORKING,

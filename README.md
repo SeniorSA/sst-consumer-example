@@ -40,6 +40,7 @@ Desta forma, é papel do desenvolvedor do sistema do prestador SST, desenvolver 
 - Receber a pendência de integração com as informações do colaborador e verificar, através do CPF, se o colaborador já existe no prestador SST.
 - Se o colaborador não existe no prestador SST, desenvolver rotina que insere o colaborador no sistema do prestador.
 - Se o colaborador já existe no prestador SST, desenvolver rotina que atualiza as informações do colaborador, conforme o motivo da pendência de integração.
+- Se a pendência for uma exclusão de uma admissão (`integration.getIntegrationType()` igual a `IntegrationType.NEW_EMPLOYEE` e `integration.getOperationType()` igual a `OperationType.DELETE`), desenvolver rotina que trate a exclusão da admissão no sistema do prestador. ATENÇÃO: RECOMENDAMOS NÃO EXCLUIR O COLABORADOR NEM QUALQUER INFORMAÇÃO DO MESMO, E SIM INATIVÁ-LO.
 
 
 #### Integração dos eventos de SST do eSocial
