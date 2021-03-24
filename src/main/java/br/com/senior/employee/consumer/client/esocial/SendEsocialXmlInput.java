@@ -1,45 +1,39 @@
 package br.com.senior.employee.consumer.client.esocial;
 
-public class EsocialEventXmlInput {
-    
+public class SendEsocialXmlInput {
+
     /**
-     * Id do xml no prestador
+     * Identificador do XML no prestador SST
      */
     public String providerXmlId;
     /**
-     * Xml.
-     */
-    public String xml;
-    /**
-     * Id da empresa no prestador SST.
+     * Identificador da empresa no prestador SST.
      */
     public String providerCompanyId;
     /**
-     * Tipo de inscrição.
+     * Tipo de inscrição da empresa.
      */
     public SubscriptionType subscriptionType;
     /**
-     * Numero de incrição.
+     * Numero de inscrição da empresa.
      */
     public String subscriptionNumber;
-    
-    public EsocialEventXmlInput() {
+    /**
+     * XML do evento do eSocial.
+     */
+    public String xml;
+
+    public SendEsocialXmlInput() {
     }
-    
-    /** 
+
+    /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public EsocialEventXmlInput(String providerXmlId, String xml, String providerCompanyId, SubscriptionType subscriptionType, String subscriptionNumber) {
+    public SendEsocialXmlInput(String providerXmlId, String providerCompanyId, SubscriptionType subscriptionType, String subscriptionNumber, String xml) {
         this.providerXmlId = providerXmlId;
-        this.xml = xml;
         this.providerCompanyId = providerCompanyId;
         this.subscriptionType = subscriptionType;
         this.subscriptionNumber = subscriptionNumber;
-    }
-    /** 
-     * This convenience constructor allows initialization of all required fields.
-     */
-    public EsocialEventXmlInput(String xml) {
         this.xml = xml;
     }
 
@@ -48,9 +42,6 @@ public class EsocialEventXmlInput {
         int ret = 1;
         if (providerXmlId != null) {
             ret = 31 * ret + providerXmlId.hashCode();
-        }
-        if (xml != null) {
-            ret = 31 * ret + xml.hashCode();
         }
         if (providerCompanyId != null) {
             ret = 31 * ret + providerCompanyId.hashCode();
@@ -61,28 +52,25 @@ public class EsocialEventXmlInput {
         if (subscriptionNumber != null) {
             ret = 31 * ret + subscriptionNumber.hashCode();
         }
+        if (xml != null) {
+            ret = 31 * ret + xml.hashCode();
+        }
         return ret;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof EsocialEventXmlInput)) {
+        if (!(obj instanceof SendEsocialXmlInput)) {
             return false;
         }
-        EsocialEventXmlInput other = (EsocialEventXmlInput) obj;
+        SendEsocialXmlInput other = (SendEsocialXmlInput) obj;
         if ((providerXmlId == null) != (other.providerXmlId == null)) {
             return false;
         }
         if ((providerXmlId != null) && !providerXmlId.equals(other.providerXmlId)) {
-            return false;
-        }
-        if ((xml == null) != (other.xml == null)) {
-            return false;
-        }
-        if ((xml != null) && !xml.equals(other.xml)) {
             return false;
         }
         if ((providerCompanyId == null) != (other.providerCompanyId == null)) {
@@ -103,20 +91,24 @@ public class EsocialEventXmlInput {
         if ((subscriptionNumber != null) && !subscriptionNumber.equals(other.subscriptionNumber)) {
             return false;
         }
+        if ((xml == null) != (other.xml == null)) {
+            return false;
+        }
+        if ((xml != null) && !xml.equals(other.xml)) {
+            return false;
+        }
         return true;
     }
-    
+
     @Override
     public String toString() {
-    	StringBuilder sb = new StringBuilder();
-    	sb.append(getClass().getSimpleName()).append(" [");
-    	sb.append("providerXmlId=").append(providerXmlId == null ? "null" : providerXmlId).append(", ");
-    	sb.append("xml=").append(xml == null ? "null" : xml).append(", ");
-    	sb.append("providerCompanyId=").append(providerCompanyId == null ? "null" : providerCompanyId).append(", ");
-    	sb.append("subscriptionType=").append(subscriptionType == null ? "null" : subscriptionType).append(", ");
-    	sb.append("subscriptionNumber=").append(subscriptionNumber == null ? "null" : subscriptionNumber);
-    	sb.append(']');
-    	return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("providerXmlId=").append(providerXmlId == null ? "null" : providerXmlId).append(", ");
+        sb.append("providerCompanyId=").append(providerCompanyId == null ? "null" : providerCompanyId).append(", ");
+        sb.append("subscriptionType=").append(subscriptionType == null ? "null" : subscriptionType).append(", ");
+        sb.append("subscriptionNumber=").append(subscriptionNumber == null ? "null" : subscriptionNumber).append(", ");
+        sb.append("xml=").append(xml == null ? "null" : xml);
+        return sb.toString();
     }
-    
+
 }
