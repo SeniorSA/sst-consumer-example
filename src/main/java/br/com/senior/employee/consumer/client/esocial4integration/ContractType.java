@@ -58,5 +58,9 @@ public enum ContractType {
     /**
      * Professor, prazo determinado
      */
-    TEACHERFIXEDDUEDATE
+    TEACHERFIXEDDUEDATE,
+    /**
+     * Terceiro
+     */
+    THIRD_PARTY,
 }
