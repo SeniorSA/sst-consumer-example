@@ -34,5 +34,9 @@ public enum SituationType {
     /**
      * Licença.
      */
-    LICENSE
+    LICENSE,
+    /**
+     * Aposentadoria.
+     */
+    RETIREMENT
 }
