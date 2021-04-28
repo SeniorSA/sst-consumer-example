@@ -1,5 +1,8 @@
 package br.com.senior.employee.consumer.client.esocial;
 
+/**
+ * Retorno referente ao envio do evento do eSocial.
+ */
 public class StatusEsocialXmlDTO {
 
     /**
@@ -49,7 +52,7 @@ public class StatusEsocialXmlDTO {
     /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public StatusEsocialXmlDTO(String id, String providerXmlId, XmlStatusType xmlStatus, String validationMessage, String eventId, GovernmentReturnType governmentReturnType, String governmentReceiptNumber, String governmentMessage, String rawGovernmentReturn) {
+    public StatusEsocialXmlDTO(String id, String providerXmlId, XmlStatusType xmlStatus, String validationMessage, String eventId, GovernmentReturnType governmentReturnType, String governmentReceiptNumber, String governmentMessage, String rawGovernmentReturn, String providerCompanyId) {
         this.id = id;
         this.providerXmlId = providerXmlId;
         this.xmlStatus = xmlStatus;
@@ -59,6 +62,7 @@ public class StatusEsocialXmlDTO {
         this.governmentReceiptNumber = governmentReceiptNumber;
         this.governmentMessage = governmentMessage;
         this.rawGovernmentReturn = rawGovernmentReturn;
+        this.providerCompanyId = providerCompanyId;
     }
     /**
      * This convenience constructor allows initialization of all required fields.
@@ -98,6 +102,9 @@ public class StatusEsocialXmlDTO {
         }
         if (rawGovernmentReturn != null) {
             ret = 31 * ret + rawGovernmentReturn.hashCode();
+        }
+        if (providerCompanyId != null) {
+            ret = 31 * ret + providerCompanyId.hashCode();
         }
         return ret;
     }
@@ -165,6 +172,12 @@ public class StatusEsocialXmlDTO {
         if ((rawGovernmentReturn != null) && !rawGovernmentReturn.equals(other.rawGovernmentReturn)) {
             return false;
         }
+        if ((providerCompanyId == null) != (other.providerCompanyId == null)) {
+            return false;
+        }
+        if ((providerCompanyId != null) && !providerCompanyId.equals(other.providerCompanyId)) {
+            return false;
+        }
         return true;
     }
 
@@ -181,8 +194,8 @@ public class StatusEsocialXmlDTO {
         sb.append("governmentReceiptNumber=").append(governmentReceiptNumber == null ? "null" : governmentReceiptNumber).append(", ");
         sb.append("governmentMessage=").append(governmentMessage == null ? "null" : governmentMessage).append(", ");
         sb.append("rawGovernmentReturn=").append(rawGovernmentReturn == null ? "null" : rawGovernmentReturn);
+        sb.append("providerCompanyId=").append(providerCompanyId == null ? "null" : providerCompanyId);
         sb.append(']');
         return sb.toString();
     }
-
 }
