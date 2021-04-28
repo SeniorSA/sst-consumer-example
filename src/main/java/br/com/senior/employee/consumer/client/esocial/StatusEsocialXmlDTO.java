@@ -38,6 +38,10 @@ public class StatusEsocialXmlDTO {
      * Retorno do governo
      */
     public String rawGovernmentReturn;
+    /**
+     * Código de identificação da empresa no prestador SST
+     */
+    public String providerCompanyId;
 
     public StatusEsocialXmlDTO() {
     }
