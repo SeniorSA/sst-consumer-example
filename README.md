@@ -157,6 +157,7 @@ Parâmetros de saída:
 | governmentReceiptNumber | Número do recibo retornado pelo governo. |
 | governmentMessage | Mensagens ou críticas retornadas do governo. |
 | rawGovernmentReturn | Retorno do governo. |
+| companyProviderId | Código de identificação da empresa no prestador SST. |
 
 #### Recebendo o retorno do recibo ou críticas/erros do governo - EsocialIntegrationStrategyImpl.java
 O status dos eventos do eSocial (XML) enviados a plataforma senior X são retornados ao sistema do prestador SST pelo método eSocialStatusXml, da classe EsocialIntegrationStrategyImpl.
