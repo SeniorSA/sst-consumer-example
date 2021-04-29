@@ -193,7 +193,7 @@ public class StatusEsocialXmlDTO {
         sb.append("governmentReturnType=").append(governmentReturnType == null ? "null" : governmentReturnType).append(", ");
         sb.append("governmentReceiptNumber=").append(governmentReceiptNumber == null ? "null" : governmentReceiptNumber).append(", ");
         sb.append("governmentMessage=").append(governmentMessage == null ? "null" : governmentMessage).append(", ");
-        sb.append("rawGovernmentReturn=").append(rawGovernmentReturn == null ? "null" : rawGovernmentReturn);
+        sb.append("rawGovernmentReturn=").append(rawGovernmentReturn == null ? "null" : rawGovernmentReturn).append(", ");
         sb.append("providerCompanyId=").append(providerCompanyId == null ? "null" : providerCompanyId);
         sb.append(']');
         return sb.toString();
