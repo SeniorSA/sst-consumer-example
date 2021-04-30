@@ -56,6 +56,10 @@ public enum ESocialCategoryType {
      */
     Category_303,
     /**
+     * Servidor público exercente de mandato eletivo, inclusive com exercício de cargo em comissão
+     */
+    Category_304,
+    /**
      * Servidor Público indicado para conselho ou órgão representativo, na condição de representante do governo, órgão ou entidade da administração pública.
      */
     Category_305,
@@ -75,6 +79,22 @@ public enum ESocialCategoryType {
      * Agente Público - Outros.
      */
     Category_309,
+    /**
+     * Servidor público eventual
+     */
+    Category_310,
+    /**
+     * Ministros, juízes, procuradores, promotores ou oficiais de justiça à disposição da Justiça Eleitoral
+     */
+    Category_311,
+    /**
+     * Auxiliar local
+     */
+    Category_312,
+    /**
+     * Servidor público exercente de atividade de instrutoria, capacitação, treinamento, curso ou concurso, ou convocado para pareceres técnicos ou depoimentos
+     */
+    Category_313,
     /**
      * Dirigente Sindical - informação prestada pelo Sindicato.
      */
