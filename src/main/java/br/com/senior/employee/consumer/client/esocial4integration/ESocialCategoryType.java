@@ -64,10 +64,6 @@ public enum ESocialCategoryType {
      */
     Category_303,
     /**
-     * Servidor público exercente de mandato eletivo, inclusive com exercício de cargo em comissão
-     */
-    Category_304,
-    /**
      * Servidor Público indicado para conselho ou órgão representativo, na condição de representante do governo, órgão ou entidade da administração pública.
      */
     Category_305,
@@ -87,22 +83,6 @@ public enum ESocialCategoryType {
      * Agente Público - Outros.
      */
     Category_309,
-    /**
-     * Servidor público eventual
-     */
-    Category_310,
-    /**
-     * Ministros, juízes, procuradores, promotores ou oficiais de justiça à disposição da Justiça Eleitoral
-     */
-    Category_311,
-    /**
-     * Auxiliar local
-     */
-    Category_312,
-    /**
-     * Servidor público exercente de atividade de instrutoria, capacitação, treinamento, curso ou concurso, ou convocado para pareceres técnicos ou depoimentos
-     */
-    Category_313,
     /**
      * Dirigente Sindical - informação prestada pelo Sindicato.
      */
@@ -186,21 +166,5 @@ public enum ESocialCategoryType {
     /**
      * Atleta não profissional em formação que receba bolsa.
      */
-    Category_905,
-    /**
-     * Beneficiário Ente Público
-     */
-    Category_9995,
-    /**
-     * Beneficiário Ente Público - Somente Cadastro Beneficio
-     */
-    Category_9996,
-    /**
-     * Demitido com data anterior à sucessão (categoria exclusiva Senior)
-     */
-    Category_9997,
-    /**
-     * Não se aplica
-     */
-    Category_9999
+    Category_905
 }
