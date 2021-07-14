@@ -32,6 +32,14 @@ public enum ESocialCategoryType {
      */
     Category_106,
     /**
+     * Empregado - Contrato de trabalho Verde e Amarelo - sem acordo para antecipação mensal da multa rescisória do FGTS
+     */
+    Category_107,
+    /**
+     * Empregado - Contrato de trabalho Verde e Amarelo - com acordo para antecipação mensal da multa rescisória do FGTS
+     */
+    Category_108,
+    /**
      * Empregado - contrato de trabalho intermitente.
      */
     Category_111,
