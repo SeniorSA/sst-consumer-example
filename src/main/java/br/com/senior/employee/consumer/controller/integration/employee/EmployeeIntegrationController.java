@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 import br.com.senior.employee.consumer.client.authentication.KeyCredential;
 import br.com.senior.employee.consumer.client.esocial4integration.DeficiencyEntity;
@@ -49,12 +51,13 @@ public class EmployeeIntegrationController {
     public void integrationPendency(String accessKey, Integration integration) {
         LOGGER.info("Processando a pendência de integração ID: " + integration.id);
 
-        if (rest.getCredentialFromAccessKey(accessKey) == null) {
+        KeyCredential keyCredential = rest.getCredentialFromAccessKey(accessKey,integration.providerCompanyIdentification);
+        if (keyCredential == null) {
             LOGGER.error("Não foi encontrada uma credencial para a chave de acesso: " + accessKey + ". A pendência ID: " + integration.id + " não será consumida.");
             return;
         }
 
-        KeyCredential keyCredential = KeyCredential.getKeyCredentialFromAccessKey(accessKey);
+        keyCredential = KeyCredential.getKeyCredentialFromAccessKey(accessKey, integration.providerCompanyIdentification);
         try {
             IntegrationEntity entity = DtoJsonConverter.toDTO(DtoJsonConverter.toJSON(integration), IntegrationEntity.class);
 
@@ -63,22 +66,61 @@ public class EmployeeIntegrationController {
 
             //Processa a pendencia de integração
             integrationStrategy.processPendency(entity);
-            /**
-             * Neste ponto o código comunica para a SENIOR que recebeu o evento e que os dados estão salvos na base do prestador SST.
-             * Desta forma o sistema da Senior saberá que o dado está no provedor SST.
-             */
-            IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.ON_PROVIDER);
-            rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
-            LOGGER.info("A pendência ID: " + integration.id + " foi consumida.");
+
+            enviarRespostaSucesso(integration, keyCredential);
+        } catch (HttpClientErrorException e) {
+            if(e.getRawStatusCode() == HttpStatus.UNAUTHORIZED.value()){
+                LOGGER.info("Pendência ID: " + integration.id + " renovando autorizaçao.");
+                rest.removeFromCache(keyCredential);
+                try{
+                    enviarRespostaSucesso(integration, keyCredential);
+                } catch (Exception e1) {
+                    logarErroNaIntegraçao(accessKey, integration, e);
+                }
+
+            }else{
+                logarErroNaIntegraçao(accessKey, integration, e);
+            }
         } catch (Exception e) {
-            KeyCredential credentialFromAccessKey = rest.getCredentialFromAccessKey(accessKey);
-            LOGGER.error("Erro na integração da pendência ID: " + integration.id + "\n" + //
-                                 "Tenant: " + credentialFromAccessKey.tenantName + //
-                                 " Chave de Acesso: " + credentialFromAccessKey.accessKey + //
-                                 " Segredo da Chave: " + credentialFromAccessKey.secret, e);
-            IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.INTEGRATION_ERROR, e.getMessage());
-            rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
+            logarErroNaIntegraçao(accessKey, integration, e);
+            processarException(integration, keyCredential, e);
         }
+    }
+
+    private void enviarRespostaSucesso(Integration integration, KeyCredential keyCredential) {
+        /**
+         * Neste ponto o código comunica para a SENIOR que recebeu o evento e que os dados estão salvos na base do prestador SST.
+         * Desta forma o sistema da Senior saberá que o dado está no provedor SST.
+         */
+        IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.ON_PROVIDER);
+        rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
+        LOGGER.info("A pendência ID: " + integration.id + " foi consumida.");
+    }
+
+    private void logarErroNaIntegraçao(String accessKey, Integration integration, Exception e) {
+        KeyCredential credentialFromAccessKey = rest.getCredentialFromAccessKey(accessKey,integration.providerCompanyIdentification);
+        LOGGER.error("Erro na integração da pendência ID: " + integration.id + "\n" + //
+                "Tenant: " + credentialFromAccessKey.tenantName + //
+                " Chave de Acesso: " + credentialFromAccessKey.accessKey + //
+                " Segredo da Chave: " + credentialFromAccessKey.secret, e);
+    }
+
+    private void processarException(Integration integration, KeyCredential keyCredential, Exception e) {
+        try{
+            enviarErroParaSenior(integration, keyCredential, e);
+
+        } catch (HttpClientErrorException e1) {
+            if(e1.getRawStatusCode() == HttpStatus.UNAUTHORIZED.value()){
+                LOGGER.info("Pendência ID: " + integration.id + " renovando autorizaçao.");
+                rest.removeFromCache(keyCredential);
+            }
+            enviarErroParaSenior(integration, keyCredential, e);
+        }
+    }
+
+    private void enviarErroParaSenior(Integration integration, KeyCredential keyCredential, Exception e) {
+        IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.INTEGRATION_ERROR, e.getMessage());
+        rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
     }
 
     /**

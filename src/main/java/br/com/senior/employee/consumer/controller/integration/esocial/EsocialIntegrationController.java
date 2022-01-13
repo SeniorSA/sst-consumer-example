@@ -41,7 +41,12 @@ public class EsocialIntegrationController {
      * @param statusEsocialXmlDTO dto referente ao status do envio do XML.
      */
     public void statusXml(String accessKey, StatusEsocialXmlDTO statusEsocialXmlDTO) {
-        KeyCredential keyCredential = KeyCredential.getKeyCredentialFromAccessKey(accessKey);
+        KeyCredential keyCredential = rest.getCredentialFromAccessKey(accessKey,statusEsocialXmlDTO.providerCompanyId);
+        if (keyCredential == null) {
+            LOGGER.error("Não foi encontrada uma credencial para a chave de acesso: " + accessKey + ". A resposta do governo para o evento do eSocial com ID: " + statusEsocialXmlDTO.eventId + " não será consumida.");
+            return;
+        }
+
         try {
             esocialStrategy.eSocialStatusXml(statusEsocialXmlDTO);
             /**

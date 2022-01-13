@@ -190,6 +190,12 @@ public class IntegrationEntity {
 	@Column(name = "provider_previous_company_identification")
 	private String providerPreviousCompanyIdentification;
 
+	/**
+	 * Flag que indica se a entidade permite criação de hierarquia.
+	 */
+	@Column(name = "permite_criar_hierarquia")
+	private Boolean permiteCriarHierarquia;
+
 	public UUID getId() {
 		return id;
 	}
@@ -414,6 +420,14 @@ public class IntegrationEntity {
 		this.providerPreviousCompanyIdentification = providerPreviousCompanyIdentification;
 	}
 
+	public boolean getPermiteCriarHierarquia() {
+		return permiteCriarHierarquia;
+	}
+
+	public void setPermiteCriarHierarquia(boolean permiteCriarHierarquia) {
+		this.permiteCriarHierarquia = permiteCriarHierarquia;
+	}
+
 	@Override
 	public int hashCode() {
 	    int ret = 1;
@@ -472,6 +486,7 @@ public class IntegrationEntity {
 		sb.append("previewSendDate=").append(previewSendDate == null ? "null" : previewSendDate).append(", ");
 		sb.append("lotWorkstation=").append(lotWorkstation == null ? "null" : lotWorkstation).append(", ");
 		sb.append("providerPreviousCompanyIdentification=").append(providerPreviousCompanyIdentification == null ? "null" : providerPreviousCompanyIdentification);
+		sb.append("permiteCriarHierarquia=").append(Boolean.TRUE.equals(permiteCriarHierarquia) ? Boolean.TRUE.toString() : Boolean.FALSE.toString());
 		sb.append(']');
 		return sb.toString();
 	}
