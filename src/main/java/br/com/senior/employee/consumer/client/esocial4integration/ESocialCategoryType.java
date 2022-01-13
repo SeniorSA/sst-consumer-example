@@ -92,6 +92,10 @@ public enum ESocialCategoryType {
      */
     Category_410,
     /**
+     * Dirigente sindical - Segurado especial
+     */
+    Category_501,
+    /**
      * Contribuinte individual - Autônomo em geral, exceto se enquadrado em uma das demais categorias de contribuinte individual.
      */
     Category_701,
