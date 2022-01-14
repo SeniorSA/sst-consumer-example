@@ -39,7 +39,21 @@ public class Rest {
     }
 
     public KeyCredential getCredentialFromAccessKey(String accessKey) {
-        Optional<KeyCredential> keyCredential = companyCredentialsStrategy.getCredentials().stream().filter(kc -> kc.accessKey.equals(accessKey)).findFirst();
+        List<KeyCredential> credentials = companyCredentialsStrategy.getCredentials();
+        Optional<KeyCredential> keyCredential = credentials.stream().filter(kc -> kc.accessKey.equals(accessKey)).findFirst();
+        if (keyCredential.isPresent()) {
+            return keyCredential.get();
+        } else {
+            return null;
+        }
+    }
+
+    public void removeFromCache(KeyCredential keyCredential) {
+        auth.removeLoginFromCache(keyCredential);
+    }
+    public KeyCredential getCredentialFromAccessKey(String accessKey, String providerCompanyIdentification) {
+        List<KeyCredential> credentials = companyCredentialsStrategy.getCredentials();
+        Optional<KeyCredential> keyCredential = credentials.stream().filter(kc -> kc.accessKey.equals(accessKey) && kc.codigoEmpresa.equals(providerCompanyIdentification)).findFirst();
         if (keyCredential.isPresent()) {
             return keyCredential.get();
         } else {

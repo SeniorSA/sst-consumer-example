@@ -57,4 +57,8 @@ public class Auth {
     private KeyLoginOutput requestKeyAuth(KeyLoginInput keyLoginInput) {
         return RestTemplateBuilder.build().postForObject(applicationProperties.getG7AnonymousLocation() + "/platform/authentication/actions/loginWithKey", keyLoginInput, KeyLoginOutput.class);
     }
+
+    public void removeLoginFromCache(KeyCredential credential){
+        cachedLogins.remove(credential.accessKey);
+    }
 }
