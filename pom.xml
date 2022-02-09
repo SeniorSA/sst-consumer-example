@@ -23,7 +23,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <lombok-version>1.18.2</lombok-version>
-        <hibernate-version>5.4.1.Final</hibernate-version>
+        <hibernate-version>5.4.24.Final</hibernate-version>
     </properties>
 
     <dependencies>
