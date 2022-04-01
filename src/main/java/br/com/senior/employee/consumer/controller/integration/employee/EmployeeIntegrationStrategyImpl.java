@@ -1,5 +1,7 @@
 package br.com.senior.employee.consumer.controller.integration.employee;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationEntity;
@@ -8,7 +10,6 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Component
 public class EmployeeIntegrationStrategyImpl extends EmployeeIntegrationStrategy {
-
 
     @Override
     public boolean employeeExists(IntegrationEntity integration) {
@@ -20,21 +21,23 @@ public class EmployeeIntegrationStrategyImpl extends EmployeeIntegrationStrategy
     }
 
     @Override
-    void employeeInsert(IntegrationEntity integration) {
+    Optional<String> employeeInsert(IntegrationEntity integration) {
         /**
          * Programe aqui a rotina de inserção do colaborador no sistema do prestador SST.
          */
+        return Optional.empty();
     }
 
     @Override
-    void employeeUpdate(IntegrationEntity integration) {
+    Optional<String> employeeUpdate(IntegrationEntity integration) {
         /**
          * Programe aqui a rotina de atualização das informações do colaborador no sistema do prestador SST.
          */
+        return Optional.empty();
     }
 
     @Override
-    void employeeDelete(IntegrationEntity integration) throws Exception {
+    Optional<String> employeeDelete(IntegrationEntity integration) throws Exception {
         /**
          *
          *      ******************************************************************************************************************
@@ -47,5 +50,6 @@ public class EmployeeIntegrationStrategyImpl extends EmployeeIntegrationStrategy
          * Programe aqui a rotina que tratará a exclusão das informações do colaborador no sistema do prestador SST.
          *
          */
+        return Optional.empty();
     }
 }

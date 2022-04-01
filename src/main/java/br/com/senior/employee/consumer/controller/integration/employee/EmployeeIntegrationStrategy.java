@@ -1,5 +1,7 @@
 package br.com.senior.employee.consumer.controller.integration.employee;
 
+import java.util.Optional;
+
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationEntity;
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationType;
 import br.com.senior.employee.consumer.client.esocial4integration.OperationType;
@@ -16,14 +18,21 @@ public abstract class EmployeeIntegrationStrategy {
      *
      * @param integration Entidade da integração.
      */
-    final void processPendency(IntegrationEntity integration) throws Exception {
+    final String processPendency(IntegrationEntity integration) throws Exception {
         if (isAdmissionExclusion(integration)) {
-            employeeDelete(integration);
+            var providerEmployeeIdentification = employeeDelete(integration);
+            return this.getProviderEmployeeIdentificationIfPresentElseNull(providerEmployeeIdentification);
         } else if (employeeExists(integration)) {
-            employeeUpdate(integration);
+            var providerEmployeeIdentification = employeeUpdate(integration);
+            return this.getProviderEmployeeIdentificationIfPresentElseNull(providerEmployeeIdentification);
         } else {
-            employeeInsert(integration);
+            var providerEmployeeIdentification = employeeInsert(integration);
+            return this.getProviderEmployeeIdentificationIfPresentElseNull(providerEmployeeIdentification);
         }
+    }
+
+    private String getProviderEmployeeIdentificationIfPresentElseNull(Optional<String> providerEmployeeIdentification) {
+        return providerEmployeeIdentification.orElse(null);
     }
 
     /**
@@ -50,19 +59,19 @@ public abstract class EmployeeIntegrationStrategy {
      *
      * @param integration Entidade da integração.
      */
-    abstract void employeeInsert(IntegrationEntity integration) throws Exception;
+    abstract Optional<String> employeeInsert(IntegrationEntity integration) throws Exception;
 
     /**
      * Rotina responsável inserir um colaborador.
      *
      * @param integration Entidade da integração.
      */
-    abstract void employeeUpdate(IntegrationEntity integration) throws Exception;
+    abstract Optional<String> employeeUpdate(IntegrationEntity integration) throws Exception;
 
     /**
      * Rotina responsável deletar um colaborador.
      *
      * @param integration Entidade da integração.
      */
-    abstract void employeeDelete(IntegrationEntity integration) throws Exception;
+    abstract Optional<String> employeeDelete(IntegrationEntity integration) throws Exception;
 }
