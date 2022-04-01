@@ -3,8 +3,8 @@ package br.com.senior.employee.consumer.controller.integration.employee;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 
 import br.com.senior.employee.consumer.client.authentication.KeyCredential;
@@ -21,9 +21,9 @@ import br.com.senior.employee.consumer.repository.EmployeeRepository;
 import br.com.senior.employee.consumer.repository.IntegrationRepository;
 import br.com.senior.employee.consumer.rest.Rest;
 import br.com.senior.employee.consumer.rest.json.DtoJsonConverter;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
-@Log4j
+@Log4j2
 @Component
 public class EmployeeIntegrationController {
 
@@ -51,7 +51,9 @@ public class EmployeeIntegrationController {
     public void integrationPendency(String accessKey, Integration integration) {
         LOGGER.info("Processando a pendência de integração ID: " + integration.id);
 
-        KeyCredential keyCredential = rest.getCredentialFromAccessKey(accessKey,integration.providerCompanyIdentification);
+        String providerEmployeeIdentification = null;
+
+        KeyCredential keyCredential = rest.getCredentialFromAccessKey(accessKey, integration.providerCompanyIdentification);
         if (keyCredential == null) {
             LOGGER.error("Não foi encontrada uma credencial para a chave de acesso: " + accessKey + ". A pendência ID: " + integration.id + " não será consumida.");
             return;
@@ -65,61 +67,62 @@ public class EmployeeIntegrationController {
             entity = savePendency(entity);
 
             //Processa a pendencia de integração
-            integrationStrategy.processPendency(entity);
+            providerEmployeeIdentification = integrationStrategy.processPendency(entity);
 
-            enviarRespostaSucesso(integration, keyCredential);
+            enviarRespostaSucesso(integration, keyCredential, providerEmployeeIdentification);
         } catch (HttpClientErrorException e) {
             if(e.getRawStatusCode() == HttpStatus.UNAUTHORIZED.value()){
                 LOGGER.info("Pendência ID: " + integration.id + " renovando autorizaçao.");
                 rest.removeFromCache(keyCredential);
                 try{
-                    enviarRespostaSucesso(integration, keyCredential);
+                    enviarRespostaSucesso(integration, keyCredential, providerEmployeeIdentification);
                 } catch (Exception e1) {
-                    logarErroNaIntegraçao(accessKey, integration, e);
+                    logarErroNaIntegraçao(accessKey, integration, e, providerEmployeeIdentification);
                 }
 
             }else{
-                logarErroNaIntegraçao(accessKey, integration, e);
+                logarErroNaIntegraçao(accessKey, integration, e, providerEmployeeIdentification);
             }
         } catch (Exception e) {
-            logarErroNaIntegraçao(accessKey, integration, e);
-            processarException(integration, keyCredential, e);
+            logarErroNaIntegraçao(accessKey, integration, e, providerEmployeeIdentification);
+            processarException(integration, keyCredential, e, providerEmployeeIdentification);
         }
     }
 
-    private void enviarRespostaSucesso(Integration integration, KeyCredential keyCredential) {
+    private void enviarRespostaSucesso(Integration integration, KeyCredential keyCredential, String providerEmployeeIdentification) {
         /**
          * Neste ponto o código comunica para a SENIOR que recebeu o evento e que os dados estão salvos na base do prestador SST.
          * Desta forma o sistema da Senior saberá que o dado está no provedor SST.
          */
-        IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.ON_PROVIDER);
+        IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.ON_PROVIDER, providerEmployeeIdentification);
         rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
         LOGGER.info("A pendência ID: " + integration.id + " foi consumida.");
     }
 
-    private void logarErroNaIntegraçao(String accessKey, Integration integration, Exception e) {
-        KeyCredential credentialFromAccessKey = rest.getCredentialFromAccessKey(accessKey,integration.providerCompanyIdentification);
+    private void logarErroNaIntegraçao(String accessKey, Integration integration, Exception e, String providerEmployeeIdentification) {
+        KeyCredential credentialFromAccessKey = rest.getCredentialFromAccessKey(accessKey, integration.providerCompanyIdentification);
         LOGGER.error("Erro na integração da pendência ID: " + integration.id + "\n" + //
                 "Tenant: " + credentialFromAccessKey.tenantName + //
                 " Chave de Acesso: " + credentialFromAccessKey.accessKey + //
-                " Segredo da Chave: " + credentialFromAccessKey.secret, e);
+                " Segredo da Chave: " + credentialFromAccessKey.secret + //
+                " Identificação Única do colaborador no prestador: " + providerEmployeeIdentification, e);
     }
 
-    private void processarException(Integration integration, KeyCredential keyCredential, Exception e) {
+    private void processarException(Integration integration, KeyCredential keyCredential, Exception e, String providerEmployeeIdentification) {
         try{
-            enviarErroParaSenior(integration, keyCredential, e);
+            enviarErroParaSenior(integration, keyCredential, e, providerEmployeeIdentification);
 
         } catch (HttpClientErrorException e1) {
             if(e1.getRawStatusCode() == HttpStatus.UNAUTHORIZED.value()){
                 LOGGER.info("Pendência ID: " + integration.id + " renovando autorizaçao.");
                 rest.removeFromCache(keyCredential);
             }
-            enviarErroParaSenior(integration, keyCredential, e);
+            enviarErroParaSenior(integration, keyCredential, e, providerEmployeeIdentification);
         }
     }
 
-    private void enviarErroParaSenior(Integration integration, KeyCredential keyCredential, Exception e) {
-        IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.INTEGRATION_ERROR, e.getMessage());
+    private void enviarErroParaSenior(Integration integration, KeyCredential keyCredential, Exception e, String providerEmployeeIdentification) {
+        IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.INTEGRATION_ERROR, e.getMessage(), providerEmployeeIdentification);
         rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
     }
 

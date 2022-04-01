@@ -42,6 +42,19 @@ Desta forma, é papel do desenvolvedor do sistema do prestador SST, desenvolver 
 - Se o colaborador já existe no prestador SST, desenvolver rotina que atualiza as informações do colaborador, conforme o motivo da pendência de integração.
 - Se a pendência for uma exclusão de uma admissão (`integration.getIntegrationType()` igual a `IntegrationType.NEW_EMPLOYEE` e `integration.getOperationType()` igual a `OperationType.DELETE`), desenvolver rotina que trate a exclusão da admissão no sistema do prestador. ATENÇÃO: RECOMENDAMOS NÃO EXCLUIR O COLABORADOR NEM QUALQUER INFORMAÇÃO DO MESMO, E SIM INATIVÁ-LO.
 
+#### Identificador único dos colaboradores (sistema do prestador)
+O projeto Integrador SST disponibiliza o parâmetro `providerEmployeeIdentification`, que permite encontrar o cadastro de um colaborador por meio de um identificador único do colaborador no sistema do prestador.
+
+Isso é especialmente útil quando ocorre uma movimentação de empresa e filial com troca do cadastro desse colaborador no sistema de folha, por exemplo.
+
+Veja como funciona esse identificador:
+- O parâmetro `providerEmployeeIdentification` permite que o sistema do prestador forneça, para o sistema da Senior, o ID único do colaborador. Isso é feito por meio do web service integrationUpdateStatus, responsável por indicar para a plataforma da Senior se uma integração ocorreu com sucesso ou com erros.
+- Posteriormente, esse identificador (`providerEmployeeIdentification`) constará em cada pendência de integração, sendo possível utilizá-lo para buscar o colaborador no sistema do prestador.
+- Sempre que uma pendência do tipo movimentação de empresa ou filial for enviada, será feita a tentativa de envio do tipo e código de cadastro anterior do colaborador, assim como o identificador que representa ele no sistema do prestador (caso exista). Esses dados serão enviados por outros campos que estão disponíveis para esta finalidade:
+    - `previousEmployeeType` = tipo de cadastro anterior do colaborador no sistema de folha
+    - `previousCode` = código de cadastro anterior do colaborador no sistema de folha
+    - `providerPreviousEmployeeIdentification` = identificador único do colaborador no sistema do prestador
+      Essas informações podem ser utilizadas para buscar o colaborador na empresa antiga dele (empresa de origem da movimentação), no sistema do prestador.
 
 #### Integração dos eventos de SST do eSocial
 

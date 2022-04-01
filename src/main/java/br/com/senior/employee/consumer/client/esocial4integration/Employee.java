@@ -94,9 +94,17 @@ public class Employee {
      */
     public EmployeeType employeeType;
     /**
+     * Tipo anterior do colaborador
+     */
+    public EmployeeType previousEmployeeType;
+    /**
      * Código do colaborador.
      */
     public Long code;
+    /**
+     * Código anterior do colaborador
+     */
+    public Long previousCode;
     /**
      * Matrícula do e-Social.
      */
@@ -240,18 +248,19 @@ public class Employee {
      */
     public SalaryPremium salaryPremium;
 
-
     public Employee() {
     }
 
     /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public Employee(String id, String externalId, EmployeeType employeeType, Long code, String eSocialRegistration, String name, String cpfNumber, String nisNumber, LocalDate birthday, LocalDate hireDate, MaritalStatusType maritalStatusType, GenderType genderType, SituationType situationType, ContractType contractType, ESocialCategory eSocialCategory, Boolean isDeficient, Company company, CompanyBranch companyBranch, CostCenter costCenter, Department department, JobPosition jobPosition, Shift shift, Workstation workstation, ReasonLeave reasonLeave, List<Deficiency> deficiencies, LocalDate dismissalDate, String ctpsNumber, String ctpsSerie, LocalDate ctpsIssuanceDate, String ctpsSerieDigit, State ctpsState, String rgNumber, String rgIssuer, State rgState, LocalDate rgIssuanceDate, Long numberContractSameHireDate, Company previousCompany, CompanyBranch previousCompanyBranch, SalaryPremium salaryPremium) {
+    public Employee(String id, String externalId, EmployeeType employeeType, EmployeeType previousEmployeeType, Long code, Long previousCode, String eSocialRegistration, String name, String cpfNumber, String nisNumber, LocalDate birthday, LocalDate hireDate, MaritalStatusType maritalStatusType, GenderType genderType, SituationType situationType, ContractType contractType, ESocialCategory eSocialCategory, Boolean isDeficient, Company company, CompanyBranch companyBranch, CostCenter costCenter, Department department, JobPosition jobPosition, Shift shift, Workstation workstation, ReasonLeave reasonLeave, List<Deficiency> deficiencies, LocalDate dismissalDate, String ctpsNumber, String ctpsSerie, LocalDate ctpsIssuanceDate, String ctpsSerieDigit, State ctpsState, String rgNumber, String rgIssuer, State rgState, LocalDate rgIssuanceDate, Long numberContractSameHireDate, Company previousCompany, CompanyBranch previousCompanyBranch, SalaryPremium salaryPremium) {
         this.id = id;
         this.externalId = externalId;
         this.employeeType = employeeType;
+        this.previousEmployeeType = previousEmployeeType;
         this.code = code;
+        this.previousCode = previousCode;
         this.eSocialRegistration = eSocialRegistration;
         this.name = name;
         this.cpfNumber = cpfNumber;
@@ -370,6 +379,8 @@ public class Employee {
         sb.append("previousCompany=").append(previousCompany == null ? "null" : previousCompany).append(", ");
         sb.append("previousCompanyBranch=").append(previousCompanyBranch == null ? "null" : previousCompanyBranch).append(", ");
         sb.append("salaryPremium=").append(salaryPremium == null ? "null" : salaryPremium);
+        sb.append("previousCode=").append(previousCode == null ? "null" : previousCode).append(", ");
+        sb.append("previousEmployeeType=").append(previousEmployeeType == null ? "null" : previousEmployeeType).append(", ");
         sb.append(']');
         return sb.toString();
     }

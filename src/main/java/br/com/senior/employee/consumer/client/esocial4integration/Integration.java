@@ -3,7 +3,6 @@ package br.com.senior.employee.consumer.client.esocial4integration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Controle de integrações.
@@ -195,6 +194,14 @@ public class Integration {
      * Identificação da empresa anterior do colaborador no prestador SST.
      */
     public String providerPreviousCompanyIdentification;
+    /**
+     * Identificação única do colaborador no sistema do prestador SST
+     */
+    public String providerEmployeeIdentification;
+    /**
+     * Identificação anterior do colaborador no sistema do prestador SST
+     */
+    public String providerPreviousEmployeeIdentification;
 
     public Integration() {
     }
@@ -231,7 +238,10 @@ public class Integration {
         this.previewSendDate = previewSendDate;
         this.lotWorkstation = lotWorkstation;
         this.providerPreviousCompanyIdentification = providerPreviousCompanyIdentification;
+        this.providerEmployeeIdentification = providerEmployeeIdentification;
+        this.providerPreviousEmployeeIdentification = providerPreviousEmployeeIdentification;
     }
+
     /**
      * This convenience constructor allows initialization of all required fields.
      */
@@ -303,6 +313,8 @@ public class Integration {
     	sb.append("previewSendDate=").append(previewSendDate == null ? "null" : previewSendDate).append(", ");
         sb.append("lotWorkstation=").append(lotWorkstation == null ? "null" : lotWorkstation).append(", ");
         sb.append("providerPreviousCompanyIdentification=").append(providerPreviousCompanyIdentification == null ? "null" : providerPreviousCompanyIdentification);
+        sb.append("providerEmployeeIdentification=").append(providerEmployeeIdentification == null ? "null" : providerEmployeeIdentification);
+        sb.append("providerPreviousEmployeeIdentification=").append(providerPreviousEmployeeIdentification == null ? "null" : providerPreviousEmployeeIdentification);
     	sb.append(']');
     	return sb.toString();
     }
