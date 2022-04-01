@@ -5,12 +5,12 @@ import java.util.Optional;
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationEntity;
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationType;
 import br.com.senior.employee.consumer.client.esocial4integration.OperationType;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * Estratégia para integração do colaborador.
  */
-@Log4j
+@Log4j2
 public abstract class EmployeeIntegrationStrategy {
 
     /**

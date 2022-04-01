@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import br.com.senior.employee.consumer.client.esocial4integration.IntegrationEntity;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
-@Log4j
+@Log4j2
 @Component
 public class EmployeeIntegrationStrategyImpl extends EmployeeIntegrationStrategy {
 

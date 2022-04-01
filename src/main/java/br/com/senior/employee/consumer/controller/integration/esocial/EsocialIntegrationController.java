@@ -20,9 +20,9 @@ import br.com.senior.employee.consumer.client.esocial.StatusEsocialXmlReceivedIn
 import br.com.senior.employee.consumer.client.esocial.XmlStatusType;
 import br.com.senior.employee.consumer.configuration.ApplicationProperties;
 import br.com.senior.employee.consumer.rest.Rest;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
-@Log4j
+@Log4j2
 @Component
 public class EsocialIntegrationController {
 

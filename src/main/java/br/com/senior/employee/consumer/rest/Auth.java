@@ -1,22 +1,24 @@
 package br.com.senior.employee.consumer.rest;
 
-import br.com.senior.employee.consumer.client.authentication.*;
-import br.com.senior.employee.consumer.configuration.ApplicationProperties;
-import com.google.gson.Gson;
-import lombok.extern.log4j.Log4j;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import javax.inject.Singleton;
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.Map;
 
-@Log4j
+import javax.inject.Singleton;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import br.com.senior.employee.consumer.client.authentication.KeyCredential;
+import br.com.senior.employee.consumer.client.authentication.KeyLoginInput;
+import br.com.senior.employee.consumer.client.authentication.KeyLoginOutput;
+import br.com.senior.employee.consumer.configuration.ApplicationProperties;
+import com.google.gson.Gson;
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Component
 @Singleton
 public class Auth {

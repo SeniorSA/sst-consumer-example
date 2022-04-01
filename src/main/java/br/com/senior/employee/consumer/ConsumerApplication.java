@@ -1,11 +1,12 @@
 package br.com.senior.employee.consumer;
 
-import lombok.extern.log4j.Log4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@Log4j
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @SpringBootApplication
 @EnableAutoConfiguration
 public class ConsumerApplication {

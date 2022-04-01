@@ -1,7 +1,6 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
 public class IntegrationUpdateStatusInput {
-
     /**
      * Id da integração.
      */
@@ -14,7 +13,6 @@ public class IntegrationUpdateStatusInput {
      * Mensagem de erro.
      */
     public String errorMessage;
-
     /**
      * Identificação única do colaborador no sistema do prestador SST
      */
@@ -22,17 +20,15 @@ public class IntegrationUpdateStatusInput {
 
     public IntegrationUpdateStatusInput() {
     }
-
     /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public IntegrationUpdateStatusInput(String integrationId, ProviderStatusType statusType, String providerEmployeeIdentification, String errorMessage) {
+    public IntegrationUpdateStatusInput(String integrationId, ProviderStatusType statusType, String errorMessage, String providerEmployeeIdentification) {
         this.integrationId = integrationId;
         this.statusType = statusType;
         this.errorMessage = errorMessage;
         this.providerEmployeeIdentification = providerEmployeeIdentification;
     }
-
     /**
      * This convenience constructor allows initialization of all required fields.
      */
@@ -41,7 +37,6 @@ public class IntegrationUpdateStatusInput {
         this.statusType = statusType;
         this.providerEmployeeIdentification = providerEmployeeIdentification;
     }
-
     @Override
     public int hashCode() {
         int ret = 1;
@@ -56,7 +51,6 @@ public class IntegrationUpdateStatusInput {
         }
         return ret;
     }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -98,5 +92,4 @@ public class IntegrationUpdateStatusInput {
         sb.append(']');
         return sb.toString();
     }
-
 }
