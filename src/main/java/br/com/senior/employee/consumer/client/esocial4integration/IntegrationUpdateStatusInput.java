@@ -1,9 +1,6 @@
 package br.com.senior.employee.consumer.client.esocial4integration;
 
-import java.util.Map;
-
 public class IntegrationUpdateStatusInput {
-    
     /**
      * Id da integração.
      */
@@ -16,26 +13,30 @@ public class IntegrationUpdateStatusInput {
      * Mensagem de erro.
      */
     public String errorMessage;
-    
+    /**
+     * Identificação única do colaborador no sistema do prestador SST
+     */
+    public String providerEmployeeIdentification;
+
     public IntegrationUpdateStatusInput() {
     }
-    
-    /** 
+    /**
      * This constructor allows initialization of all fields, required and optional.
      */
-    public IntegrationUpdateStatusInput(String integrationId, ProviderStatusType statusType, String errorMessage) {
+    public IntegrationUpdateStatusInput(String integrationId, ProviderStatusType statusType, String errorMessage, String providerEmployeeIdentification) {
         this.integrationId = integrationId;
         this.statusType = statusType;
         this.errorMessage = errorMessage;
+        this.providerEmployeeIdentification = providerEmployeeIdentification;
     }
-    /** 
+    /**
      * This convenience constructor allows initialization of all required fields.
      */
-    public IntegrationUpdateStatusInput(String integrationId, ProviderStatusType statusType) {
+    public IntegrationUpdateStatusInput(String integrationId, ProviderStatusType statusType, String providerEmployeeIdentification) {
         this.integrationId = integrationId;
         this.statusType = statusType;
+        this.providerEmployeeIdentification = providerEmployeeIdentification;
     }
-    
     @Override
     public int hashCode() {
         int ret = 1;
@@ -50,7 +51,6 @@ public class IntegrationUpdateStatusInput {
         }
         return ret;
     }
-    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -80,16 +80,16 @@ public class IntegrationUpdateStatusInput {
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
-    	StringBuilder sb = new StringBuilder();
-    	sb.append(getClass().getSimpleName()).append(" [");
-    	sb.append("integrationId=").append(integrationId == null ? "null" : integrationId).append(", ");
-    	sb.append("statusType=").append(statusType == null ? "null" : statusType).append(", ");
-    	sb.append("errorMessage=").append(errorMessage == null ? "null" : errorMessage);
-    	sb.append(']');
-    	return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName()).append(" [");
+        sb.append("integrationId=").append(integrationId == null ? "null" : integrationId).append(", ");
+        sb.append("statusType=").append(statusType == null ? "null" : statusType).append(", ");
+        sb.append("errorMessage=").append(errorMessage == null ? "null" : errorMessage);
+        sb.append("providerEmployeeIdentification=").append(providerEmployeeIdentification == null ? "null" : providerEmployeeIdentification);
+        sb.append(']');
+        return sb.toString();
     }
-    
 }
