@@ -7,9 +7,19 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "integration")
@@ -189,6 +199,18 @@ public class IntegrationEntity {
 	 */
 	@Column(name = "provider_previous_company_identification")
 	private String providerPreviousCompanyIdentification;
+
+	/**
+	 * Identificação única “anterior” do colaborador no sistema do prestador SST (usado para movimentações de empresa e filial)
+	 */
+	@Column(name = "provider_previous_employee_identification")
+	private String providerPreviousEmployeeIdentification;
+
+	/**
+	 * Identificação única do colaborador no sistema do prestador SST
+	 */
+	@Column(name = "provider_employee_identification")
+	private String providerEmployeeIdentification;
 
 	public UUID getId() {
 		return id;
@@ -414,6 +436,22 @@ public class IntegrationEntity {
 		this.providerPreviousCompanyIdentification = providerPreviousCompanyIdentification;
 	}
 
+	public String getProviderPreviousEmployeeIdentification() {
+		return providerPreviousEmployeeIdentification;
+	}
+
+	public void setProviderPreviousEmployeeIdentification(String providerPreviousEmployeeIdentification) {
+		this.providerPreviousEmployeeIdentification = providerPreviousEmployeeIdentification;
+	}
+
+	public String getProviderEmployeeIdentification() {
+		return providerEmployeeIdentification;
+	}
+
+	public void setProviderEmployeeIdentification(String providerEmployeeIdentification) {
+		this.providerEmployeeIdentification = providerEmployeeIdentification;
+	}
+
 	@Override
 	public int hashCode() {
 	    int ret = 1;
@@ -472,6 +510,8 @@ public class IntegrationEntity {
 		sb.append("previewSendDate=").append(previewSendDate == null ? "null" : previewSendDate).append(", ");
 		sb.append("lotWorkstation=").append(lotWorkstation == null ? "null" : lotWorkstation).append(", ");
 		sb.append("providerPreviousCompanyIdentification=").append(providerPreviousCompanyIdentification == null ? "null" : providerPreviousCompanyIdentification);
+		sb.append("providerPreviousEmployeeIdentification=").append(providerPreviousEmployeeIdentification == null ? "null" : providerPreviousEmployeeIdentification);
+		sb.append("providerEmployeeIdentification=").append(providerEmployeeIdentification == null ? "null" : providerEmployeeIdentification);
 		sb.append(']');
 		return sb.toString();
 	}
