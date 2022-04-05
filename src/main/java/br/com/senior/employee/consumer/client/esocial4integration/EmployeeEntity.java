@@ -281,6 +281,18 @@ public class EmployeeEntity {
     @JoinColumn(name = "salary_premium")
     private SalaryPremiumEntity salaryPremium;
 
+    /**
+     * Tipo anterior do colaborador
+     */
+    @Column(name = "previous_employee_type")
+    private EmployeeType previousEmployeeType;
+
+    /**
+     * Código anterior do colaborador
+     */
+    @Column(name = "previous_code")
+    private Integer previousCode;
+
     public UUID getId() {
         return id;
     }
@@ -593,6 +605,22 @@ public class EmployeeEntity {
         this.salaryPremium = salaryPremium;
     }
 
+    public EmployeeType getPreviousEmployeeType() {
+        return previousEmployeeType;
+    }
+
+    public void setPreviousEmployeeType(EmployeeType previousEmployeeType) {
+        this.previousEmployeeType = previousEmployeeType;
+    }
+
+    public Integer getPreviousCode() {
+        return previousCode;
+    }
+
+    public void setPreviousCode(Integer previousCode) {
+        this.previousCode = previousCode;
+    }
+
     @Override
     public int hashCode() {
         int ret = 1;
@@ -661,6 +689,8 @@ public class EmployeeEntity {
         sb.append("previousCompany=").append(previousCompany == null ? "null" : previousCompany).append(", ");
         sb.append("previousCompanyBranch=").append(previousCompanyBranch == null ? "null" : previousCompanyBranch).append(", ");
         sb.append("salaryPremium=").append(salaryPremium == null ? "null" : salaryPremium);
+        sb.append("previousEmployeeType=").append(previousEmployeeType == null ? "null" : previousEmployeeType);
+        sb.append("previousCode=").append(previousCode == null ? "null" : previousCode);
         sb.append(']');
         return sb.toString();
     }
