@@ -1,0 +1,3 @@
+LOCK TABLE employee IN ACCESS EXCLUSIVE MODE;
+
+ALTER TABLE IF EXISTS employee ADD COLUMN work_environment UUID;
