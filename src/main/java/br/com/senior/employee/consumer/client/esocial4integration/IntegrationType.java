@@ -66,5 +66,9 @@ public enum IntegrationType {
     /**
      * Demissão do colaborador.
      */
-    DISMISSAL
+    DISMISSAL,
+    /**
+     * Histórico de ambiente de trabalho do colaborador.
+     */
+    HISTORICAL_WORK_ENVIRONMENT
 }

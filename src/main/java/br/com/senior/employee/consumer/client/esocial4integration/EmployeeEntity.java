@@ -293,6 +293,13 @@ public class EmployeeEntity {
     @Column(name = "previous_code")
     private Integer previousCode;
 
+    /**
+     * Ambiente de trabalho do colaborador
+     */
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "work_environment")
+    public WorkEnvironmentEntity workEnvironment;
+
     public UUID getId() {
         return id;
     }
@@ -621,6 +628,14 @@ public class EmployeeEntity {
         this.previousCode = previousCode;
     }
 
+    public WorkEnvironmentEntity getWorkEnvironment() {
+        return workEnvironment;
+    }
+
+    public void setWorkEnvironment(WorkEnvironmentEntity workEnvironment) {
+        this.workEnvironment = workEnvironment;
+    }
+
     @Override
     public int hashCode() {
         int ret = 1;
@@ -691,6 +706,7 @@ public class EmployeeEntity {
         sb.append("salaryPremium=").append(salaryPremium == null ? "null" : salaryPremium);
         sb.append("previousEmployeeType=").append(previousEmployeeType == null ? "null" : previousEmployeeType);
         sb.append("previousCode=").append(previousCode == null ? "null" : previousCode);
+        sb.append("workEnvironment=<").append(workEnvironment == null ? "null" : workEnvironment).append('>').append(", ");
         sb.append(']');
         return sb.toString();
     }
