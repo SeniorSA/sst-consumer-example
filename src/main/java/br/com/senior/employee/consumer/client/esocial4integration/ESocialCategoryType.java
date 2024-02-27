@@ -170,5 +170,29 @@ public enum ESocialCategoryType {
     /**
      * Atleta não profissional em formação que receba bolsa.
      */
-    Category_905
+    Category_905,
+    /**
+     * Servidor público exercente de mandato eletivo, inclusive com exercício de cargo em comissão
+     */
+    Category_304,
+    /**
+     * Servidor público eventual
+     */
+    Category_310,
+    /**
+     * Ministros, juízes, procuradores, promotores ou oficiais de justiça à disposição da Justiça Eleitoral
+     */
+    Category_311,
+    /**
+     * Auxiliar local
+     */
+    Category_312,
+    /**
+     * Servidor público exercente de atividade de instrutoria, capacitação, treinamento, curso ou concurso, ou convocado para pareceres técnicos ou depoimentos
+     */
+    Category_313,
+    /**
+     * Beneficiário do programa nacional de prestação de serviço civil voluntário
+     */
+    Category_906
 }
