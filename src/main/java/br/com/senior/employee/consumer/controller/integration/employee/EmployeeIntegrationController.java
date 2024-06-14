@@ -77,14 +77,14 @@ public class EmployeeIntegrationController {
                 try{
                     enviarRespostaSucesso(integration, keyCredential, providerEmployeeIdentification);
                 } catch (Exception e1) {
-                    logarErroNaIntegraçao(accessKey, integration, e, providerEmployeeIdentification);
+                    logarErroNaIntegracao(accessKey, integration, e, providerEmployeeIdentification);
                 }
 
             }else{
-                logarErroNaIntegraçao(accessKey, integration, e, providerEmployeeIdentification);
+                logarErroNaIntegracao(accessKey, integration, e, providerEmployeeIdentification);
             }
         } catch (Exception e) {
-            logarErroNaIntegraçao(accessKey, integration, e, providerEmployeeIdentification);
+            logarErroNaIntegracao(accessKey, integration, e, providerEmployeeIdentification);
             processarException(integration, keyCredential, e, providerEmployeeIdentification);
         }
     }
@@ -99,7 +99,7 @@ public class EmployeeIntegrationController {
         LOGGER.info("A pendência ID: " + integration.id + " foi consumida.");
     }
 
-    private void logarErroNaIntegraçao(String accessKey, Integration integration, Exception e, String providerEmployeeIdentification) {
+    private void logarErroNaIntegracao(String accessKey, Integration integration, Exception e, String providerEmployeeIdentification) {
         KeyCredential credentialFromAccessKey = rest.getCredentialFromAccessKey(accessKey, integration.providerCompanyIdentification);
         LOGGER.error("Erro na integração da pendência ID: " + integration.id + "\n" + //
                 "Tenant: " + credentialFromAccessKey.tenantName + //
@@ -122,8 +122,13 @@ public class EmployeeIntegrationController {
     }
 
     private void enviarErroParaSenior(Integration integration, KeyCredential keyCredential, Exception e, String providerEmployeeIdentification) {
-        IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.INTEGRATION_ERROR, e.getMessage(), providerEmployeeIdentification);
-        rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
+        try {
+            IntegrationUpdateStatusInput input = new IntegrationUpdateStatusInput(integration.id, ProviderStatusType.INTEGRATION_ERROR, e.getMessage(), providerEmployeeIdentification);
+            rest.getWithKey(keyCredential).postForLocation(applicationProperties.getG7Location() + "/hcm/esocial4integration/signals/integrationUpdateStatus", input);
+            LOGGER.info("A pendência ID: " + integration.id + " foi consumida com erro.");
+        } catch (Exception e2) {
+            LOGGER.error("Erro ao enviar a pendência ID: " + integration.id + " para a senior.", e2);
+        }
     }
 
     /**
